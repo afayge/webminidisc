@@ -1,3 +1,5 @@
+import { useRenameSources } from './rename-sources';
+import { formatUnicodeTag } from '../unicode-tags';
 import React, { SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from '../frontend-utils';
 import {
@@ -219,6 +221,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 type FileWithMetadata = {
+    sourceId: string;
     file: File | AdaptiveFile;
     title: string;
     album: string;
@@ -249,6 +252,7 @@ function createForcedEncodingText(selectedCodec: Codec, file: { forcedEncoding: 
 // `files` always appends to the list
 export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
     const dispatch = useDispatch();
+    const renameSources = useRenameSources();
     const { classes, cx } = useStyles();
 
     const { visible, format, titleFormat, titles } = useShallowEqualSelector((state) => state.convertDialog);
@@ -257,6 +261,10 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
     const minidiscSpec = serviceRegistry.netmdSpec!;
 
     const [files, setFiles] = useState<FileWithMetadata[]>([]);
+    useEffect(() => () => renameSources.clear(), [renameSources]);
+    useEffect(() => {
+        renameSources.retain(files.map(file => file.sourceId));
+    }, [files, renameSources]);
     const [selectedTrackIndex, setSelectedTrack] = useState(-1);
     const [availableCharacters, setAvailableCharacters] = useState<{ halfWidth: number; fullWidth: number }>({
         fullWidth: 0,
@@ -315,6 +323,7 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
                     if ((_file as any).getForEncoding) {
                         const file = _file as AdaptiveFile;
                         titledFiles.push({
+                            sourceId: renameSources.register(file),
                             album: file.album,
                             artist: file.artist,
                             title: file.title,
@@ -366,6 +375,7 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
                             window.alert(`Cannot transfer file ${file.name}.`);
                         } else {
                             titledFiles.push({
+                                sourceId: renameSources.register(file),
                                 file,
                                 ...metadata,
                                 forcedEncoding: forcedEncoding?.format ?? null,
@@ -377,7 +387,7 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
                 setLoadingMetadata(false);
                 return titledFiles;
             },
-        [minidiscSpec.availableFormats]
+        [minidiscSpec.availableFormats, renameSources]
     );
 
     const resetDialog = useCallback(() => {
@@ -409,7 +419,7 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
     const refreshTitledFiles = useCallback(
         (files: FileWithMetadata[], format: TitleFormatType) => {
             dispatch(
-                convertDialogActions.setTitles(
+                convertDialogActions.refreshTitles(
                     files.map((file) => {
                         let rawTitle = '';
                         switch (format) {
@@ -442,6 +452,10 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
                         const fullWidth = minidiscSpec.sanitizeFullWidthTitle(rawTitle);
                         const halfAsFull = minidiscSpec.sanitizeFullWidthTitle(halfWidth);
                         return {
+                            sourceId: file.sourceId,
+                            unicodeTitle: formatUnicodeTag(file, format),
+                            unicodeSource: `Source metadata: ${file.file.name}`,
+                            generatedFormat: format,
                             title: halfWidth,
                             fullWidthTitle: fullWidthSupport && deviceSupportsFullWidth && fullWidth !== halfAsFull ? fullWidth : '', // If there are no differences between half and full width, skip the full width
                             duration: file.duration,
@@ -470,6 +484,10 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
                         usesHimdTitles ? RenameType.TRACK_CONVERT_DIALOG_HIMD : RenameType.TRACK_CONVERT_DIALOG
                     ),
 
+                    ...(track.sourceId ? [renameDialogActions.setUnicodeSource({
+                        title: track.unicodeTitle ?? '', source: track.unicodeSource ?? '',
+                        sourceId: track.sourceId, reload: !track.unicodeSaved,
+                    })] : []),
                     renameDialogActions.setHimdAlbum(track.album ?? ''),
                     renameDialogActions.setHimdArtist(track.artist ?? ''),
                     renameDialogActions.setHimdTitle(track.title ?? ''),
@@ -510,9 +528,10 @@ export const ConvertDialog = (props: { files: (File | AdaptiveFile)[] }) => {
 
     const handleClose = useCallback(() => {
         setFiles([]);
+        renameSources.clear();
         resetDialog();
         dispatch(convertDialogActions.setVisible(false));
-    }, [dispatch, resetDialog]);
+    }, [dispatch, resetDialog, renameSources]);
 
     const handleChangeFormat = useCallback(
         (_ev: SyntheticEvent, newFormatIndex?: number) => {

@@ -21,7 +21,8 @@
     "preview": "vite preview",
     "analyze": "source-map-explorer 'dist/assets/*.js'",
     "update-version": "bash -c \"printf \\\"// This file has been auto-generated. Please do not modify.\\nexport const GIT_HASH = '$(git rev-parse --short --verify master)';\\nexport const GIT_DIFF = '$(git diff | wc -l)';\\nexport const BUILD_DATE = '$(date)';\\nexport const ATRACOS_INCLUDED = $([ -f 'public/atrac3vm/system.cmi' ] && echo 1 || echo 0)\\n\\\" > src/version-info.ts\"",
-    "pretty": "prettier src/**/*.{ts,tsx} --write"
+    "pretty": "prettier src/**/*.{ts,tsx} --write",
+    "test:titles": "node scripts/test-titles.cjs"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -58,7 +59,10 @@
     "tss-react": "^4.9.3",
     "v86": "^0.5.292",
     "vite-plugin-commonjs": "^0.10.1",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "music-metadata-browser": "^2.5.9",
+    "opencc-js": "1.4.2",
+    "pinyin-pro": "3.29.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.4",
