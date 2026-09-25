@@ -49,6 +49,8 @@ declare global {
     interface Window {
         // ElectronWMD bridge
         native?: {
+            readonly appVersion?: string;
+            labels?: { renderPdf: (request: { pages: string[]; paperSize: { width: number; height: number } }) => Promise<Uint8Array> };
             // Services:
             interface?: NetMDService;
             himdFullInterface?: NetMDService;

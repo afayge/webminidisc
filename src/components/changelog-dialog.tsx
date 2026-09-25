@@ -1,3 +1,4 @@
+import { mergeChangelog, useAppVersion, versionLabel } from '../app-version';
 import React, { ReactNode, useCallback, useMemo } from 'react';
 import { useDispatch } from '../frontend-utils';
 import { useShallowEqualSelector } from '../frontend-utils';
@@ -48,12 +49,14 @@ const useStyles = makeStyles()((theme) => ({
 export const ChangelogDialog = (props: {}) => {
     const dispatch = useDispatch();
     const { classes } = useStyles();
+    const appVersion = useAppVersion();
 
     const vintageMode = useShallowEqualSelector((state) => state.appState.vintageMode);
     const visible = useShallowEqualSelector((state) => state.appState.changelogDialogVisible);
 
     const handleClose = useCallback(() => {
         localStorage.setItem('version', (window as any).wmdVersion);
+        if (window.native?.appVersion) localStorage.setItem('wrapperVersion', window.native.appVersion);
         dispatch(appActions.showChangelogDialog(false));
     }, [dispatch]);
 
@@ -62,25 +65,7 @@ export const ChangelogDialog = (props: {}) => {
     }, [dispatch]);
 
     const content = useMemo(() => {
-        const changelog = [...CHANGELOG];
-
-        // Merge with wrapper (ElectronWMD) changelog
-        if (window.native?.wrapperChangelog) {
-            main: for (let injection of window.native.wrapperChangelog) {
-                if (injection.before === null) {
-                    changelog.push(injection.entry);
-                } else {
-                    for (let i = 0; i < changelog.length; i++) {
-                        if (changelog[i].name === injection.before) {
-                            changelog.splice(i, 0, injection.entry);
-                            continue main;
-                        }
-                    }
-                    // Hasn't continued main - reached end of iteration
-                    console.log(`Warning - Cannot merge changelogs - unknown version ${injection.before}!`);
-                }
-            }
-        }
+        const changelog = mergeChangelog(CHANGELOG, window.native?.wrapperChangelog);
 
         // Render the changelog.
         let content: ReactNode[] = [];
@@ -139,7 +124,7 @@ export const ChangelogDialog = (props: {}) => {
         }
 
         return <>{content}</>;
-    }, [handleOpenEncoderSettings, classes]);
+    }, [handleOpenEncoderSettings, classes, appVersion]);
 
     if (vintageMode) {
         const p = {
@@ -159,7 +144,7 @@ export const ChangelogDialog = (props: {}) => {
             aria-labelledby="changelog-dialog-slide-title"
             aria-describedby="changelog-dialog-slide-description"
         >
-            <DialogTitle id="changelog-dialog-slide-title">Changelog</DialogTitle>
+            <DialogTitle id="changelog-dialog-slide-title">Changelog<small style={{ display: 'block', fontSize: 11 }}>{versionLabel(appVersion)}</small></DialogTitle>
             <DialogContent className={classes.dialogContent}>{content}</DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Close</Button>

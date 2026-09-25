@@ -75,8 +75,7 @@ export const RenameDialog = () => {
 
     const what = nameMap[renameType];
     const { vintageMode } = useShallowEqualSelector((state) => state.appState);
-    const enhanced =
-        !vintageMode && [RenameType.DISC, RenameType.GROUP, RenameType.TRACK, RenameType.TRACK_CONVERT_DIALOG].includes(renameType);
+    const enhanced = [RenameType.DISC, RenameType.GROUP, RenameType.TRACK, RenameType.TRACK_CONVERT_DIALOG].includes(renameType);
     const supportsFullWidth = deviceCapabilities.includes(Capability.fullWidthSupport);
     const validation = validateDeviceTitles(title, enhanced && allowFullWidth && supportsFullWidth ? fullWidthTitle : '');
     const invalid = enhanced && (!!validation.titleError || !!validation.fullWidthError || tagLoading);
@@ -246,6 +245,17 @@ export const RenameDialog = () => {
             handleCancelRename,
             handleDoRename,
             handleChange,
+            invalid,
+            children: enhanced ? (
+                <UnicodeRenameFields
+                    what={what}
+                    allowFullWidth={allowFullWidth}
+                    supportsFullWidth={supportsFullWidth}
+                    titleError={validation.titleError}
+                    fullWidthError={validation.fullWidthError}
+                    onKeyDown={handleEnterKeyEvent}
+                />
+            ) : undefined,
         };
         return <W95RenameDialog {...p} />;
     }

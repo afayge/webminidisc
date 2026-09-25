@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T15:55:34.284566+00:00",
+  "title": "Design System: MiniDisc Label Studio",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "ground",
+        "tonalRamp": [
+          "oklch(15% 0.00673 233.64)",
+          "oklch(26% 0.00673 233.64)",
+          "oklch(38% 0.00673 233.64)",
+          "oklch(49% 0.00673 233.64)",
+          "oklch(61% 0.00673 233.64)",
+          "oklch(72% 0.00673 233.64)",
+          "oklch(84% 0.00673 233.64)",
+          "oklch(95% 0.00673 233.64)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "surface",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26% 0.00000 0.00)",
+          "oklch(38% 0.00000 0.00)",
+          "oklch(49% 0.00000 0.00)",
+          "oklch(61% 0.00000 0.00)",
+          "oklch(72% 0.00000 0.00)",
+          "oklch(84% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
+      },
+      "subtle": {
+        "role": "neutral",
+        "displayName": "subtle",
+        "tonalRamp": [
+          "oklch(15% 0.00347 219.53)",
+          "oklch(26% 0.00347 219.53)",
+          "oklch(38% 0.00347 219.53)",
+          "oklch(49% 0.00347 219.53)",
+          "oklch(61% 0.00347 219.53)",
+          "oklch(72% 0.00347 219.53)",
+          "oklch(84% 0.00347 219.53)",
+          "oklch(95% 0.00347 219.53)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "ink",
+        "tonalRamp": [
+          "oklch(15% 0.02547 230.20)",
+          "oklch(26% 0.02547 230.20)",
+          "oklch(38% 0.02547 230.20)",
+          "oklch(49% 0.02547 230.20)",
+          "oklch(61% 0.02547 230.20)",
+          "oklch(72% 0.02547 230.20)",
+          "oklch(84% 0.02547 230.20)",
+          "oklch(95% 0.02547 230.20)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "muted",
+        "tonalRamp": [
+          "oklch(15% 0.02394 232.53)",
+          "oklch(26% 0.02394 232.53)",
+          "oklch(38% 0.02394 232.53)",
+          "oklch(49% 0.02394 232.53)",
+          "oklch(61% 0.02394 232.53)",
+          "oklch(72% 0.02394 232.53)",
+          "oklch(84% 0.02394 232.53)",
+          "oklch(95% 0.02394 232.53)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "border",
+        "tonalRamp": [
+          "oklch(15% 0.01289 236.65)",
+          "oklch(26% 0.01289 236.65)",
+          "oklch(38% 0.01289 236.65)",
+          "oklch(49% 0.01289 236.65)",
+          "oklch(61% 0.01289 236.65)",
+          "oklch(72% 0.01289 236.65)",
+          "oklch(84% 0.01289 236.65)",
+          "oklch(95% 0.01289 236.65)"
+        ]
+      },
+      "soft-border": {
+        "role": "neutral",
+        "displayName": "soft-border",
+        "tonalRamp": [
+          "oklch(15% 0.00766 228.86)",
+          "oklch(26% 0.00766 228.86)",
+          "oklch(38% 0.00766 228.86)",
+          "oklch(49% 0.00766 228.86)",
+          "oklch(61% 0.00766 228.86)",
+          "oklch(72% 0.00766 228.86)",
+          "oklch(84% 0.00766 228.86)",
+          "oklch(95% 0.00766 228.86)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "accent",
+        "tonalRamp": [
+          "oklch(15% 0.08358 208.15)",
+          "oklch(26% 0.08358 208.15)",
+          "oklch(38% 0.08358 208.15)",
+          "oklch(49% 0.08358 208.15)",
+          "oklch(61% 0.08358 208.15)",
+          "oklch(72% 0.08358 208.15)",
+          "oklch(84% 0.08358 208.15)",
+          "oklch(95% 0.08358 208.15)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "accent-hover",
+        "tonalRamp": [
+          "oklch(15% 0.07027 208.63)",
+          "oklch(26% 0.07027 208.63)",
+          "oklch(38% 0.07027 208.63)",
+          "oklch(49% 0.07027 208.63)",
+          "oklch(61% 0.07027 208.63)",
+          "oklch(72% 0.07027 208.63)",
+          "oklch(84% 0.07027 208.63)",
+          "oklch(95% 0.07027 208.63)"
+        ]
+      },
+      "selected": {
+        "role": "primary",
+        "displayName": "selected",
+        "tonalRamp": [
+          "oklch(15% 0.01700 201.39)",
+          "oklch(26% 0.01700 201.39)",
+          "oklch(38% 0.01700 201.39)",
+          "oklch(49% 0.01700 201.39)",
+          "oklch(61% 0.01700 201.39)",
+          "oklch(72% 0.01700 201.39)",
+          "oklch(84% 0.01700 201.39)",
+          "oklch(95% 0.01700 201.39)"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "danger",
+        "tonalRamp": [
+          "oklch(15% 0.16023 29.22)",
+          "oklch(26% 0.16023 29.22)",
+          "oklch(38% 0.16023 29.22)",
+          "oklch(49% 0.16023 29.22)",
+          "oklch(61% 0.16023 29.22)",
+          "oklch(72% 0.16023 29.22)",
+          "oklch(84% 0.16023 29.22)",
+          "oklch(95% 0.16023 29.22)"
+        ]
+      },
+      "warning": {
+        "role": "neutral",
+        "displayName": "warning",
+        "tonalRamp": [
+          "oklch(15% 0.09864 69.59)",
+          "oklch(26% 0.09864 69.59)",
+          "oklch(38% 0.09864 69.59)",
+          "oklch(49% 0.09864 69.59)",
+          "oklch(61% 0.09864 69.59)",
+          "oklch(72% 0.09864 69.59)",
+          "oklch(84% 0.09864 69.59)",
+          "oklch(95% 0.09864 69.59)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "标题",
+        "purpose": "预览和打印对话框标题。"
+      },
+      "section": {
+        "displayName": "分组",
+        "purpose": "工具分组和模板名称。"
+      },
+      "body": {
+        "displayName": "正文",
+        "purpose": "工作台文字与控件。"
+      },
+      "helper": {
+        "displayName": "辅助信息",
+        "purpose": "标签、尺寸、状态及说明。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "artwork-outline",
+        "value": "drop-shadow(0 3px 4px #24343c20)",
+        "purpose": "只帮助识别画布作品外轮廓，不进入导出。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-color",
+        "value": "150ms ease-out",
+        "purpose": "控件底色与边界过渡；减少动画偏好时关闭。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tools-drawer",
+        "value": "1120px"
+      },
+      {
+        "name": "both-drawers",
+        "value": "760px"
+      },
+      {
+        "name": "short-workspace",
+        "value": "600px",
+        "query": "(max-height: 600px)",
+        "purpose": "工作区纵向滚动，画布最小高度240px，保留底部操作可达性。"
+      }
+    ],
+    "icons": {
+      "source": "src/labels/icons.tsx",
+      "interface": {
+        "component": "StudioIcon",
+        "viewBox": "0 0 24 24",
+        "strokeWidth": 1.75,
+        "sizes": [
+          18,
+          16
+        ],
+        "strokeLinecap": "round",
+        "strokeLinejoin": "round",
+        "color": "currentColor"
+      },
+      "brand": {
+        "component": "DiscIcon",
+        "viewBox": "0 0 32 32",
+        "strokeWidth": 1.75,
+        "displaySizes": {
+          "editorHeader": 30,
+          "homeEntry": 22,
+          "compactHeader": 24
+        }
+      },
+      "accessibility": {
+        "aria-hidden": "true",
+        "focusable": "false",
+        "accessibleName": "owning control"
+      },
+      "semantics": {
+        "preview": "viewfinder",
+        "visible": "eye",
+        "hidden": "crossed-out eye"
+      },
+      "usage": "七类内容工具保留文字；加、减、关闭、勾选与六点拖动手柄使用统一 SVG。点击区域至少 36px，粗指针环境至少 44px。"
+    }
+  },
+  "components": [
+    {
+      "name": "PDF primary",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "持久可达的工程操作。",
+      "html": "<button class=\"ds-button-primary\">排版 / 导出 PDF</button>",
+      "css": ".ds-button-primary{font:13px/20px 'Avenir Next','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out;min-height:36px;padding:7px 12px;border:1px solid #006C78;border-radius:6px;background:#006C78;color:#FFFFFF;}.ds-button-primary:hover{background:#00545E;border-color:#006C78;}.ds-button-primary:focus-visible{outline:2px solid #006C78;outline-offset:2px;}.ds-button-primary:active{background:#E0F0F1;color:#24343C;}.ds-button-primary:disabled{opacity:.45;cursor:not-allowed;}"
+    },
+    {
+      "name": "Project secondary",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "持久可达的工程操作。",
+      "html": "<button class=\"ds-button-secondary\">保存工程</button>",
+      "css": ".ds-button-secondary{font:13px/20px 'Avenir Next','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out;min-height:36px;padding:7px 12px;border:1px solid #C9D2D8;border-radius:6px;background:#FFFFFF;color:#24343C;}.ds-button-secondary:hover{background:#F3F6F7;border-color:#006C78;}.ds-button-secondary:focus-visible{outline:2px solid #006C78;outline-offset:2px;}.ds-button-secondary:active{background:#E0F0F1;color:#24343C;}.ds-button-secondary:disabled{opacity:.45;cursor:not-allowed;}"
+    },
+    {
+      "name": "Millimetre field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "带单位的尺寸输入，作品数值与画布缩放分离。",
+      "html": "<label class=\"ds-field\"><span>宽度 mm</span><input type=\"number\" value=\"36\" step=\"0.1\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:4px;font:12px/1.5 'Avenir Next', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;color:#5D6D76;}.ds-field input{min-height:36px;padding:7px 8px;border:1px solid #C9D2D8;border-radius:4px;background:#FFFFFF;color:#24343C;font:13px/1.5 'Avenir Next', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;font-variant-numeric:tabular-nums;}.ds-field input:focus-visible{outline:2px solid #006C78;outline-offset:2px;}"
+    },
+    {
+      "name": "Content tools",
+      "kind": "nav",
+      "refersTo": "content-tool-selected",
+      "description": "七类工具保留文字，使用统一圆角线稿及双列选中语言。",
+      "html": "<nav class=\"ds-tools\" aria-label=\"内容工具\"><button aria-pressed=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 6V4h16v2M12 4v16m-4 0h8\"/></svg>文字</button><button aria-pressed=\"false\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8\" cy=\"8\" r=\"1.5\"/><path d=\"m3 17 5-5 4 4 4-6 5 7\"/></svg>封面艺术</button></nav>",
+      "css": ".ds-tools{display:grid;grid-template-columns:1fr 1fr;gap:4px;}.ds-tools button{font:13px/20px 'Avenir Next','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out;min-height:36px;padding:7px 8px;text-align:left;border:1px solid transparent;border-radius:6px;background:transparent;color:#24343C;}.ds-tools button[aria-pressed=true]{background:#E0F0F1;color:#006C78;font-weight:600;}.ds-tools button:hover{border-color:#006C78;background:#F3F6F7;}.ds-tools button:focus-visible{outline:2px solid #006C78;outline-offset:2px;}.ds-tools button{display:flex;align-items:center;gap:8px;}.ds-tools svg{flex:none;}@media(pointer:coarse){.ds-tools button{min-height:44px;}}"
+    },
+    {
+      "name": "Selected layer",
+      "kind": "custom",
+      "refersTo": "layer-selected",
+      "description": "名称与图层类型提供两级信息，操作保持可定位。",
+      "html": "<div class=\"ds-layer\"><button aria-label=\"隐藏标题图层\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg></button><button class=\"ds-layer-name\"><span>城市漫游</span><small>文字</small></button></div>",
+      "css": ".ds-layer{display:flex;align-items:center;border-radius:4px;background:#E0F0F1;color:#006C78;}.ds-layer button{font:13px/20px 'Avenir Next','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out;min-height:36px;padding:4px;border:1px solid transparent;border-radius:4px;background:transparent;color:inherit;}.ds-layer-name{flex:1;display:flex;flex-direction:column;text-align:left;}.ds-layer small{font-size:12px;color:#5D6D76;}.ds-layer button:hover{border-color:#006C78;}.ds-layer button:focus-visible{outline:2px solid #006C78;outline-offset:2px;}.ds-layer button:first-child{display:inline-flex;align-items:center;justify-content:center;min-width:36px;}@media(pointer:coarse){.ds-layer button{min-height:44px;}.ds-layer button:first-child{min-width:44px;}}"
+    },
+    {
+      "name": "Template trigger",
+      "kind": "custom",
+      "refersTo": "button-secondary",
+      "description": "真实模板轮廓配合名称和尺寸，示例为标准主标签与侧标。",
+      "html": "<button class=\"ds-template\"><svg width=\"44\" height=\"48\" viewBox=\"0 0 44 48\" aria-hidden=\"true\"><rect x=\"5\" y=\"6\" width=\"26\" height=\"38\" rx=\"1\" fill=\"#E0F0F1\" stroke=\"#006C78\"/><rect x=\"35\" y=\"2\" width=\"3\" height=\"42\" fill=\"#E0F0F1\" stroke=\"#006C78\"/></svg><span><strong>标准标签</strong><small>主标与侧标</small></span></button>",
+      "css": ".ds-template{font:13px/20px 'Avenir Next','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out;display:flex;align-items:center;gap:12px;min-height:36px;padding:8px 12px;text-align:left;border:1px solid #C9D2D8;border-radius:6px;background:#FFFFFF;color:#24343C;}.ds-template strong{display:block;font-size:14px;font-weight:600;}.ds-template small{display:block;font-size:12px;color:#5D6D76;}.ds-template:hover{background:#F3F6F7;border-color:#006C78;}.ds-template:focus-visible{outline:2px solid #006C78;outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "MiniDisc 精密工作台",
+    "overview": "精致、清晰、易操作的 MiniDisc 工作台，以标签作品为中心。银灰工作区承托白色工具面板，青蓝色集中标记主操作、选中与焦点；碟片图标、真实模板轮廓及毫米标尺体现 MiniDisc 器材的精确感。\n\n本规范仅适用于标签编辑器及其模板菜单、字体选择、素材库、预览和打印弹窗，不约束 ElectronWMD 的其他界面。界面字体、底色、标尺与选择手柄属于编辑辅助层，作品仍使用工程指定的颜色、字体、几何与毫米尺寸。",
+    "keyCharacteristics": [
+      "预览居中，内容工具与图层属性分列。",
+      "清楚区分本机草稿、工程文件和实际尺寸输出。",
+      "本机字体栈、克制边界和清晰焦点，保持高密度工作的可读性。"
+    ],
+    "rules": [
+      {
+        "name": "The Consistent Icon Rule",
+        "body": "界面图标统一使用手写 SVG 的简洁圆角线稿：`StudioIcon` 基于 24×24 网格、1.75 描边，默认显示 18px，紧凑位置使用 16px；线帽与转角均为圆角，颜色继承 `currentColor`。加、减、关闭、勾选与六点拖动手柄也使用同一组件，不以字符替代。",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do 将编辑器样式限制在工作台与其弹出层，保留作品自身的字体、颜色与尺寸。",
+      "Do 让主要保存和 PDF 入口持续可达，选中图层后直接显示其属性。",
+      "Do 用真实模板轮廓、毫米尺寸和明确的缩放说明帮助判断输出。",
+      "Do 保留键盘焦点、禁用状态、错误文字和减少动画偏好。"
+    ],
+    "donts": [
+      "Don't 把屏幕适配倍数当作打印比例，或为容纳纸张自动缩小作品。",
+      "Don't 将工作区底色、标尺、网格或编辑手柄加入导出文件。",
+      "Don't 为这套界面引入在线字体、主题切换或新的依赖。",
+      "Don't 因调整面板组织而改变工程版本、持久化数据、模板几何或字体轮廓。"
+    ]
+  }
+}

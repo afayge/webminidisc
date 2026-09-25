@@ -150,3 +150,19 @@ test('Unicode title combinations and filename mode use the original tag', () => 
     assert.equal(formatUnicodeTag(tag, 'album-title'), '经典 - 音乐');
     assert.equal(formatUnicodeTag(tag, 'artist-album-title'), '孙燕姿 - 经典 - 音乐');
 });
+
+
+test('saved MockMD capabilities survive optional additions and rejected connections reset selection', async () => {
+    const { restoreServiceParameters, restoreServiceIndex } = await import('../src/services/saved-service-config');
+    const schema = [
+        { userFriendlyName: 'Title', varName: 'title', type: 'string' as const },
+        { userFriendlyName: 'Full-width', varName: 'capabilityFullWidthTitles', type: 'boolean' as const, defaultValue: true },
+    ];
+    assert.deepEqual(restoreServiceParameters(schema, { title: '旧配置' }), { title: '旧配置', capabilityFullWidthTitles: true });
+    assert.deepEqual(restoreServiceParameters(schema, { title: '', capabilityFullWidthTitles: false }), { title: '', capabilityFullWidthTitles: false });
+    for (const saved of [null, [], { title: 42 }, { title: '', capabilityFullWidthTitles: 'yes' }]) {
+        assert.equal(restoreServiceParameters(schema, saved), null);
+    }
+    for (const index of [-1, 4, 1.5, '1', null]) assert.equal(restoreServiceIndex(index, 4), 0);
+    assert.equal(restoreServiceIndex(3, 4), 3);
+});

@@ -1,6 +1,6 @@
 # Unicode title conversion
 
-Standard NetMD Rename Disc, Track, Group and upload-track dialogs have an editable
+Standard and Win95 NetMD Rename Disc, Track, Group and upload-track dialogs have an editable
 Unicode source above the two device titles. To Pinyin and To JIS replace only their
 respective target field; Rename submits the compatible device titles. Unicode is
 not an additional on-disc title and is not recovered after eject/restart.
@@ -27,8 +27,7 @@ there is no Title tag. Device tracks can select an original music file to read.
 Read failures preserve the draft. Session and revision checks reject stale reads.
 
 The existing tag parser decodes the declared encoding; malformed legacy tags are
-not guessed or repaired. Source music files are never modified. HiMD, Win95 and
-song-recognition dialogs retain their existing interfaces.
+not guessed or repaired. Source music files are never modified. Win95 uses the same conversion fields, validation and saved pinyin settings inside its retro window. Enable full-width title editing in Settings to show To JIS on supported devices. Conversion buttons change only the draft; Cancel leaves device titles unchanged. HiMD and song-recognition dialogs retain their existing interfaces.
 
 ## Dependencies and references
 

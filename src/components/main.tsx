@@ -1,3 +1,4 @@
+import { setLabelDiscSelection } from '../labels/disc-selection';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDeviceCapabilities, useDispatch } from '../frontend-utils';
 import { FileRejection, useDropzone } from 'react-dropzone';
@@ -195,6 +196,10 @@ export const Main = (props: {}) => {
     const { vintageMode } = useShallowEqualSelector((state) => state.appState);
 
     const [selected, setSelected] = React.useState<number[]>([]);
+    useEffect(() => {
+        setLabelDiscSelection(selected);
+        return () => setLabelDiscSelection([]);
+    }, [selected]);
     const [selectedGroups, setSelectedGroups] = React.useState<number[]>([]);
     const [uploadedFiles, setUploadedFiles] = React.useState<(File | AdaptiveFile)[]>([]);
     const [lastClicked, setLastClicked] = useState(-1);

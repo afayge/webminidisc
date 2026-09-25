@@ -1,3 +1,4 @@
+import { versionLabel } from '../app-version';
 import React from 'react';
 import { useDispatch } from '../frontend-utils';
 import { useShallowEqualSelector } from '../frontend-utils';
@@ -131,7 +132,9 @@ export const AboutDialog = (props: {}) => {
                     <img src="kofi.png" style={{ width: '50%' }} />
                 </Link>
                 <DialogContentText style={{ textAlign: 'center', fontSize: 13 }}>
-                    Version #{GIT_HASH} {(GIT_DIFF as any) === '0' ? '' : `(${GIT_DIFF} diff-lines ahead)`} built on {BUILD_DATE}
+                    {versionLabel(window.native?.appVersion)}
+                    <br />
+                    Build #{GIT_HASH} {(GIT_DIFF as any) === '0' ? '' : `(${GIT_DIFF} diff-lines ahead)`} built on {BUILD_DATE}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

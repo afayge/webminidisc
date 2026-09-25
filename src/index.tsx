@@ -1,3 +1,4 @@
+import { rendererVersion, versionLabel } from './app-version';
 import { Buffer } from 'buffer';
 (globalThis as any).Buffer = Buffer;
 
@@ -11,6 +12,7 @@ import { actions as appActions } from './redux/app-feature';
 import { actions as mainActions } from './redux/main-feature';
 
 import App from './components/app';
+import { LabelEditorHost } from './labels/host';
 import { RenameSourcesProvider } from './components/rename-sources';
 
 import { MediaRecorderService } from './services/browserintegration/mediarecorder';
@@ -22,15 +24,21 @@ serviceRegistry.mediaRecorderService = new MediaRecorderService();
 serviceRegistry.mediaSessionService = new BrowserMediaSessionService(store);
 
 Object.defineProperty(window, 'wmdVersion', {
-    value: '1.6.0',
+    value: rendererVersion,
     writable: false,
 });
 
-const originalApplicationTitle = document.title;
-
-if (localStorage.getItem('version') !== (window as any).wmdVersion) {
-    store.dispatch(appActions.showChangelogDialog(true));
+let originalApplicationTitle = versionLabel(window.native?.appVersion);
+function synchronizeAppVersion() {
+    originalApplicationTitle = versionLabel(window.native?.appVersion);
+    document.title = originalApplicationTitle;
+    const appVersion = window.native?.appVersion;
+    if (localStorage.getItem('version') !== rendererVersion || (appVersion && localStorage.getItem('wrapperVersion') !== appVersion)) {
+        store.dispatch(appActions.showChangelogDialog(true));
+    }
 }
+synchronizeAppVersion();
+window.addEventListener('ewmd-native-ready', synchronizeAppVersion);
 
 (function setupEventHandlers() {
     window.addEventListener('beforeunload', (ev) => {
@@ -143,7 +151,10 @@ const root = createRoot(document.getElementById('root')!);
 root.render(
     <Provider store={store}>
         <SettingsResetErrorBoundary>
-            <RenameSourcesProvider><App /></RenameSourcesProvider>
+            <RenameSourcesProvider>
+                <App />
+                <LabelEditorHost />
+            </RenameSourcesProvider>
         </SettingsResetErrorBoundary>
     </Provider>
 );

@@ -1,3 +1,4 @@
+import { openLabelEditor } from '../labels/host';
 import { CsvImportDialog, CsvExportDialog } from './csv-title-dialogs';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, batchActions, useDeviceCapabilities } from '../frontend-utils';
@@ -594,6 +595,15 @@ export const TopMenu = function (props: { tracksSelected?: number[]; onClick?: (
         </MenuItem>
     );
 
+    menuItems.unshift(
+        <MenuItem key="labels" onClick={() => {
+            openLabelEditor(props.tracksSelected);
+            handleMenuClose();
+        }}>
+            MD Label Editor
+        </MenuItem>
+    );
+
     if (vintageMode) {
         const p = {
             mainView,
@@ -606,7 +616,10 @@ export const TopMenu = function (props: { tracksSelected?: number[]; onClick?: (
             handleShowChangelog,
             handleVintageMode,
         };
-        return <W95TopMenu {...p} />;
+        return <>
+            <button onClick={() => { openLabelEditor(props.tracksSelected); props.onClick?.(); }}>MD Label Editor</button>
+            <W95TopMenu {...p} />
+        </>;
     }
     return (
         <React.Fragment>

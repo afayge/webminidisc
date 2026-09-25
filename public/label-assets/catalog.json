@@ -1,0 +1,2945 @@
+[
+  {
+    "id": "bannerGraphics-4kultra",
+    "name": "4kultra",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/4kultra.webp",
+    "file": "bannerGraphics-4kultra.webp",
+    "sha256": "5e63a25ddc4c79684fbf7f45c07e85d703cc77bacc311d93532d227a5b3e438e"
+  },
+  {
+    "id": "bannerGraphics-digmas",
+    "name": "digmas",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/digmas!.webp",
+    "file": "bannerGraphics-digmas.webp",
+    "sha256": "1c55be97d132780661f1d8b5c2172429595d57f3c8693895eb4faf4b0cf35eee"
+  },
+  {
+    "id": "bannerGraphics-goldbanner",
+    "name": "goldbanner",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/goldbanner.webp",
+    "file": "bannerGraphics-goldbanner.webp",
+    "sha256": "dc2681c6c6b62003a07069ed836a046b0d1dfb38e13adbe7f24debf8274db2d9"
+  },
+  {
+    "id": "bannerGraphics-mediainc",
+    "name": "mediainc",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/mediainc.webp",
+    "file": "bannerGraphics-mediainc.webp",
+    "sha256": "ee0d4e108b1a9f6bfeb6a080d6debda9155fd3a936043caeb2ff750c58d8754e"
+  },
+  {
+    "id": "bannerGraphics-platban",
+    "name": "platban",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/platban.webp",
+    "file": "bannerGraphics-platban.webp",
+    "sha256": "ffcdf16822774d213cb96d4980af61cff14bf071c57e6fcc9ef6b36f95cafe77"
+  },
+  {
+    "id": "bannerGraphics-platblue",
+    "name": "platblue",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/platblue.webp",
+    "file": "bannerGraphics-platblue.webp",
+    "sha256": "ab73601eccaf72b1f79a4df6b0ca40d74c6767a35bded3dd90b4d8c94702d5d5"
+  },
+  {
+    "id": "bannerGraphics-platgold",
+    "name": "platgold",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/platgold.webp",
+    "file": "bannerGraphics-platgold.webp",
+    "sha256": "208fee8ba1fa5a824d3a4487b931078d12d70817f863b2e4f2b9d6ab4017bb50"
+  },
+  {
+    "id": "bannerGraphics-rainbo",
+    "name": "rainbo",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/rainbo.webp",
+    "file": "bannerGraphics-rainbo.webp",
+    "sha256": "58f3ddcf7c61aebc8cfe142300239747213318b5c6621c4fef05c9cb5cc58cca"
+  },
+  {
+    "id": "bannerGraphics-rainboze",
+    "name": "rainboze",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/rainboze.webp",
+    "file": "bannerGraphics-rainboze.webp",
+    "sha256": "44069223989bd4638876ac568b7e5463452ad1db892f4fee83128039ea860f34"
+  },
+  {
+    "id": "bannerGraphics-specgold",
+    "name": "specgold",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/specgold.webp",
+    "file": "bannerGraphics-specgold.webp",
+    "sha256": "0123ae57b72c0a8799dec663811d64a84d8c907e655bd4e03c901c2ed397f261"
+  },
+  {
+    "id": "bannerGraphics-specialwide",
+    "name": "specialwide",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/specialwide.webp",
+    "file": "bannerGraphics-specialwide.webp",
+    "sha256": "1cf47d9520d191f90f196deff86d618e5d646c7569a35a77728415c3abb66776"
+  },
+  {
+    "id": "bannerGraphics-vhsrainbow",
+    "name": "vhsrainbow",
+    "category": "横幅标识",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/bannerGraphics/vhsrainbow!.webp",
+    "file": "bannerGraphics-vhsrainbow.webp",
+    "sha256": "7a456e92681a0f684b8df9de6dd5100fd6c0123277b99ac8f0b8fcf00fe8ae10"
+  },
+  {
+    "id": "cassetteGraphics-2album",
+    "name": "2album",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/2album.webp",
+    "file": "cassetteGraphics-2album.webp",
+    "sha256": "aaabc57a3c00cab3199e5eddcb7886221ebbde65ca92bda0157fb355e406001d"
+  },
+  {
+    "id": "cassetteGraphics-2for1",
+    "name": "2for1",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/2for1.webp",
+    "file": "cassetteGraphics-2for1.webp",
+    "sha256": "4feabcf795427636a28a363a5e14882f2397412f2cf4a046532ad32509d01789"
+  },
+  {
+    "id": "cassetteGraphics-2on1",
+    "name": "2on1",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/2on1.webp",
+    "file": "cassetteGraphics-2on1.webp",
+    "sha256": "26f7c1e5257dc83111baebe0a5caa779f0c281e4030b4dec680bd8d7ccdb4a66"
+  },
+  {
+    "id": "cassetteGraphics-2play",
+    "name": "2play",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/2play.webp",
+    "file": "cassetteGraphics-2play.webp",
+    "sha256": "bcdb0bca00368e098bcbd9a93d8c92bc2fc20d1f41ca75fed56224ec9f012943"
+  },
+  {
+    "id": "cassetteGraphics-bhf46",
+    "name": "bhf46",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/bhf46.webp",
+    "file": "cassetteGraphics-bhf46.webp",
+    "sha256": "5dae0291136cb0463f4c8455468805711c2e83f6b4b9bb9f08ab5ca8e8f76a27"
+  },
+  {
+    "id": "cassetteGraphics-cd",
+    "name": "cd",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/cd!.webp",
+    "file": "cassetteGraphics-cd.webp",
+    "sha256": "1bdf3504a93c832f2956b04fc89a165cddae9fdb3a6893463b1aafc3795bd827"
+  },
+  {
+    "id": "cassetteGraphics-cro2",
+    "name": "cro2",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/cro2.webp",
+    "file": "cassetteGraphics-cro2.webp",
+    "sha256": "699016a7a3e26533714e9f6e9491610d8b0eb1d13793100086fd0ed88c453956"
+  },
+  {
+    "id": "cassetteGraphics-doubly-stereo",
+    "name": "doubly-stereo",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/doubly-stereo.png",
+    "file": "cassetteGraphics-doubly-stereo.png",
+    "sha256": "59da826dcbc1e9a02a15715cd339d0fa5c9e30736def2f0113199ffc06163613"
+  },
+  {
+    "id": "cassetteGraphics-hi-res-audio",
+    "name": "hi-res-audio",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/hi-res-audio.webp",
+    "file": "cassetteGraphics-hi-res-audio.webp",
+    "sha256": "105362fb46b78e49a34950cf3bfe5358155f5d3e3254b443a8d088273ee01518"
+  },
+  {
+    "id": "cassetteGraphics-himd",
+    "name": "himd",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/himd.webp",
+    "file": "cassetteGraphics-himd.webp",
+    "sha256": "480a9324d480bcfd714a4ee5a98611fc92ab3809280ce5a064759363f0bfd891"
+  },
+  {
+    "id": "cassetteGraphics-hires-audio",
+    "name": "hires-audio",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/hires-audio.webp",
+    "file": "cassetteGraphics-hires-audio.webp",
+    "sha256": "e7afb3f0b937fabaa17743a2e222e676afa9a616db82292ddb93a54f0787b3ca"
+  },
+  {
+    "id": "cassetteGraphics-karao",
+    "name": "karao",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/karao.webp",
+    "file": "cassetteGraphics-karao.webp",
+    "sha256": "8f1d150f238da423f75996bf8f20fd39ea1811617d3405df1be7cc881bed033e"
+  },
+  {
+    "id": "cassetteGraphics-minidisc1",
+    "name": "minidisc1",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/minidisc1.webp",
+    "file": "cassetteGraphics-minidisc1.webp",
+    "sha256": "f76f2740140efa5fb001535cc83bdad5513e14e97b77a0af27ece159c1aa4390"
+  },
+  {
+    "id": "cassetteGraphics-minidisc2",
+    "name": "minidisc2",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/minidisc2.webp",
+    "file": "cassetteGraphics-minidisc2.webp",
+    "sha256": "448d417a49cf2d072de9cef8dc03344bdf29d9cb9cb9a86d9520e9e11cdf174c"
+  },
+  {
+    "id": "cassetteGraphics-minidisc3",
+    "name": "minidisc3",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/minidisc3.webp",
+    "file": "cassetteGraphics-minidisc3.webp",
+    "sha256": "a085e3b2c9d267c91f722bbb63704ac259a678fb70499b2987b2101b3ef2cef1"
+  },
+  {
+    "id": "cassetteGraphics-minidisc4",
+    "name": "minidisc4",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/minidisc4.webp",
+    "file": "cassetteGraphics-minidisc4.webp",
+    "sha256": "696997acd4d88b0998566a7a5bc6db61e09a41584f0fe90674aac8628e59faee"
+  },
+  {
+    "id": "cassetteGraphics-mix",
+    "name": "mix",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/mix!.webp",
+    "file": "cassetteGraphics-mix.webp",
+    "sha256": "9934307db1179a51b01e76a0300c3bd81658e956ccefc279715f7a736d3a37d3"
+  },
+  {
+    "id": "cassetteGraphics-rainrings",
+    "name": "rainrings",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/rainrings.webp",
+    "file": "cassetteGraphics-rainrings.webp",
+    "sha256": "55fea0aab285b5c9f597f77b6aecc2e83060021c476cd843b64cbfa5991ea781"
+  },
+  {
+    "id": "cassetteGraphics-rainstereo",
+    "name": "rainstereo",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/rainstereo.webp",
+    "file": "cassetteGraphics-rainstereo.webp",
+    "sha256": "ab5719575c561fab926e6b96ac22621c70f9242eb110217f0384ca9d4dae019d"
+  },
+  {
+    "id": "cassetteGraphics-stereogra",
+    "name": "stereogra",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/stereogra.webp",
+    "file": "cassetteGraphics-stereogra.webp",
+    "sha256": "9989784b2d9c7ba2b2a05324aabd8023a4cc3b737bad5571defae34672bbf419"
+  },
+  {
+    "id": "cassetteGraphics-superaudio",
+    "name": "superaudio",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/superaudio.webp",
+    "file": "cassetteGraphics-superaudio.webp",
+    "sha256": "a93741d18aca7bc57e080fdf16a9ca40d8f904a60eefa3e403c498b435138db6"
+  },
+  {
+    "id": "cassetteGraphics-sx",
+    "name": "sx",
+    "category": "音频贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/cassetteGraphics/sx.webp",
+    "file": "cassetteGraphics-sx.webp",
+    "sha256": "0bed3233d4de5bdbfa59e5b37a2512239cceb616839e03c7993b7b48a7cd405b"
+  },
+  {
+    "id": "genreTags-action",
+    "name": "action",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/action.webp",
+    "file": "genreTags-action.webp",
+    "sha256": "79d85eebe3f73061c0ce9cc074a21efd48b944ccd00f3b082f9687fdc8396105"
+  },
+  {
+    "id": "genreTags-actionad",
+    "name": "actionad",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/actionad.webp",
+    "file": "genreTags-actionad.webp",
+    "sha256": "81ef386e906fe02b5f914ea27d5864152e5c7580d6976bc3d3e78e1c9d8b9df8"
+  },
+  {
+    "id": "genreTags-adult",
+    "name": "adult",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/adult.webp",
+    "file": "genreTags-adult.webp",
+    "sha256": "965c46f4cdedf990ef43e8c9fdc1ceece8b3ee723257783ee571929fa5c8f25e"
+  },
+  {
+    "id": "genreTags-arthouse",
+    "name": "arthouse",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/arthouse.webp",
+    "file": "genreTags-arthouse.webp",
+    "sha256": "096fa5a38278c1c95ac3cb6714ecd68e5379f82c5ede8d958cd7e870f51264b1"
+  },
+  {
+    "id": "genreTags-bizarre",
+    "name": "bizarre",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/bizarre.webp",
+    "file": "genreTags-bizarre.webp",
+    "sha256": "80ec0bb6dcd547e6278ebc4b8b4ff3167f4e8466147309504ec664ea1c95dcef"
+  },
+  {
+    "id": "genreTags-bodyhorror",
+    "name": "bodyhorror",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/bodyhorror.webp",
+    "file": "genreTags-bodyhorror.webp",
+    "sha256": "6435ed86876195955e5e279a0d2a2df9f935d60c028b0c9ffc2809b57bd28574"
+  },
+  {
+    "id": "genreTags-comedy",
+    "name": "comedy",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/comedy.webp",
+    "file": "genreTags-comedy.webp",
+    "sha256": "b5419ab23c37b62a7655b7554c0fd2d20d63b526122849c9360ab35ee5366977"
+  },
+  {
+    "id": "genreTags-crime",
+    "name": "crime",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/crime.webp",
+    "file": "genreTags-crime.webp",
+    "sha256": "0ccf0545b6a6167762c600636a6b17217a90f8bba942e274740e116c5aeb1655"
+  },
+  {
+    "id": "genreTags-cult",
+    "name": "cult",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/cult.webp",
+    "file": "genreTags-cult.webp",
+    "sha256": "fb25daefbffa248ebdb319288ddcc177cd2c44d834ff9f050b7ab44d1050f51b"
+  },
+  {
+    "id": "genreTags-docudrama",
+    "name": "docudrama",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/docudrama.webp",
+    "file": "genreTags-docudrama.webp",
+    "sha256": "27f6296cfab2d855d625ec1de8f7c821c12029f45deaf001e1bfb8e0a96211f3"
+  },
+  {
+    "id": "genreTags-documentary",
+    "name": "documentary",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/documentary.webp",
+    "file": "genreTags-documentary.webp",
+    "sha256": "4518bf0f3dea27038a0d56842c451290d669626e6a7f8b8454797944ddaf8c1b"
+  },
+  {
+    "id": "genreTags-epic",
+    "name": "epic",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/epic.webp",
+    "file": "genreTags-epic.webp",
+    "sha256": "339c0f28f8743139f21cd93a2c2b6e0f5ebc632d621030b6f01e117a3da90b1b"
+  },
+  {
+    "id": "genreTags-family",
+    "name": "family",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/family.webp",
+    "file": "genreTags-family.webp",
+    "sha256": "f6f2ea06c535efcb80c83318890f608de5dac1a70f5cbbc524d1e02df0060308"
+  },
+  {
+    "id": "genreTags-fantasy",
+    "name": "fantasy",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/fantasy.webp",
+    "file": "genreTags-fantasy.webp",
+    "sha256": "d620b1398e4d617b7b36d14c6e09d6d687ee2135ac4936810318cecc8aed7acd"
+  },
+  {
+    "id": "genreTags-horrange",
+    "name": "horrange",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/horrange.webp",
+    "file": "genreTags-horrange.webp",
+    "sha256": "28bce77468223b21e4f89060be11b499aae375ac75008e52d1f31dc50b54ed14"
+  },
+  {
+    "id": "genreTags-horror",
+    "name": "horror",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/horror.webp",
+    "file": "genreTags-horror.webp",
+    "sha256": "4b6f1844935da7789081c478be82f9cb2c4e253634295a076de0b95b55bcf448"
+  },
+  {
+    "id": "genreTags-magicreal",
+    "name": "magicreal",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/magicreal.webp",
+    "file": "genreTags-magicreal.webp",
+    "sha256": "ce4e15e4894678d3b57bc5c764e5d29082e4eb7c3c246eede5a4159b6d9425e4"
+  },
+  {
+    "id": "genreTags-martialarts",
+    "name": "martialarts",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/martialarts.webp",
+    "file": "genreTags-martialarts.webp",
+    "sha256": "1086b20f57a53ee2afd50c5f6cb2e0f7b588745ba7838535060c29321ffa4d31"
+  },
+  {
+    "id": "genreTags-metafic",
+    "name": "metafic",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/metafic.webp",
+    "file": "genreTags-metafic.webp",
+    "sha256": "2662b3b253a1ae525d5350370a25ebf13d32ab739a35df5e06a0413ca0c5016f"
+  },
+  {
+    "id": "genreTags-musical",
+    "name": "musical",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/musical.webp",
+    "file": "genreTags-musical.webp",
+    "sha256": "b10851d8fe634b93f56687ddccb1bfcbaa271258357e8c8844a36eb118687d5d"
+  },
+  {
+    "id": "genreTags-mystery",
+    "name": "mystery",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/mystery.webp",
+    "file": "genreTags-mystery.webp",
+    "sha256": "c5dc148054469d9df8424aa1d4467881d9a55df752d7b13abbd535fe63f2ddb5"
+  },
+  {
+    "id": "genreTags-noir",
+    "name": "noir",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/noir.webp",
+    "file": "genreTags-noir.webp",
+    "sha256": "84af2de857f327177f80000b90fa185bcd6f8964e7f6906d23ec5be4154e4975"
+  },
+  {
+    "id": "genreTags-queer",
+    "name": "queer",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/queer.webp",
+    "file": "genreTags-queer.webp",
+    "sha256": "e71f6f2dcda5ed2cda48d0fac852c6d3c9e94dbfcf89af0d2e0272ec5f5a1db3"
+  },
+  {
+    "id": "genreTags-religion",
+    "name": "religion",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/religion.webp",
+    "file": "genreTags-religion.webp",
+    "sha256": "2f53465742312c7671985175ce2cc2f5a570fb0e7c3a864ecd4b62d598a7f0cc"
+  },
+  {
+    "id": "genreTags-romance",
+    "name": "romance",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/romance.webp",
+    "file": "genreTags-romance.webp",
+    "sha256": "27b1646ac1123eba8de81dba0e39755dcd7eb690969dc715b33f3f6f3ca68f41"
+  },
+  {
+    "id": "genreTags-romcom",
+    "name": "romcom",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/romcom.webp",
+    "file": "genreTags-romcom.webp",
+    "sha256": "eac7249480718486e8ab47915e238d2c3e9c793642de56acd065328db6dbaf59"
+  },
+  {
+    "id": "genreTags-romcom2",
+    "name": "romcom2",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/romcom2.webp",
+    "file": "genreTags-romcom2.webp",
+    "sha256": "5c7fa04224e115c2b63fc1857b1873185113d2383fbe2bd26e96f6b94c21c6ad"
+  },
+  {
+    "id": "genreTags-scifi",
+    "name": "scifi",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/scifi.webp",
+    "file": "genreTags-scifi.webp",
+    "sha256": "e0c3dff9d5df106e6dd91e1180e59a6a8f36a0815939c8bbe442ac5cb25c0c9d"
+  },
+  {
+    "id": "genreTags-scifihorror",
+    "name": "scifihorror",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/scifihorror.webp",
+    "file": "genreTags-scifihorror.webp",
+    "sha256": "f982e3c7e88b161b4117f4f92501918f61a5fd9c02de82c1299b443164ec91f3"
+  },
+  {
+    "id": "genreTags-slasher",
+    "name": "slasher",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/slasher.webp",
+    "file": "genreTags-slasher.webp",
+    "sha256": "e1ea8a5cd2ecb75e81fdb1e0f4ffbe4a4525d563586178f6d1fb440c62d822dd"
+  },
+  {
+    "id": "genreTags-suspense",
+    "name": "suspense",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/suspense.webp",
+    "file": "genreTags-suspense.webp",
+    "sha256": "8707ca84d61628e2022cae4b9324d0cf1f4f5aacc10630dfc56c1dca0c69515e"
+  },
+  {
+    "id": "genreTags-thriller",
+    "name": "thriller",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/thriller.webp",
+    "file": "genreTags-thriller.webp",
+    "sha256": "20bd825727655b6098e69f7ae9310ff391bbee32b2f5cd4c82a9fe1151d81962"
+  },
+  {
+    "id": "genreTags-western",
+    "name": "western",
+    "category": "类型标签",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/genreTags/western.webp",
+    "file": "genreTags-western.webp",
+    "sha256": "d6cde8cbc46ee78b428ee8dc6bfbe72346033b457da7b0cfabea87c1fe905ea4"
+  },
+  {
+    "id": "holographicDecals-authenticholo",
+    "name": "authenticholo",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/authenticholo.webp",
+    "file": "holographicDecals-authenticholo.webp",
+    "sha256": "093333767398e17cd9346eb6e533854257b2f1f497bf5dbe2665344a6bc22b60"
+  },
+  {
+    "id": "holographicDecals-globalholo",
+    "name": "globalholo",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/globalholo!.webp",
+    "file": "holographicDecals-globalholo.webp",
+    "sha256": "5e24a6f1b149f45552bbc9e921fb1321367c0537b3c4ea8bfc00df4f003c0f68"
+  },
+  {
+    "id": "holographicDecals-holocam",
+    "name": "holocam",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/holocam!.webp",
+    "file": "holographicDecals-holocam.webp",
+    "sha256": "7a6a45f731e5b20aa37098a05d6b13a2fd845b9674752339f433824735d1dad5"
+  },
+  {
+    "id": "holographicDecals-holomap",
+    "name": "holomap",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/holomap!.webp",
+    "file": "holographicDecals-holomap.webp",
+    "sha256": "afea26b15c31bf98652869d3589fb49d9d11675f037012469e11b70dd2224f36"
+  },
+  {
+    "id": "holographicDecals-mhvholo",
+    "name": "mhvholo",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/mhvholo.webp",
+    "file": "holographicDecals-mhvholo.webp",
+    "sha256": "f03a6cccb0e81b3e1e92605d57b3c46fb1dd3fe4a28f37b4533fe69f5ef2a5fc"
+  },
+  {
+    "id": "holographicDecals-tamperwarning",
+    "name": "tamperwarning",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/tamperwarning.webp",
+    "file": "holographicDecals-tamperwarning.webp",
+    "sha256": "2118d67485082109aa43b7fda76910b742619af9e33b483770edb2b0df2afa28"
+  },
+  {
+    "id": "holographicDecals-vhsshiny",
+    "name": "vhsshiny",
+    "category": "镭射贴花",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/holographicDecals/vhsshiny.webp",
+    "file": "holographicDecals-vhsshiny.webp",
+    "sha256": "a2b2343d977b437d431a7d66cf71167bc143b2f047334be04f54784f8ada067b"
+  },
+  {
+    "id": "miscStickers-3dayrental",
+    "name": "3dayrental",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/3dayrental.webp",
+    "file": "miscStickers-3dayrental.webp",
+    "sha256": "ee940cf3df29870935800df594ba923d5882de948deb90b4a0063c17f563fd1e"
+  },
+  {
+    "id": "miscStickers-3night",
+    "name": "3night",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/3night.webp",
+    "file": "miscStickers-3night.webp",
+    "sha256": "d645b9bb7cc5570c2ded349a74ad2d63565bd757dcf9ecea9e37d223cf7e32c5"
+  },
+  {
+    "id": "miscStickers-allnew",
+    "name": "allnew",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/allnew.webp",
+    "file": "miscStickers-allnew.webp",
+    "sha256": "3730b8e5d682b880f91f7b678ec5f871afaaddd14670abbc6e67cb3e0a84d154"
+  },
+  {
+    "id": "miscStickers-bekind",
+    "name": "bekind",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/bekind.webp",
+    "file": "miscStickers-bekind.webp",
+    "sha256": "63a93c028c6b42b7a5935300ae3a9d11a9e06cd65bed7bdfbf0b60a4a5c73f50"
+  },
+  {
+    "id": "miscStickers-betatag",
+    "name": "betatag",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/betatag.webp",
+    "file": "miscStickers-betatag.webp",
+    "sha256": "6b5432685ee1c555e173a0d74fc96022980e5c7c3b8b9d7a4f600803c46d73d9"
+  },
+  {
+    "id": "miscStickers-bkr",
+    "name": "bkr",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/bkr.webp",
+    "file": "miscStickers-bkr.webp",
+    "sha256": "78f9dc18466eb62bb663c720a7ea2107b4da47fb4f3dae8fc22004808a06ec57"
+  },
+  {
+    "id": "miscStickers-collectible",
+    "name": "collectible",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/collectible.webp",
+    "file": "miscStickers-collectible.webp",
+    "sha256": "1d11de12770bb705f67d72ebc750d5ea7f9627d098e9790264cb3165160439d4"
+  },
+  {
+    "id": "miscStickers-howdirty",
+    "name": "howdirty",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/howdirty.webp",
+    "file": "miscStickers-howdirty.webp",
+    "sha256": "9fd0399cc1f1ca4b1bea056012134a0d77924845581ee878a714ca07be117714"
+  },
+  {
+    "id": "miscStickers-japanese",
+    "name": "japanese",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/japanese.webp",
+    "file": "miscStickers-japanese.webp",
+    "sha256": "0e9e7cc6bbd23e487db37baa7dc249619e70329ad8595ed9407a6b42cc221424"
+  },
+  {
+    "id": "miscStickers-limed",
+    "name": "limed",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/limed!.webp",
+    "file": "miscStickers-limed.webp",
+    "sha256": "9dd91b1cffb329c27fe16fa2bfe842b2489349ceb1d28a37d51b296d81d76174"
+  },
+  {
+    "id": "miscStickers-moviemelt",
+    "name": "moviemelt",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/moviemelt.webp",
+    "file": "miscStickers-moviemelt.webp",
+    "sha256": "e8650b20920355820d7b70ec12f01c3e7b20f8f7588bd35873e62a738d4bdbe2"
+  },
+  {
+    "id": "miscStickers-moviemeltsticker",
+    "name": "moviemeltsticker",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/moviemeltsticker!.webp",
+    "file": "miscStickers-moviemeltsticker.webp",
+    "sha256": "5248decbe5b24b35206c02f9940ebc1f142aa6a188cbe31d577fae4427f0596e"
+  },
+  {
+    "id": "miscStickers-new",
+    "name": "new",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/new.webp",
+    "file": "miscStickers-new.webp",
+    "sha256": "56d0bb97d82ef20b230326621cfbd4c2dee8d46c872d31e7262359fe06de241d"
+  },
+  {
+    "id": "miscStickers-newrelease",
+    "name": "newrelease",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/newrelease!.webp",
+    "file": "miscStickers-newrelease.webp",
+    "sha256": "f07eb229000e7d18c9a5bbbea2f4011fcc5d8c335d2a26b854cc8a36745dc73e"
+  },
+  {
+    "id": "miscStickers-newrelease2",
+    "name": "newrelease2",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/newrelease2.webp",
+    "file": "miscStickers-newrelease2.webp",
+    "sha256": "d6b6f31b98b7e6e27582b8ca5679dc45f77f4031c477ac5f248d66b4a0c3b89d"
+  },
+  {
+    "id": "miscStickers-notforkids",
+    "name": "notforkids",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/notforkids.webp",
+    "file": "miscStickers-notforkids.webp",
+    "sha256": "2b05410423558f2494bd409d203104e152396878829dcbe055a162169b1853c9"
+  },
+  {
+    "id": "miscStickers-pa",
+    "name": "pa",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/pa!.webp",
+    "file": "miscStickers-pa.webp",
+    "sha256": "56974b0c4baa600ae8b8fe2e0efb0a34dfd2f297aa7e2b8b50755df9c7af4308"
+  },
+  {
+    "id": "miscStickers-pbk",
+    "name": "pbk",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/pbk!.webp",
+    "file": "miscStickers-pbk.webp",
+    "sha256": "b3c02e22905264e4cbbeea0f8d1afabea11f6cb99cdc5107eea45011abd6f906"
+  },
+  {
+    "id": "miscStickers-plrewind",
+    "name": "plrewind",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/plrewind.webp",
+    "file": "miscStickers-plrewind.webp",
+    "sha256": "844a0096fe21556af751de99b0b55ee68e908b382267f4ec0a9da2ed20b8287a"
+  },
+  {
+    "id": "miscStickers-premiere",
+    "name": "premiere",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/premiere.webp",
+    "file": "miscStickers-premiere.webp",
+    "sha256": "01b9f304a3981225db81d5f5fe56bba210ddf2879c46c0ea19913508c7ee2718"
+  },
+  {
+    "id": "miscStickers-previousview",
+    "name": "previousview",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/previousview.webp",
+    "file": "miscStickers-previousview.webp",
+    "sha256": "7c4e1232cfca36d9d3d12c530f3dc5939d3c46ef2dbe8897ff648707ef6455da"
+  },
+  {
+    "id": "miscStickers-rewind",
+    "name": "rewind",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/rewind.webp",
+    "file": "miscStickers-rewind.webp",
+    "sha256": "ed38720a85572e1fe926aaf55388a2bcfba871cf04cb81797bbc7f13c3ad80af"
+  },
+  {
+    "id": "miscStickers-sealed",
+    "name": "sealed",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/sealed.webp",
+    "file": "miscStickers-sealed.webp",
+    "sha256": "fe9f5c136f65c1d055a50009a1616a13ec70522cbf5b0d3d7ee4a69c009b1cd6"
+  },
+  {
+    "id": "miscStickers-tracking",
+    "name": "tracking",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/tracking.webp",
+    "file": "miscStickers-tracking.webp",
+    "sha256": "0dea73f5833f201975f6fb991550501f6571ee77a902f204da57c56c024d8a22"
+  },
+  {
+    "id": "miscStickers-uncut",
+    "name": "uncut",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/uncut.webp",
+    "file": "miscStickers-uncut.webp",
+    "sha256": "d28be20e7b23b0b2936c7137aa68e8c26e71b0d2373f1bb41be0a15f7e83cbae"
+  },
+  {
+    "id": "miscStickers-used",
+    "name": "used",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/used.webp",
+    "file": "miscStickers-used.webp",
+    "sha256": "4d2182dfbea7942c8d823c16dab155357e3d2b0b3964de1566b412e054a6eea5"
+  },
+  {
+    "id": "miscStickers-warningmelt",
+    "name": "warningmelt",
+    "category": "复古贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/miscStickers/warningmelt.webp",
+    "file": "miscStickers-warningmelt.webp",
+    "sha256": "62886f373ed38f97ee8f0bc00f887a4985b70cab4093394eb3d4b11f138abb42"
+  },
+  {
+    "id": "oldBrands-blockbusterpleaserewind",
+    "name": "blockbusterpleaserewind",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/blockbusterpleaserewind!.webp",
+    "file": "oldBrands-blockbusterpleaserewind.webp",
+    "sha256": "8ceaa0cdc377b00ca4fb864a7ef28cff2b4826a1785b09708118f13550f6579d"
+  },
+  {
+    "id": "oldBrands-blockbustersticker",
+    "name": "blockbustersticker",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/blockbustersticker.webp",
+    "file": "oldBrands-blockbustersticker.webp",
+    "sha256": "3970f9051abad52be70d605002726ec82b52d1eb3478802f0df94c2e12a1c5bd"
+  },
+  {
+    "id": "oldBrands-blockbusterticket",
+    "name": "blockbusterticket",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/blockbusterticket.webp",
+    "file": "oldBrands-blockbusterticket.webp",
+    "sha256": "ff37593a374a5e2f0b222680e2d7e565d47ae51a4d8f35440bb8e79ae131bcfd"
+  },
+  {
+    "id": "oldBrands-blockbusterticket2",
+    "name": "blockbusterticket2",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/blockbusterticket2.webp",
+    "file": "oldBrands-blockbusterticket2.webp",
+    "sha256": "21eb3085b50815e20e85092d99f22cf10bf1d3765295fb30dffb3d531556a6d3"
+  },
+  {
+    "id": "oldBrands-blockbustertotalaccess",
+    "name": "blockbustertotalaccess",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/blockbustertotalaccess.webp",
+    "file": "oldBrands-blockbustertotalaccess.webp",
+    "sha256": "b648566a8e40ca1c0e1d400a0322b7a61815a9c94edaab96cf3d16e914fb520e"
+  },
+  {
+    "id": "oldBrands-burbank",
+    "name": "burbank",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/burbank.webp",
+    "file": "oldBrands-burbank.webp",
+    "sha256": "1c76acc494b149a6bcf82e9e4dfae50a035116c655f505e75c02ee9b01f7ab4f"
+  },
+  {
+    "id": "oldBrands-civic",
+    "name": "civic",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/civic!.webp",
+    "file": "oldBrands-civic.webp",
+    "sha256": "eea2a5d022c85d48f7330eee0bbce56f229ee90de2117d57fe0bcec65024e41a"
+  },
+  {
+    "id": "oldBrands-civicvideo",
+    "name": "civicvideo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/civicvideo.webp",
+    "file": "oldBrands-civicvideo.webp",
+    "sha256": "e0bdeb05c4585a3ec901bba4768bee4ff25a5eafc09f93a1cc7d0151028ed639"
+  },
+  {
+    "id": "oldBrands-erolsbrand",
+    "name": "erolsbrand",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/erolsbrand.webp",
+    "file": "oldBrands-erolsbrand.webp",
+    "sha256": "14ce32791efa7d6d0b92d29fbaf480d3925ba20b6e40c6b82b3fd3cd64d01131"
+  },
+  {
+    "id": "oldBrands-errols",
+    "name": "errols",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/errols.webp",
+    "file": "oldBrands-errols.webp",
+    "sha256": "52a9a26fe0f879028bbac64d5c86b34b2271666caf36b5768fd6cb115f661f45"
+  },
+  {
+    "id": "oldBrands-errolsbrand",
+    "name": "errolsbrand",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/errolsbrand.webp",
+    "file": "oldBrands-errolsbrand.webp",
+    "sha256": "c19416bf4a5df3cf4879b714679b5fd18dc4c1048dcb5245d8f3e817e357ac06"
+  },
+  {
+    "id": "oldBrands-familyvideo",
+    "name": "familyvideo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/familyvideo.webp",
+    "file": "oldBrands-familyvideo.webp",
+    "sha256": "77e92c91cce9009391d44188c15eb0b7a1152845660c8f37a41abfb4c021776a"
+  },
+  {
+    "id": "oldBrands-familyvideologo",
+    "name": "familyvideologo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/familyvideologo.webp",
+    "file": "oldBrands-familyvideologo.webp",
+    "sha256": "38811099156ba96daf8b2316bd53a06a71f5f7349bd141ed2e8e913fbd1fa688"
+  },
+  {
+    "id": "oldBrands-hollyv",
+    "name": "hollyv",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/hollyv.webp",
+    "file": "oldBrands-hollyv.webp",
+    "sha256": "714914012a876333f1549ab1215065eec49cc81484fe43fc94069732bbe19a02"
+  },
+  {
+    "id": "oldBrands-hollywoodex",
+    "name": "hollywoodex",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/hollywoodex.webp",
+    "file": "oldBrands-hollywoodex.webp",
+    "sha256": "353956ab0f9966f15182fa9e7315b8a1bf31d09bf64f84cb2334776d15d809ef"
+  },
+  {
+    "id": "oldBrands-hollywoodvideo",
+    "name": "hollywoodvideo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/hollywoodvideo.webp",
+    "file": "oldBrands-hollywoodvideo.webp",
+    "sha256": "2037b9cf9b73b3c6841e9d6e5191672ec0afd00a9ed0bad5d99b68135bbbdfca"
+  },
+  {
+    "id": "oldBrands-hollywoodvideologo",
+    "name": "hollywoodvideologo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/hollywoodvideologo.webp",
+    "file": "oldBrands-hollywoodvideologo.webp",
+    "sha256": "f2d00af5ea09492d51f70bf052a5d85432e529134850173b1d74bdd6a04fa3af"
+  },
+  {
+    "id": "oldBrands-kingvideo",
+    "name": "kingvideo",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/kingvideo.webp",
+    "file": "oldBrands-kingvideo.webp",
+    "sha256": "ed90a9aa411d94e09545dbebac57e5ac5991f08305b33dfe756ddb9c877c1d75"
+  },
+  {
+    "id": "oldBrands-moviegallery",
+    "name": "moviegallery",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/moviegallery.webp",
+    "file": "oldBrands-moviegallery.webp",
+    "sha256": "d1254cf77bb618260e699fd7269c4db29d1a95f9547b080fa27b8eba9858b9db"
+  },
+  {
+    "id": "oldBrands-radioshack",
+    "name": "radioshack",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/radioshack!.webp",
+    "file": "oldBrands-radioshack.webp",
+    "sha256": "7e76951eec0eef88ba13e30f4d6113abdc5fa4da2455200b7ff596a0ecefd3e8"
+  },
+  {
+    "id": "oldBrands-rogers",
+    "name": "rogers",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/rogers.webp",
+    "file": "oldBrands-rogers.webp",
+    "sha256": "b77c68e1fcbc52d17278c34a12b93742f947b95f9dbe87e8b38edd01b31397f1"
+  },
+  {
+    "id": "oldBrands-rogers2",
+    "name": "rogers2",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/rogers2.webp",
+    "file": "oldBrands-rogers2.webp",
+    "sha256": "377880216e79998fcdb5d31453ebfbe0aad07c2594e975a7172b5933efdfcff1"
+  },
+  {
+    "id": "oldBrands-shorevid",
+    "name": "shorevid",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/shorevid.webp",
+    "file": "oldBrands-shorevid.webp",
+    "sha256": "b17acfddc3db17e7b883271b7a778e915638abeb5f1a55df85560191749fcbef"
+  },
+  {
+    "id": "oldBrands-thewiz",
+    "name": "thewiz",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/thewiz.webp",
+    "file": "oldBrands-thewiz.webp",
+    "sha256": "fffdd543f0f2b46b588f8b82b8643c6357cb5d8f1f805efd227d22999ae69512"
+  },
+  {
+    "id": "oldBrands-ve7",
+    "name": "ve7",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/ve7.webp",
+    "file": "oldBrands-ve7.webp",
+    "sha256": "e076f899c105122cae14d719f3d772507e202c27a94e61e8d28613cbad0908cc"
+  },
+  {
+    "id": "oldBrands-videoezy",
+    "name": "videoezy",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videoezy.webp",
+    "file": "oldBrands-videoezy.webp",
+    "sha256": "21c18ad52d2a696f47ba2e085466ccdb9e2fa633bcec749d3ae0343bd79ed361"
+  },
+  {
+    "id": "oldBrands-videoezyblue",
+    "name": "videoezyblue",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videoezyblue.webp",
+    "file": "oldBrands-videoezyblue.webp",
+    "sha256": "41be1bd75d100221f8514625434f583448b0629b9930687ab59bf918fda46098"
+  },
+  {
+    "id": "oldBrands-videoezysticker",
+    "name": "videoezysticker",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videoezysticker.webp",
+    "file": "oldBrands-videoezysticker.webp",
+    "sha256": "ba35616c7c250226e032a5b3e62031ac8d237d90a3bdda90a87ebc822442256c"
+  },
+  {
+    "id": "oldBrands-videoezywide",
+    "name": "videoezywide",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videoezywide.webp",
+    "file": "oldBrands-videoezywide.webp",
+    "sha256": "4ef66a9dc86855201e487b41cd11934ef4f6560195e7cef84d3032883bc2a2aa"
+  },
+  {
+    "id": "oldBrands-videomaster",
+    "name": "videomaster",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videomaster.webp",
+    "file": "oldBrands-videomaster.webp",
+    "sha256": "f5b9a7b804f3dd73dd633c8e8106728ed182e37719f07e8a8b49093a81684749"
+  },
+  {
+    "id": "oldBrands-videon",
+    "name": "videon",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/videon.webp",
+    "file": "oldBrands-videon.webp",
+    "sha256": "3e7d4c943a875b4c57b7c8e3758fd670af32d69845502fc8c684198325519e5a"
+  },
+  {
+    "id": "oldBrands-xtravision-alternate",
+    "name": "xtravision alternate",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/xtravision!.webp",
+    "file": "oldBrands-xtravision-alternate.webp",
+    "sha256": "fcb36e82f748d2c4834ad5ba7577ecc0673e9b4df8980e9394588c81c6c5f440"
+  },
+  {
+    "id": "oldBrands-xtravision",
+    "name": "xtravision",
+    "category": "经典品牌",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/oldBrands/xtravision.webp",
+    "file": "oldBrands-xtravision.webp",
+    "sha256": "2fee64f3f373321ac97f924fc9c0600209a5aab861b2247a9cfbdebdfc4c35f7"
+  },
+  {
+    "id": "oldDistributors-20thcenturyfox-goo",
+    "name": "20thcenturyfox-goo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/20thcenturyfox-goo.webp",
+    "file": "oldDistributors-20thcenturyfox-goo.webp",
+    "sha256": "aedb26710d76423d14748593485db15bf03112d6ebdb7a370bbcc51bd9b92d48"
+  },
+  {
+    "id": "oldDistributors-20thcenturyfox",
+    "name": "20thcenturyfox",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/20thcenturyfox.webp",
+    "file": "oldDistributors-20thcenturyfox.webp",
+    "sha256": "1a7c9777e1b7ea4ce87924fbbe9384817ab2cb4c11d34e5c941af4442788a873"
+  },
+  {
+    "id": "oldDistributors-abcvideo",
+    "name": "abcvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/abcvideo.webp",
+    "file": "oldDistributors-abcvideo.webp",
+    "sha256": "3fe3e933843abe3a4d12461a5670dfbc668caf1f366a78e792e041c771d7cb6d"
+  },
+  {
+    "id": "oldDistributors-academy",
+    "name": "academy",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/academy.webp",
+    "file": "oldDistributors-academy.webp",
+    "sha256": "0b6c31dd696a6dc423a54196aa93255ae6af2662edf94c9b0f588943f20e0f5c"
+  },
+  {
+    "id": "oldDistributors-active",
+    "name": "active",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/active.webp",
+    "file": "oldDistributors-active.webp",
+    "sha256": "e2df0bd86c82ca28cf9e7d9da2e500bc938f04f9c06c5719c6a25332fcac6692"
+  },
+  {
+    "id": "oldDistributors-astral",
+    "name": "astral",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/astral.webp",
+    "file": "oldDistributors-astral.webp",
+    "sha256": "081048673d6085b015b8cc6af3cb8fd6b671a122f92241f7fc63ed462c8161cf"
+  },
+  {
+    "id": "oldDistributors-atlas",
+    "name": "atlas",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/atlas.webp",
+    "file": "oldDistributors-atlas.webp",
+    "sha256": "8422eda973e1bf57f3b774bee0bed8c9bdd1bcd048af5819ae0e462d6983df50"
+  },
+  {
+    "id": "oldDistributors-avatar",
+    "name": "avatar",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/avatar.webp",
+    "file": "oldDistributors-avatar.webp",
+    "sha256": "06f0c87abe641b18dc8bde9b261ce66a25db7229a1e1b34b2ff7afbcb272b58f"
+  },
+  {
+    "id": "oldDistributors-avcoembassy",
+    "name": "avcoembassy",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/avcoembassy.webp",
+    "file": "oldDistributors-avcoembassy.webp",
+    "sha256": "ca6a5f4b2e5b986910a4d13b0cf127a6084c666db67350f107d32b85406bf031"
+  },
+  {
+    "id": "oldDistributors-buena-vista",
+    "name": "buena-vista",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/buena-vista.webp",
+    "file": "oldDistributors-buena-vista.webp",
+    "sha256": "f3ad02009c5bbbd7278bbaba361fdcaf8ea27ae241406f38a4aec9f65d5ba85a"
+  },
+  {
+    "id": "oldDistributors-buenavista",
+    "name": "buenavista",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/buenavista.webp",
+    "file": "oldDistributors-buenavista.webp",
+    "sha256": "4b4f8b502aacbc908ca9306d67c5678b9cb080ef49f5b6ba04cd3a8ae601f850"
+  },
+  {
+    "id": "oldDistributors-camp",
+    "name": "camp",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/camp.webp",
+    "file": "oldDistributors-camp.webp",
+    "sha256": "1d1af06cf7eb5cff6d2fa7b5b39ec7f149657cd76e2544628ae7507818e41d5d"
+  },
+  {
+    "id": "oldDistributors-cannon",
+    "name": "cannon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cannon.webp",
+    "file": "oldDistributors-cannon.webp",
+    "sha256": "605a67560f765950b7d44b0168f9dfec566f75112c8324ff2353d724c07415b8"
+  },
+  {
+    "id": "oldDistributors-carolco",
+    "name": "carolco",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/carolco.webp",
+    "file": "oldDistributors-carolco.webp",
+    "sha256": "aff9cd54a2a4c0c3df0daa2dc08772444e089fb7b745bdc36014f6e258188674"
+  },
+  {
+    "id": "oldDistributors-cbs-fox",
+    "name": "cbs-fox",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cbs-fox.webp",
+    "file": "oldDistributors-cbs-fox.webp",
+    "sha256": "07f9545d4bcdaa7cadeff10f74d1845180d0217e3ce74ff4055aa6c7b9eae50a"
+  },
+  {
+    "id": "oldDistributors-cbs-video",
+    "name": "cbs-video",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cbs-video.webp",
+    "file": "oldDistributors-cbs-video.webp",
+    "sha256": "d56d36d806c750ee8689433febd59f009fa858de5dabdf101a9154666e5a6a32"
+  },
+  {
+    "id": "oldDistributors-childrens-video-library",
+    "name": "childrens-video-library",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/childrens-video-library.webp",
+    "file": "oldDistributors-childrens-video-library.webp",
+    "sha256": "44728c37616b9d211df2f1007b40a691053945ed73bce603601de9635419fe56"
+  },
+  {
+    "id": "oldDistributors-childrens",
+    "name": "childrens",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/childrens.webp",
+    "file": "oldDistributors-childrens.webp",
+    "sha256": "4f2abf3fa63fbb6aaccb85901fa5e4cf75837adc7faa2bfd7f2b3d751a7b2aa9"
+  },
+  {
+    "id": "oldDistributors-cic-video",
+    "name": "cic-video",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cic-video.webp",
+    "file": "oldDistributors-cic-video.webp",
+    "sha256": "b9bbdfaae16414d85bedce6eef8b2efd9dcd689a6819a9039b977b70848d7845"
+  },
+  {
+    "id": "oldDistributors-cinema",
+    "name": "cinema",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cinema.webp",
+    "file": "oldDistributors-cinema.webp",
+    "sha256": "2c1934a936f3ed55d9c60b65e73c5f8d66fa254881cb610caefd880784c2554f"
+  },
+  {
+    "id": "oldDistributors-citylights",
+    "name": "citylights",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/citylights.webp",
+    "file": "oldDistributors-citylights.webp",
+    "sha256": "f8d53d34c0ced58894873013a155d036c9886f125f5c8f98a2a879929bdbed3c"
+  },
+  {
+    "id": "oldDistributors-columbiahouse",
+    "name": "columbiahouse",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/columbiahouse.webp",
+    "file": "oldDistributors-columbiahouse.webp",
+    "sha256": "0c374a4aef4ac8030d696739b0534107d7f4fa8e622d58977258d2076c11b6a7"
+  },
+  {
+    "id": "oldDistributors-continental",
+    "name": "continental",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/continental.webp",
+    "file": "oldDistributors-continental.webp",
+    "sha256": "60815f4e25917b1ad88cb15c0e308271ff416f2a91cb11e8e2194d12a0613a4e"
+  },
+  {
+    "id": "oldDistributors-cultvideo",
+    "name": "cultvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/cultvideo.webp",
+    "file": "oldDistributors-cultvideo.webp",
+    "sha256": "a90d9fbe6434c96cfca23fde9836626110df4d1e51b908d7e850b86baa2e8351"
+  },
+  {
+    "id": "oldDistributors-dimension",
+    "name": "dimension",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/dimension.webp",
+    "file": "oldDistributors-dimension.webp",
+    "sha256": "d7ec31e98cfeb60c68745b1420eec8cd874ae668887795673d5189ba5c067862"
+  },
+  {
+    "id": "oldDistributors-evc",
+    "name": "evc",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/evc.webp",
+    "file": "oldDistributors-evc.webp",
+    "sha256": "74a906f1579b687ca11e1eaa070ada6fb868617008139cf59843e10f96e46946"
+  },
+  {
+    "id": "oldDistributors-evc2",
+    "name": "evc2",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/evc2.webp",
+    "file": "oldDistributors-evc2.webp",
+    "sha256": "9c6fb69f40fa1f401316f1ce32b3a5d655a588682f59654d8f84ebfe07c5507f"
+  },
+  {
+    "id": "oldDistributors-fox-kids",
+    "name": "fox-kids",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/fox-kids.webp",
+    "file": "oldDistributors-fox-kids.webp",
+    "sha256": "719bf514a40f3f2d7edae919b750f54ef2bde4a839c0d2d05a0a16705b7442a0"
+  },
+  {
+    "id": "oldDistributors-fox",
+    "name": "fox",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/fox.webp",
+    "file": "oldDistributors-fox.webp",
+    "sha256": "3912d423ef615f5e9c62ac50ba2386d823a91f3d690ea902de8f1972ec304a7c"
+  },
+  {
+    "id": "oldDistributors-fox20",
+    "name": "fox20",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/fox20.webp",
+    "file": "oldDistributors-fox20.webp",
+    "sha256": "7ea481a88cd3be0fc63e93ecf02d24b9362f11b5dcca29ae717efad1d7db2891"
+  },
+  {
+    "id": "oldDistributors-foxvideo",
+    "name": "foxvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/foxvideo.webp",
+    "file": "oldDistributors-foxvideo.webp",
+    "sha256": "c20ffb24f455a55c47e64ffe851081ea38774f2405efb5f7754e1411e92c03dd"
+  },
+  {
+    "id": "oldDistributors-gorgon",
+    "name": "gorgon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/gorgon.webp",
+    "file": "oldDistributors-gorgon.webp",
+    "sha256": "735cd664e4707a44b210f7eef2cc35bdcc0b158b73a3b31d274fa86c80cf99e4"
+  },
+  {
+    "id": "oldDistributors-guild",
+    "name": "guild",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/guild.webp",
+    "file": "oldDistributors-guild.webp",
+    "sha256": "2d65d3dd617b71a81b9ac6b30ceed0d66fb2c58b6f763a2695c215318ce80836"
+  },
+  {
+    "id": "oldDistributors-hbo",
+    "name": "hbo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/hbo.webp",
+    "file": "oldDistributors-hbo.webp",
+    "sha256": "e6ef67ab9583912bf777915e96b20d0632a7610cb7541e57345e912e2617e01c"
+  },
+  {
+    "id": "oldDistributors-hollywoodpictures",
+    "name": "hollywoodpictures",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/hollywoodpictures.webp",
+    "file": "oldDistributors-hollywoodpictures.webp",
+    "sha256": "da3e06ee420c95ce5e14f9388edc5a121802d50d3d7350fa4a1eb1bca5286cb8"
+  },
+  {
+    "id": "oldDistributors-interglobal",
+    "name": "interglobal",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/interglobal.webp",
+    "file": "oldDistributors-interglobal.webp",
+    "sha256": "1fe1ef97309ea54aa8139c54ca052b51ec640935f53b71131ec58c5d76d7c276"
+  },
+  {
+    "id": "oldDistributors-keyvideo",
+    "name": "keyvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/keyvideo.webp",
+    "file": "oldDistributors-keyvideo.webp",
+    "sha256": "0ece10c90f17f92fa1015f6bc943c85f50127441dbde51b2eec1aa6d1410e9c4"
+  },
+  {
+    "id": "oldDistributors-lightning",
+    "name": "lightning",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/lightning.webp",
+    "file": "oldDistributors-lightning.webp",
+    "sha256": "19800dd4f2294f556c41089b98642058a16e6ebfa96d5d7853e9aef3868edfef"
+  },
+  {
+    "id": "oldDistributors-live",
+    "name": "live",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/live.webp",
+    "file": "oldDistributors-live.webp",
+    "sha256": "5ef7589ecf0cec0006d743495783601f9d2926f3766788ae3027c82d4648fa65"
+  },
+  {
+    "id": "oldDistributors-locus",
+    "name": "locus",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/locus.webp",
+    "file": "oldDistributors-locus.webp",
+    "sha256": "a3eaca1e54925b4bec5dbe32658dabf6f61a9ad191fa11d931014f74d9b91d08"
+  },
+  {
+    "id": "oldDistributors-lorimar",
+    "name": "lorimar",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/lorimar.webp",
+    "file": "oldDistributors-lorimar.webp",
+    "sha256": "38986bcdacfec14ad6d2f8dc32e58818b301ce0ea75c97e02e538473ccb88e55"
+  },
+  {
+    "id": "oldDistributors-magnum",
+    "name": "magnum",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/magnum.webp",
+    "file": "oldDistributors-magnum.webp",
+    "sha256": "3a29f041852da6650d4df654766f08ade951b9179f97d1a47b2f7d4221db62aa"
+  },
+  {
+    "id": "oldDistributors-malo-video",
+    "name": "malo-video",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/malo-video.webp",
+    "file": "oldDistributors-malo-video.webp",
+    "sha256": "bef7ac3aac4e1f6a7c0c341e8420d9ea910835f7cbe98183d256b807be6c0897"
+  },
+  {
+    "id": "oldDistributors-manga",
+    "name": "manga",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/manga.webp",
+    "file": "oldDistributors-manga.webp",
+    "sha256": "ea866279289074cc8635a910e459a7d4a13d1007cce7a5d6cccb5f2f439a20c8"
+  },
+  {
+    "id": "oldDistributors-mangaman",
+    "name": "mangaman",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mangaman.webp",
+    "file": "oldDistributors-mangaman.webp",
+    "sha256": "c9fd057e21bf41eaafb2ce96f422978f03bf33b80586d822cdb36bdd90bd9ecb"
+  },
+  {
+    "id": "oldDistributors-mangavideo",
+    "name": "mangavideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mangavideo!.webp",
+    "file": "oldDistributors-mangavideo.webp",
+    "sha256": "e088dc6a4d7360ed653f88e5898befd8e82953be67b4f06f5242c72343fa69ee"
+  },
+  {
+    "id": "oldDistributors-marathon",
+    "name": "marathon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/marathon.webp",
+    "file": "oldDistributors-marathon.webp",
+    "sha256": "fb2236438b7c4f78c90b648a28315a2b124ac9410d394b490131c2b0460eeaff"
+  },
+  {
+    "id": "oldDistributors-master",
+    "name": "master",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/master.webp",
+    "file": "oldDistributors-master.webp",
+    "sha256": "11da3d00042211c58bcb3248bedd7605452b121a6784e58fb474cca2d3c891a8"
+  },
+  {
+    "id": "oldDistributors-mca",
+    "name": "mca",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mca.webp",
+    "file": "oldDistributors-mca.webp",
+    "sha256": "35c2307dd2427b40d80109654c42daf9a62cab407212ccbc072ed7ca34dbeff1"
+  },
+  {
+    "id": "oldDistributors-media",
+    "name": "media",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/media.webp",
+    "file": "oldDistributors-media.webp",
+    "sha256": "3a22baeb57a85ef220853b8f496a872dff9152602b69978fc166af261d730a09"
+  },
+  {
+    "id": "oldDistributors-mediachrome",
+    "name": "mediachrome",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mediachrome.webp",
+    "file": "oldDistributors-mediachrome.webp",
+    "sha256": "81ff262bf566ff4baa7497179eb1cc0979fa9f69831eee73a545e5b5cd65ada6"
+  },
+  {
+    "id": "oldDistributors-mediachrome2",
+    "name": "mediachrome2",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mediachrome2.webp",
+    "file": "oldDistributors-mediachrome2.webp",
+    "sha256": "05a37dd5632c5996b8ced47a92705386b3fdc96a63d5f68a074c525c0ac41d4a"
+  },
+  {
+    "id": "oldDistributors-mediaglow",
+    "name": "mediaglow",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mediaglow.webp",
+    "file": "oldDistributors-mediaglow.webp",
+    "sha256": "4a59c546f9d2d4666452fefba83cb1c44e19e7c6a36f139f124fa3a126ae85f5"
+  },
+  {
+    "id": "oldDistributors-mgmua",
+    "name": "mgmua",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mgmua.webp",
+    "file": "oldDistributors-mgmua.webp",
+    "sha256": "25408a909502ddb2bc0b890a5ed1ae4b84e5d54cef1c427d0b2ced5e2710196c"
+  },
+  {
+    "id": "oldDistributors-mhv",
+    "name": "mhv",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mhv.webp",
+    "file": "oldDistributors-mhv.webp",
+    "sha256": "8f1ebda0ac24b74b2613a6ad53ff489be47d62ec4c0a054d72220b8efc868586"
+  },
+  {
+    "id": "oldDistributors-midnight",
+    "name": "midnight",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/midnight.webp",
+    "file": "oldDistributors-midnight.webp",
+    "sha256": "9a0b3e4bb533f409e5cfc3c092d43a73634e286048ea1f952b5795a172316b07"
+  },
+  {
+    "id": "oldDistributors-mogul",
+    "name": "mogul",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/mogul.webp",
+    "file": "oldDistributors-mogul.webp",
+    "sha256": "aa582a47dc0ea985074cc715e199aca72ad4014307a30a1dc9456d5fdd0f387e"
+  },
+  {
+    "id": "oldDistributors-neon",
+    "name": "neon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/neon.webp",
+    "file": "oldDistributors-neon.webp",
+    "sha256": "f5e1ae87d576526a635edb51abe98f8ed594f7a56ca8a285f4a2c3a065c261fe"
+  },
+  {
+    "id": "oldDistributors-newhorizons",
+    "name": "newhorizons",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/newhorizons.webp",
+    "file": "oldDistributors-newhorizons.webp",
+    "sha256": "b5a335cd3a3b7d1826db10a181b72272c0590702e745687743534fa158e6dfd9"
+  },
+  {
+    "id": "oldDistributors-newworld",
+    "name": "newworld",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/newworld.webp",
+    "file": "oldDistributors-newworld.webp",
+    "sha256": "46cae46ed01c9650f8a66467ecbb4fa4ff78d826b6e9bb1ed6c30181d8bfd06d"
+  },
+  {
+    "id": "oldDistributors-norstar",
+    "name": "norstar",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/norstar.webp",
+    "file": "oldDistributors-norstar.webp",
+    "sha256": "0cc9c7a72d05421405e17c7e6ddc168258e2dd76a2c104ce0ff67226dd68f169"
+  },
+  {
+    "id": "oldDistributors-orion",
+    "name": "orion",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/orion.webp",
+    "file": "oldDistributors-orion.webp",
+    "sha256": "d22240720092b916a827850749e0d4166f81a0c5b127882485b7e4cdb0b34259"
+  },
+  {
+    "id": "oldDistributors-paragon",
+    "name": "paragon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/paragon.webp",
+    "file": "oldDistributors-paragon.webp",
+    "sha256": "7aeb016aad8d14df6a5bfd56201ef18ded48704d24d624e85450f00a2604b4b5"
+  },
+  {
+    "id": "oldDistributors-paramount",
+    "name": "paramount",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/paramount.webp",
+    "file": "oldDistributors-paramount.webp",
+    "sha256": "87ce710af05cf3adfee7fd2c8416daccf181f0ed4745ac236cc5a3ad5fe7f48e"
+  },
+  {
+    "id": "oldDistributors-planetvideo",
+    "name": "planetvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/planetvideo.webp",
+    "file": "oldDistributors-planetvideo.webp",
+    "sha256": "30c0697c6295cd5acd5e85af29c75a85eb2697c6ee9449a9d1ab31d1ecd62ab6"
+  },
+  {
+    "id": "oldDistributors-prism",
+    "name": "prism",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/prism.webp",
+    "file": "oldDistributors-prism.webp",
+    "sha256": "96e03914b13853ddc431f33ddb4e0bf7b3290ccc7c5cde16f8f404330cf2f553"
+  },
+  {
+    "id": "oldDistributors-raedon",
+    "name": "raedon",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/raedon.webp",
+    "file": "oldDistributors-raedon.webp",
+    "sha256": "2b34d6f3dd41e853d5e6c7c2661f1177d87cb6bc37744b03cda6bca29ed6058d"
+  },
+  {
+    "id": "oldDistributors-rca",
+    "name": "rca",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/rca.webp",
+    "file": "oldDistributors-rca.webp",
+    "sha256": "9283bc639d20dc9b25419de476f28960671e1029084e2b97ba574af7328482e0"
+  },
+  {
+    "id": "oldDistributors-rcacolumbia",
+    "name": "rcacolumbia",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/rcacolumbia!.webp",
+    "file": "oldDistributors-rcacolumbia.webp",
+    "sha256": "f77c776b6717e134338c7cf8eee7f9a1c6b591b723c14f0b500fc4ac4cc9b433"
+  },
+  {
+    "id": "oldDistributors-regal",
+    "name": "regal",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/regal.webp",
+    "file": "oldDistributors-regal.webp",
+    "sha256": "7280cf0e31e89a29ae8a0ee308707d4e02f70d3310aa139deb1c8459f7ee073b"
+  },
+  {
+    "id": "oldDistributors-repub",
+    "name": "repub",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/repub.webp",
+    "file": "oldDistributors-repub.webp",
+    "sha256": "6cba099745068dc651a36669830de54990233efc325d132845cf19d6b2e80d93"
+  },
+  {
+    "id": "oldDistributors-rko",
+    "name": "rko",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/rko.webp",
+    "file": "oldDistributors-rko.webp",
+    "sha256": "15b499a96fa7c0ff7e734d2f9557be496513b307f7d7d3173dd3700cbe8a39f8"
+  },
+  {
+    "id": "oldDistributors-roadshow",
+    "name": "roadshow",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/roadshow.webp",
+    "file": "oldDistributors-roadshow.webp",
+    "sha256": "94d85c800c73ab841a83d667a2b285b91e714533b5c56dfbcece1a975beadba0"
+  },
+  {
+    "id": "oldDistributors-selectvideo",
+    "name": "selectvideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/selectvideo.webp",
+    "file": "oldDistributors-selectvideo.webp",
+    "sha256": "fb74f3d9bff0acf609da85c15c833e5af22e729c57cf666294eff1432f5de4d6"
+  },
+  {
+    "id": "oldDistributors-simitar",
+    "name": "simitar",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/simitar.webp",
+    "file": "oldDistributors-simitar.webp",
+    "sha256": "569e626559aaf61560640417f990b24aee33a99839f8427ed7406ed114f787f7"
+  },
+  {
+    "id": "oldDistributors-simitar2",
+    "name": "simitar2",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/simitar2.webp",
+    "file": "oldDistributors-simitar2.webp",
+    "sha256": "ae7fe6edad2a62cd087df4bde58b835c08e7dafbc13754472434466d3934be3d"
+  },
+  {
+    "id": "oldDistributors-starmaker",
+    "name": "starmaker",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/starmaker.webp",
+    "file": "oldDistributors-starmaker.webp",
+    "sha256": "117673872bdbc03a85bdc94667247b7d6ec151b2b1d963a7b084b483586497ff"
+  },
+  {
+    "id": "oldDistributors-sun-video-logo",
+    "name": "sun-video-logo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/sun-video-logo.webp",
+    "file": "oldDistributors-sun-video-logo.webp",
+    "sha256": "93c0d87364e3617059b1eb1dcb04669e3079a05ecd1a1ab20cf62c25e005c493"
+  },
+  {
+    "id": "oldDistributors-supervideo",
+    "name": "supervideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/supervideo.webp",
+    "file": "oldDistributors-supervideo.webp",
+    "sha256": "48174cde9afbac8f71fc30bed065cbcf18cfb4bdbaa4e1d298613e3239d109b7"
+  },
+  {
+    "id": "oldDistributors-thornemi",
+    "name": "thornemi",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/thornemi.webp",
+    "file": "oldDistributors-thornemi.webp",
+    "sha256": "9f7c4becd74da48b04de2ed5ff896615c80c2458b49ab9f149eae7fe2c2c0a21"
+  },
+  {
+    "id": "oldDistributors-touchstone",
+    "name": "touchstone",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/touchstone.webp",
+    "file": "oldDistributors-touchstone.webp",
+    "sha256": "e45abfa4b7b65a2c0d97d5f5edb3d65235172a4c38f5c550ccb68e30f09982ce"
+  },
+  {
+    "id": "oldDistributors-transworld",
+    "name": "transworld",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/transworld.webp",
+    "file": "oldDistributors-transworld.webp",
+    "sha256": "b2f728403a3d01127248229c0d1e4df7c8b841446b20e3ea1bbc1def8b3b7741"
+  },
+  {
+    "id": "oldDistributors-turner",
+    "name": "turner",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/turner.webp",
+    "file": "oldDistributors-turner.webp",
+    "sha256": "cb3b1c7f0ca15ef3e419eb318fb9b123980721c44ab41294cdddfd90ff6b696e"
+  },
+  {
+    "id": "oldDistributors-unicorn",
+    "name": "unicorn",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/unicorn.webp",
+    "file": "oldDistributors-unicorn.webp",
+    "sha256": "86f639a327207dfdc5267b4e13443bdb9ff2d8eed553a8d29af1717707315914"
+  },
+  {
+    "id": "oldDistributors-united",
+    "name": "united",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/united.webp",
+    "file": "oldDistributors-united.webp",
+    "sha256": "bb96aab98e9a8b0b2536bf35b4d55890c18ed7984572269b2ae81dfd107c4c31"
+  },
+  {
+    "id": "oldDistributors-unitedamerican-1",
+    "name": "unitedamerican-1",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/unitedamerican-1.webp",
+    "file": "oldDistributors-unitedamerican-1.webp",
+    "sha256": "edf487ace5a708cbd7b4695b7b6c66a01482e132047ea6f88c23ce748f848364"
+  },
+  {
+    "id": "oldDistributors-unitedamerican-2",
+    "name": "unitedamerican-2",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/unitedamerican-2.webp",
+    "file": "oldDistributors-unitedamerican-2.webp",
+    "sha256": "79c213950d445a0e694553e55cd01aa1be7792b74b29d9b08d1462e2ae023a64"
+  },
+  {
+    "id": "oldDistributors-unitedartists",
+    "name": "unitedartists",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/unitedartists.webp",
+    "file": "oldDistributors-unitedartists.webp",
+    "sha256": "105e39498cbd71542aa693447ee1818ef1393b46852af4ce1238ccfa74bbbdcd"
+  },
+  {
+    "id": "oldDistributors-vcii",
+    "name": "vcii",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vcii.webp",
+    "file": "oldDistributors-vcii.webp",
+    "sha256": "99b61ba98ea33029425ac7b450be492cd44e87ae23f2ea5b42cb3e959860f375"
+  },
+  {
+    "id": "oldDistributors-vcr",
+    "name": "vcr",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vcr.webp",
+    "file": "oldDistributors-vcr.webp",
+    "sha256": "ae2d102cb96d4257def40fa448c3cdc65f8b707d31ab605d1ec000a4a10d6980"
+  },
+  {
+    "id": "oldDistributors-vestron-1",
+    "name": "vestron-1",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vestron-1.webp",
+    "file": "oldDistributors-vestron-1.webp",
+    "sha256": "0c30fe03e30c77a355c82ac29e6e5d8b7b5ee389fc979f43272c610cb448e1c5"
+  },
+  {
+    "id": "oldDistributors-vestron-2",
+    "name": "vestron-2",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vestron-2.webp",
+    "file": "oldDistributors-vestron-2.webp",
+    "sha256": "0294839984ec0cc6e1d5ebdd197dac697520b52a141232baa94d65209fb9e25f"
+  },
+  {
+    "id": "oldDistributors-vestron",
+    "name": "vestron",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vestron.webp",
+    "file": "oldDistributors-vestron.webp",
+    "sha256": "b57a5ca7fdff8239a5b25b70fb98086bd342d4375abd198769254efc3dd5ddf7"
+  },
+  {
+    "id": "oldDistributors-vidamerica",
+    "name": "vidamerica",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vidamerica.webp",
+    "file": "oldDistributors-vidamerica.webp",
+    "sha256": "595619b0c40ccebbb8e303b8de2f2a91d3a95478683c393ef7119dc3f41eaa8f"
+  },
+  {
+    "id": "oldDistributors-vidcrest",
+    "name": "vidcrest",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vidcrest.webp",
+    "file": "oldDistributors-vidcrest.webp",
+    "sha256": "e88a6e532c01b6746f5fc8e6866f0c4098a623d525ce3178f0facc0d582b800f"
+  },
+  {
+    "id": "oldDistributors-videogems",
+    "name": "videogems",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/videogems.webp",
+    "file": "oldDistributors-videogems.webp",
+    "sha256": "60ecb5f31b5a3985f42ac1e7ca6e12ae40e0afb90a3a51565b0f0d4207732f2f"
+  },
+  {
+    "id": "oldDistributors-videotreasures",
+    "name": "videotreasures",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/videotreasures.webp",
+    "file": "oldDistributors-videotreasures.webp",
+    "sha256": "873dca01d235ede3b6d5b12a9c23d568845ce335503181cc9ae6c198aca322f5"
+  },
+  {
+    "id": "oldDistributors-vidmark",
+    "name": "vidmark",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vidmark.webp",
+    "file": "oldDistributors-vidmark.webp",
+    "sha256": "42c25062388f55eba642a653b3d2420500685a65317415b2abb11b96c9b808a5"
+  },
+  {
+    "id": "oldDistributors-viking",
+    "name": "viking",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/viking.webp",
+    "file": "oldDistributors-viking.webp",
+    "sha256": "a56762f396c4e6f64cf049b2db917b4d5493ebc56e61400660e644fc94ab3e35"
+  },
+  {
+    "id": "oldDistributors-vintagevideo",
+    "name": "vintagevideo",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vintagevideo.webp",
+    "file": "oldDistributors-vintagevideo.webp",
+    "sha256": "8c081cff9cf91b64fd888d1d7d4ab5353769b2317ee07204a4821b7d75c454c4"
+  },
+  {
+    "id": "oldDistributors-vipco",
+    "name": "vipco",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/vipco.webp",
+    "file": "oldDistributors-vipco.webp",
+    "sha256": "4d28561d794e0fbddf9844308e5ef44b49c50fc4c59151a99d849d050771f29e"
+  },
+  {
+    "id": "oldDistributors-virgin",
+    "name": "virgin",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/virgin.webp",
+    "file": "oldDistributors-virgin.webp",
+    "sha256": "5240907c56cff25237c0cc978f76d7901cf448c5357601d1521d4cd5f27273c0"
+  },
+  {
+    "id": "oldDistributors-warner",
+    "name": "warner",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/warner.webp",
+    "file": "oldDistributors-warner.webp",
+    "sha256": "f7dcbf9563d6e66c76d12b35ac047601d5dde88dd486973d012a29b55ffa07d6"
+  },
+  {
+    "id": "oldDistributors-wizardvid",
+    "name": "wizardvid",
+    "category": "发行商徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/oldDistributors/wizardvid.webp",
+    "file": "oldDistributors-wizardvid.webp",
+    "sha256": "54a68ce4dfaf509f53169867db6fd4fc3e56a28166d1eff6f53b4dce500e860e"
+  },
+  {
+    "id": "priceTags-1hole",
+    "name": "1hole",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/1hole.webp",
+    "file": "priceTags-1hole.webp",
+    "sha256": "bc9d83797c7f3286274defda651e2b4991d7327e0c8b3f3fb657bb1ca8649374"
+  },
+  {
+    "id": "priceTags-3dolla",
+    "name": "3dolla",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/3dolla.webp",
+    "file": "priceTags-3dolla.webp",
+    "sha256": "90e1147fe4410e5d25e305325996d6e4a4ab4f24214606195f9aee9ca62b524c"
+  },
+  {
+    "id": "priceTags-4",
+    "name": "4",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/4.webp",
+    "file": "priceTags-4.webp",
+    "sha256": "d8e095d4347216b953b34557f83bb6bb81ae530145b0dab5241839d37bc1809a"
+  },
+  {
+    "id": "priceTags-5",
+    "name": "5",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/5.webp",
+    "file": "priceTags-5.webp",
+    "sha256": "b53691d95fe7557e8870b939f3aa72a73425369c698d4c7dee3698c8c9334372"
+  },
+  {
+    "id": "priceTags-5purple",
+    "name": "5purple",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/5purple.webp",
+    "file": "priceTags-5purple.webp",
+    "sha256": "5f6765716ce502fc16877f4d9ce9b914e5f5f013729e162ce5c1c5662ed501e1"
+  },
+  {
+    "id": "priceTags-49",
+    "name": "49",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/49.webp",
+    "file": "priceTags-49.webp",
+    "sha256": "1bd106adbf7aa542c8c323b9a59fd471967a4fc9053902f068df0fb27813e319"
+  },
+  {
+    "id": "priceTags-66",
+    "name": "66",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/66.webp",
+    "file": "priceTags-66.webp",
+    "sha256": "1153cb3a4a4e1696bca0fe853c0419d330ecdc1ea203030ebfe165a877a95ff5"
+  },
+  {
+    "id": "priceTags-299",
+    "name": "299",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/299.webp",
+    "file": "priceTags-299.webp",
+    "sha256": "29f7c79e9ae94a285230260c85c85f374902b2dd3ccfa23d479d364552ff0187"
+  },
+  {
+    "id": "priceTags-795",
+    "name": "795",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/795.webp",
+    "file": "priceTags-795.webp",
+    "sha256": "1e80701bd014f81de0018cef7212f1e6a4a298878c8f45a028b468d29a4a9bd9"
+  },
+  {
+    "id": "priceTags-999",
+    "name": "999",
+    "category": "价格贴纸",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/priceTags/999.webp",
+    "file": "priceTags-999.webp",
+    "sha256": "ebb20ded59c3a92a724048736746a8771325bef3a4df3a260c32bbec850e9302"
+  },
+  {
+    "id": "shapes-01-square",
+    "name": "square",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/01-square.webp",
+    "file": "shapes-01-square.webp",
+    "sha256": "a1e42945ad05175e30a38fbf8495876ae904d90f7df4ef44d598db476c78f255"
+  },
+  {
+    "id": "shapes-02-rectangle",
+    "name": "rectangle",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/02-rectangle.webp",
+    "file": "shapes-02-rectangle.webp",
+    "sha256": "bce4ca519bbd7fd4ce2f2af193403935643daa11930585939f4b59af623a93ff"
+  },
+  {
+    "id": "shapes-03-circle",
+    "name": "circle",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/03-circle.webp",
+    "file": "shapes-03-circle.webp",
+    "sha256": "37ddf9938117f1d582494e9553a538736870788195f296b02338bf7cba9a3a97"
+  },
+  {
+    "id": "shapes-04-rounded-rectangle",
+    "name": "rounded-rectangle",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/04-rounded-rectangle.webp",
+    "file": "shapes-04-rounded-rectangle.webp",
+    "sha256": "84542299e3165695ab2a073b7b6d2557b674d21012b2a49848205009d7a16116"
+  },
+  {
+    "id": "shapes-arrow",
+    "name": "arrow",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/arrow.webp",
+    "file": "shapes-arrow.webp",
+    "sha256": "8cfe7de5bc6fea43379f4385b87b23ecae4cec4ff17e1a9f0ab69a52d48f97f6"
+  },
+  {
+    "id": "shapes-bolt",
+    "name": "bolt",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/bolt.webp",
+    "file": "shapes-bolt.webp",
+    "sha256": "0e52534b2671bc826a419643cc5d93031e6f47dbf1be7ecf910b8f5d09c6e022"
+  },
+  {
+    "id": "shapes-brackets",
+    "name": "brackets",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/brackets.webp",
+    "file": "shapes-brackets.webp",
+    "sha256": "6f1380358527e295d3143afcca9f37c3ed84cdfa11ca23521d630dd9705fac93"
+  },
+  {
+    "id": "shapes-burst",
+    "name": "burst",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/burst.webp",
+    "file": "shapes-burst.webp",
+    "sha256": "21927e4734509237a6be94ffe8a635870c23adf2c1cf90cbbf53f77f6a45da95"
+  },
+  {
+    "id": "shapes-checkmark",
+    "name": "checkmark",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/checkmark.webp",
+    "file": "shapes-checkmark.webp",
+    "sha256": "c74a5a42adf80ecc2826d662546005d73587b33f836af8798744cb02fd485161"
+  },
+  {
+    "id": "shapes-chevron",
+    "name": "chevron",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/chevron.webp",
+    "file": "shapes-chevron.webp",
+    "sha256": "014f82960320dae8dbcfe70ecda510dc8295a1d045bcf88532b05c59a9205a89"
+  },
+  {
+    "id": "shapes-cloud",
+    "name": "cloud",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/cloud.webp",
+    "file": "shapes-cloud.webp",
+    "sha256": "e100b5bfeb93a3828254468fdb64c050a43bf245c84c9d150f9bbba278eee7e4"
+  },
+  {
+    "id": "shapes-cross",
+    "name": "cross",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/cross.webp",
+    "file": "shapes-cross.webp",
+    "sha256": "4dc8ce54bb7b510f8bad99aa76f7db69ee049cd72c195234d0302bbb6563d6df"
+  },
+  {
+    "id": "shapes-crown",
+    "name": "crown",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/crown.webp",
+    "file": "shapes-crown.webp",
+    "sha256": "b9dd4c7b46f16b9b32e9fbbc25e36e3384a820003c5c54a2ebdc54de2d14bf42"
+  },
+  {
+    "id": "shapes-dashed-line",
+    "name": "dashed-line",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/dashed-line.webp",
+    "file": "shapes-dashed-line.webp",
+    "sha256": "90e9154bd3c831b21369881ede310650fa2a70a54545c8c68bd437d23ec667cd"
+  },
+  {
+    "id": "shapes-diamond",
+    "name": "diamond",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/diamond.webp",
+    "file": "shapes-diamond.webp",
+    "sha256": "7d270b32ccef1738bc29962d24434fa12ecf9a800dccc2a99d36a42b831a9e77"
+  },
+  {
+    "id": "shapes-dotted-line",
+    "name": "dotted-line",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/dotted-line.webp",
+    "file": "shapes-dotted-line.webp",
+    "sha256": "c8a5b5088bfde4d83979d47f5ef02367c76cba1e553654e637297ed84234e7c0"
+  },
+  {
+    "id": "shapes-double-arrow",
+    "name": "double-arrow",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/double-arrow.webp",
+    "file": "shapes-double-arrow.webp",
+    "sha256": "c933f8045b4bf060a5d26a32a27635246f0cff66ab671238690097fee74b436c"
+  },
+  {
+    "id": "shapes-drop",
+    "name": "drop",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/drop.webp",
+    "file": "shapes-drop.webp",
+    "sha256": "11d66df7df5683cfc33f069feb909dd3d6f7a9ed9961c8caccae8aefa30120a7"
+  },
+  {
+    "id": "shapes-five-stars",
+    "name": "five-stars",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/five-stars.webp",
+    "file": "shapes-five-stars.webp",
+    "sha256": "c0144cc4a4fde458c360c0cf6fb23b72fd44cd90c2b71edae83e535cb1a851a3"
+  },
+  {
+    "id": "shapes-frame",
+    "name": "frame",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/frame.webp",
+    "file": "shapes-frame.webp",
+    "sha256": "796738d7aede4d80e5867dad3706a2a61adba20c8aec5491aab28d52b245b639"
+  },
+  {
+    "id": "shapes-heart",
+    "name": "heart",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/heart.webp",
+    "file": "shapes-heart.webp",
+    "sha256": "1bf5099abd01cab81efceac2000b989bd354b963e4bfc07f774243d7b2545827"
+  },
+  {
+    "id": "shapes-hexagon-outline",
+    "name": "hexagon-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/hexagon-outline.webp",
+    "file": "shapes-hexagon-outline.webp",
+    "sha256": "8b077ab074610c1326cb1f9393d24e0c0fe6f236edfbadfb4358160d463c5fdd"
+  },
+  {
+    "id": "shapes-hexagon",
+    "name": "hexagon",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/hexagon.webp",
+    "file": "shapes-hexagon.webp",
+    "sha256": "2fa4c3a3b7b59ae6029fd422a1f28b5dafab8ad0fe9fd280c7512e1ee0eb7d3d"
+  },
+  {
+    "id": "shapes-line",
+    "name": "line",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/line.webp",
+    "file": "shapes-line.webp",
+    "sha256": "9eb0403835ec1d3f4df3b29c249910b51b6e794ccbdf7b5d750297263964d5b9"
+  },
+  {
+    "id": "shapes-moon",
+    "name": "moon",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/moon.webp",
+    "file": "shapes-moon.webp",
+    "sha256": "b5b7349b6f3e044493afe4c365c65eb3be972c62ecf88529a06f07510c53b023"
+  },
+  {
+    "id": "shapes-octagon",
+    "name": "octagon",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/octagon.webp",
+    "file": "shapes-octagon.webp",
+    "sha256": "4eb33f0417fd2f5e730dcd84839f2d5b1c6cc87de0c5a8a4018300d231700744"
+  },
+  {
+    "id": "shapes-oval-outline",
+    "name": "oval-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/oval-outline.webp",
+    "file": "shapes-oval-outline.webp",
+    "sha256": "0986705ebc8e547209d0ee932956311023e5c2504911f02d751e749d79f046b7"
+  },
+  {
+    "id": "shapes-oval",
+    "name": "oval",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/oval.webp",
+    "file": "shapes-oval.webp",
+    "sha256": "13b028b8f0e607a96c4f93eae1bfd87310562f630549c8365b6651299b944322"
+  },
+  {
+    "id": "shapes-pennant",
+    "name": "pennant",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/pennant.webp",
+    "file": "shapes-pennant.webp",
+    "sha256": "7eb44bf1549b19e3c3794ca6781a531b8868a484c3c42bcc2f04080aec99c49f"
+  },
+  {
+    "id": "shapes-pentagon",
+    "name": "pentagon",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/pentagon.webp",
+    "file": "shapes-pentagon.webp",
+    "sha256": "795d9102a054c682458d774f57e49d4906ed8ae444d377ed3b2c513ad0713fc4"
+  },
+  {
+    "id": "shapes-pill-outline",
+    "name": "pill-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/pill-outline.webp",
+    "file": "shapes-pill-outline.webp",
+    "sha256": "aa2cd0993b8dabd1386165918b50487d0e7d3d7bded5e1caa26aecb10fbcba5e"
+  },
+  {
+    "id": "shapes-pill",
+    "name": "pill",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/pill.webp",
+    "file": "shapes-pill.webp",
+    "sha256": "0201917d4bfc5bf9d7cdf413039f536407e8c7723cc0412103e4b5aaf9bde42d"
+  },
+  {
+    "id": "shapes-plus",
+    "name": "plus",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/plus.webp",
+    "file": "shapes-plus.webp",
+    "sha256": "d963e6f9da59810c59fe8e5d3c7202d7b8c14916ac109286573f3e516df6f754"
+  },
+  {
+    "id": "shapes-price-flag",
+    "name": "price-flag",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/price-flag.webp",
+    "file": "shapes-price-flag.webp",
+    "sha256": "626961629bb88d60de90c2531645c5d036ba361807c1daf5a59a4992e21af85f"
+  },
+  {
+    "id": "shapes-rectangle-outline",
+    "name": "rectangle-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/rectangle-outline.webp",
+    "file": "shapes-rectangle-outline.webp",
+    "sha256": "a397f08ba5b3d61812f51ed024a866e914df21099886ec517132d7fadcd81983"
+  },
+  {
+    "id": "shapes-ribbon",
+    "name": "ribbon",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/ribbon.webp",
+    "file": "shapes-ribbon.webp",
+    "sha256": "656efecd9d2b1fc7bf40c7869846b43277cfd70dc8e74d72b1c2ecfd730a7348"
+  },
+  {
+    "id": "shapes-ring",
+    "name": "ring",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/ring.webp",
+    "file": "shapes-ring.webp",
+    "sha256": "6ceaf67a6057891155b9d6e57672d7900cdeaea6cf5824cc7891b78162f91cbd"
+  },
+  {
+    "id": "shapes-rounded-rectangle-outline",
+    "name": "rounded-rectangle-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/rounded-rectangle-outline.webp",
+    "file": "shapes-rounded-rectangle-outline.webp",
+    "sha256": "b85402d3e07df33a80ae6ff5775a232b1bf889d808eb948da2e791ca3e8e64c5"
+  },
+  {
+    "id": "shapes-rounded-square-outline",
+    "name": "rounded-square-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/rounded-square-outline.webp",
+    "file": "shapes-rounded-square-outline.webp",
+    "sha256": "b78027b1a008ef8f1e475eb763f4fe420f837130642f093f7e157e2a29d6b1a4"
+  },
+  {
+    "id": "shapes-rounded-square",
+    "name": "rounded-square",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/rounded-square.webp",
+    "file": "shapes-rounded-square.webp",
+    "sha256": "8fdb50fd6cecfc7bc78ffb8222c49c2cba1ed3184001d835f795897a23f662ad"
+  },
+  {
+    "id": "shapes-scallop",
+    "name": "scallop",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/scallop.webp",
+    "file": "shapes-scallop.webp",
+    "sha256": "7cdea70ac8f0e5cfb7940391d14d63d10a8882c6382f5088065ac0272cce6046"
+  },
+  {
+    "id": "shapes-seal-burst",
+    "name": "seal-burst",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/seal-burst!.webp",
+    "file": "shapes-seal-burst.webp",
+    "sha256": "348a53d3c2d2cc11d704def469b7a829d9dfbb379d6f76a6b9967802ddca8be4"
+  },
+  {
+    "id": "shapes-semicircle",
+    "name": "semicircle",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/semicircle.webp",
+    "file": "shapes-semicircle.webp",
+    "sha256": "fd4f3b963d80472fb347175ceb63d744d3aa8088a8e3f3a7de6032f7ff713953"
+  },
+  {
+    "id": "shapes-shield",
+    "name": "shield",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/shield.webp",
+    "file": "shapes-shield.webp",
+    "sha256": "7a9571c825359200a0bc722a3a5e830cb23383c46abce90c5a12d8b1698e28c7"
+  },
+  {
+    "id": "shapes-speech-bubble",
+    "name": "speech-bubble",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/speech-bubble.webp",
+    "file": "shapes-speech-bubble.webp",
+    "sha256": "50e0d7a8667bd331f0926301e6cd7ac608d572a474c59dfff4f75025f440f0da"
+  },
+  {
+    "id": "shapes-square-outline",
+    "name": "square-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/square-outline.webp",
+    "file": "shapes-square-outline.webp",
+    "sha256": "d44bd7335beeb64ed3bd16d2385c08f3b3360290899137eab61ec8af202fcc11"
+  },
+  {
+    "id": "shapes-star-4",
+    "name": "star-4",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/star-4.webp",
+    "file": "shapes-star-4.webp",
+    "sha256": "49681b52412d94154e07de1213bcf76ca81169bb7cf68b2c4c9d6315bf874a20"
+  },
+  {
+    "id": "shapes-star-6",
+    "name": "star-6",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/star-6.webp",
+    "file": "shapes-star-6.webp",
+    "sha256": "91dbb69f94b4e8bcb00db125ef36cdd4ae671a6c71ef43af0cd6bf52ebd7057d"
+  },
+  {
+    "id": "shapes-star-8",
+    "name": "star-8",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/star-8.webp",
+    "file": "shapes-star-8.webp",
+    "sha256": "7d80cd88d929c743220d8685b41c28cdd50cf8b2790e09ca4c9760776ac794cc"
+  },
+  {
+    "id": "shapes-star-outline",
+    "name": "star-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/star-outline.webp",
+    "file": "shapes-star-outline.webp",
+    "sha256": "105ead8eb4d9b8884c76c88d68230d37f64f7aff15663b1422543aa8c5606764"
+  },
+  {
+    "id": "shapes-star",
+    "name": "star",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/star.webp",
+    "file": "shapes-star.webp",
+    "sha256": "66e9e6959aab474dc3bdd050657111671f929bb59cb4d0d85730e5b21ae0f6ba"
+  },
+  {
+    "id": "shapes-sun",
+    "name": "sun",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/sun.webp",
+    "file": "shapes-sun.webp",
+    "sha256": "fde3069624c77236de21a4ee2f3909fb3e5e12352675caa6566f408184bcea7d"
+  },
+  {
+    "id": "shapes-swallowtail-banner",
+    "name": "swallowtail-banner",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/swallowtail-banner.webp",
+    "file": "shapes-swallowtail-banner.webp",
+    "sha256": "f531f7a736e93fb6dbd230ad08736f9599fac6bf95af3d4b2bfcdcc7afb1afbb"
+  },
+  {
+    "id": "shapes-tag",
+    "name": "tag",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/tag.webp",
+    "file": "shapes-tag.webp",
+    "sha256": "18c9e4d4a7c73d2f667fef497e5af3a0db6bdba006ac5ae4090be873b8aadef6"
+  },
+  {
+    "id": "shapes-ticket",
+    "name": "ticket",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/ticket.webp",
+    "file": "shapes-ticket.webp",
+    "sha256": "f4c4c9d3f91f0a9dc234cd8df873536f64e24f34b058e4d7f401d66a48b6e8c0"
+  },
+  {
+    "id": "shapes-triangle-outline",
+    "name": "triangle-outline",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/triangle-outline.webp",
+    "file": "shapes-triangle-outline.webp",
+    "sha256": "133b164b15b6260211029dc5906421bdd6fe35f1def8aba24ed88e43d00482d5"
+  },
+  {
+    "id": "shapes-triangle",
+    "name": "triangle",
+    "category": "装饰形状",
+    "kind": "decal",
+    "source": "https://vhs.texs.org/_decals/shapes/triangle.webp",
+    "file": "shapes-triangle.webp",
+    "sha256": "17c2727b21b878f968acf521bc1b0950737c1154b4dea284aeed9ed9d97391e8"
+  },
+  {
+    "id": "transparentBanners-digmastrans",
+    "name": "digmastrans",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/digmastrans.webp",
+    "file": "transparentBanners-digmastrans.webp",
+    "sha256": "be957e7fa1fbe56b543a809c259b1bd56908e426038b177d75fdeb126f8b9b98"
+  },
+  {
+    "id": "transparentBanners-digwhitran",
+    "name": "digwhitran",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/digwhitran!.webp",
+    "file": "transparentBanners-digwhitran.webp",
+    "sha256": "9403b5e0871f0a96de354d6122188853807a65e5e510edd9808f2022191b9ac2"
+  },
+  {
+    "id": "transparentBanners-platbantrans",
+    "name": "platbantrans",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/platbantrans.webp",
+    "file": "transparentBanners-platbantrans.webp",
+    "sha256": "439e7dc4450e0139e28082d67c004f5f73685fe854feede35ce0e7c390f9766c"
+  },
+  {
+    "id": "transparentBanners-platwhite",
+    "name": "platwhite",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/platwhite.webp",
+    "file": "transparentBanners-platwhite.webp",
+    "sha256": "3459e719d9255c2c0b4e454ff8c7ef48c9023bf2de90bf0e6b8eee529ba8e47c"
+  },
+  {
+    "id": "transparentBanners-specialedtrans",
+    "name": "specialedtrans",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/specialedtrans.webp",
+    "file": "transparentBanners-specialedtrans.webp",
+    "sha256": "f6d80e298d96cec93b2435544727938de1f3ab58b297921e0d0b8f06383af5b2"
+  },
+  {
+    "id": "transparentBanners-specrtrans",
+    "name": "specrtrans",
+    "category": "透明横幅",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_decals/transparentBanners/specrtrans.webp",
+    "file": "transparentBanners-specrtrans.webp",
+    "sha256": "898c262b5ce43be0b8a955d6d506e69eb8484eec281f787edaacd2853ee3911d"
+  },
+  {
+    "id": "media-logos-01",
+    "name": "VHS Hi-Fi Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-01.png",
+    "file": "media-logos-01.png",
+    "sha256": "d451031ca05e0ab26a0822cf78fb4c7b099b084e4c35743975eb72722cc41b51"
+  },
+  {
+    "id": "media-logos-02",
+    "name": "VHS Hi-Fi Dolby Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-02.png",
+    "file": "media-logos-02.png",
+    "sha256": "82aede3aa7fe2de0a47275c9a5624e7f06fb6fe123c3312ce12fcbb3d5697534"
+  },
+  {
+    "id": "media-logos-03",
+    "name": "VHS Hi-Fi 徽章",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-03.png",
+    "file": "media-logos-03.png",
+    "sha256": "00c600032274fbf771e18e8540be0225a569bd8df7dd7184331d24f8ac539839"
+  },
+  {
+    "id": "media-logos-04",
+    "name": "4K Ultra HD Dolby Surround",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-04.png",
+    "file": "media-logos-04.png",
+    "sha256": "da8bfef66f4f663c8977a2f15e1b8e0e9ad9c2d8ce6dd129b6dec97d64a14fb7"
+  },
+  {
+    "id": "media-logos-05",
+    "name": "HD DVD Dolby Stereo MPAA",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-05.png",
+    "file": "media-logos-05.png",
+    "sha256": "c44dd50423f2d49ef5a4912be631566ab3b19e7546374e292f1b47609091d735"
+  },
+  {
+    "id": "media-logos-06",
+    "name": "HD DVD Dolby Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-06.png",
+    "file": "media-logos-06.png",
+    "sha256": "0f8a3686a3864ea05f3cb53b703309d840e88d0c88d9a45ff243e99f88f6c7d7"
+  },
+  {
+    "id": "media-logos-07",
+    "name": "Blu-ray 4K Dolby Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-07.png",
+    "file": "media-logos-07.png",
+    "sha256": "417d0ee967c426ab4d1393ff52a989ede2406832d5526246849223b0f7bcaa61"
+  },
+  {
+    "id": "media-logos-08",
+    "name": "DVD Dolby Stereo 横版",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-08.png",
+    "file": "media-logos-08.png",
+    "sha256": "02b9fe38ddc7c26571f600be5d9477e3cf405dcdf1ff02a85fcb5404efc810f5"
+  },
+  {
+    "id": "media-logos-09",
+    "name": "DVD Dolby Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-09.png",
+    "file": "media-logos-09.png",
+    "sha256": "7d1f8434470324e21e2284c3ef5c91449a9fd4b73baa27b2a6b300dd9fc765e7"
+  },
+  {
+    "id": "media-logos-10",
+    "name": "Beta Hi-Fi 彩色",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-10.png",
+    "file": "media-logos-10.png",
+    "sha256": "1e242074a57abd37e9a1993e780729e73a506bdb7cf4a17bf9018b9e8eab3de7"
+  },
+  {
+    "id": "media-logos-11",
+    "name": "Beta Hi-Fi",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-11.png",
+    "file": "media-logos-11.png",
+    "sha256": "389b617f35329e928e0c24be275e391aebcf6681b35a9e2156b68aa40310317b"
+  },
+  {
+    "id": "media-logos-12",
+    "name": "Beta",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-12.png",
+    "file": "media-logos-12.png",
+    "sha256": "8e3881242dde063d181e54081e6cf8676760270370e99d10f6a4f2d0b47babeb"
+  },
+  {
+    "id": "media-logos-13",
+    "name": "Blu-ray 3D Dolby Stereo",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-13.png",
+    "file": "media-logos-13.png",
+    "sha256": "74bdeb3b38f4042a7a74bacb7bcdace84e22ec3185b8da1be15c16b5d7803532"
+  },
+  {
+    "id": "media-logos-14",
+    "name": "Blu-ray Disc",
+    "category": "媒体徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_mediaBadges/media-logos-14.png",
+    "file": "media-logos-14.png",
+    "sha256": "459d6950a697ed79b0b397ea9a98456bf3293b55c0ffb388a6c0365c4da47c94"
+  },
+  {
+    "id": "lofi-stereo",
+    "name": "Lo-Fi Stereo",
+    "category": "音频徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_music_logo_defaults/lofi-stereo.png",
+    "file": "lofi-stereo.png",
+    "sha256": "562b0ac0b5ab653c8e658f386d6456bee3ff4034d3f79bfc2c1d6fd255a1269d"
+  },
+  {
+    "id": "hifi-stereo",
+    "name": "Hi-Fi Stereo",
+    "category": "音频徽标",
+    "kind": "logo",
+    "source": "https://vhs.texs.org/_music_logo_defaults/hifi-stereo.png",
+    "file": "hifi-stereo.png",
+    "sha256": "fc2683415cfc069b86debbcfb60baefcecf41f62653731a742c01c0fb9520273"
+  }
+]

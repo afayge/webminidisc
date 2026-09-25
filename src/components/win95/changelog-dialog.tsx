@@ -1,3 +1,4 @@
+import { versionLabel } from '../../app-version';
 import React from 'react';
 import { Button, WindowHeader } from 'react95';
 import { DialogOverlay, DialogWindow, DialogFooter, DialogWindowContent, WindowCloseIcon, FooterButton } from './common';
@@ -7,7 +8,7 @@ export const W95ChangelogDialog = (props: { visible: boolean; handleClose: () =>
         <DialogOverlay>
             <DialogWindow>
                 <WindowHeader style={{ display: 'flex', alignItems: 'center' }}>
-                    <span style={{ flex: '1 1 auto' }}>Changelog for version {(window as any).wmdVersion}</span>
+                    <span style={{ flex: '1 1 auto' }}>Changelog · {versionLabel(window.native?.appVersion)}</span>
                     <Button onClick={props.handleClose}>
                         <WindowCloseIcon />
                     </Button>

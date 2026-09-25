@@ -1,3 +1,4 @@
+import { restoreServiceParameters } from './saved-service-config';
 import React, { ReactHTMLElement } from 'react';
 import { CustomParameterInfo, CustomParameters } from '../custom-parameters';
 import { HiMDFullService, HiMDRestrictedService, HiMDSpec } from './interfaces/himd';
@@ -180,6 +181,12 @@ export const Services: ServicePrototype[] = [
                 defaultValue: true,
             },
             {
+                userFriendlyName: 'Full-width title support',
+                type: 'boolean',
+                varName: 'capabilityFullWidthTitles',
+                defaultValue: true,
+            },
+            {
                 userFriendlyName: 'Test combobox',
                 type: [
                     { name: 'A', value: 'a' },
@@ -283,21 +290,14 @@ function getPrototypeByName(name: string) {
 
 export function filterOutCorrupted(savedCustomServices: ServiceConstructionInfo[]) {
     const legalCustomServices: ServiceConstructionInfo[] = [];
-    for (const info of savedCustomServices) {
+    for (const info of Array.isArray(savedCustomServices) ? savedCustomServices : []) {
+        if (!info || typeof info.name !== 'string') continue;
         const prototype = getPrototypeByName(info.name);
         if (!prototype) continue; // No such service - remove.
         const requiredParameters = prototype.customParameters;
-        const parameterKeys = Object.keys(info.parameters!);
         if (!requiredParameters) continue; // The service cannot be a custom service - no props to set.
-        if (requiredParameters.length !== parameterKeys.length) continue; // Invalid config.
-        const typeValid = (n: CustomParameterInfo, value: CustomParameters extends { [e: string]: infer R } ? R : never) =>
-            Array.isArray(n.type) ? n.type.some((e) => e.value === value) : typeof value === n.type;
-        if (
-            requiredParameters.filter((n) => parameterKeys.includes(n.varName) && typeValid(n, info.parameters![n.varName])).length !==
-            requiredParameters.length
-        )
-            continue; // The service's parameters differ from the prototype's declaration.
-        legalCustomServices.push(info);
+        const parameters = restoreServiceParameters(requiredParameters, info.parameters);
+        if (parameters) legalCustomServices.push({ ...info, parameters });
     }
     return legalCustomServices;
 }
