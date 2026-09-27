@@ -1671,6 +1671,35 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                                     if (drag.current?.pointerId === e.pointerId) drag.current = null;
                                                 }}
                                             >
+                                                {/* Panel backgrounds sit behind layer hit areas so empty artwork selects its panel. */}
+                                                {def.panels
+                                                    .filter((p) => !(separated && design.template === 'full') || p.id === 'main')
+                                                    .map((p) => (
+                                                        <g
+                                                            key={p.id}
+                                                            data-panel-id={p.id}
+                                                            fill="transparent"
+                                                            onPointerDown={(e) => {
+                                                                e.stopPropagation();
+                                                                if (!e.isPrimary || e.button !== 0 || drag.current || project !== deferred)
+                                                                    return;
+                                                                setPanel(p.id);
+                                                                setSelected('');
+                                                            }}
+                                                        >
+                                                            {p.clipPaths && p.clipViewBox ? (
+                                                                p.clipPaths.map((path, i) => (
+                                                                    <path
+                                                                        key={i}
+                                                                        d={path}
+                                                                        transform={`translate(${separated ? i * (p.width + 4) : p.x} ${p.y}) scale(${p.width / p.clipViewBox![0]} ${p.height / p.clipViewBox![1]})`}
+                                                                    />
+                                                                ))
+                                                            ) : (
+                                                                <rect x={p.x} y={p.y} width={p.width} height={p.height} />
+                                                            )}
+                                                        </g>
+                                                    ))}
                                                 {grid && (
                                                     <g pointerEvents="none">
                                                         <defs>
