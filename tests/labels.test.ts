@@ -1,3 +1,5 @@
+import { resolveColorTheme } from '../src/color-theme';
+import { parseNumberDraft, TextEditGroup, moveTrack, virtualRange } from '../src/labels/edit-state';
 import { DOMParser } from '@xmldom/xmldom';
 import { exportPieces, pieceGap, fullContour } from '../src/labels/export-pieces';
 import { renderExport, renderExportPiece } from '../src/labels/render';
@@ -978,5 +980,100 @@ test('legacy bleed migrates once in ZIP and draft; existing nonzero and delibera
         assert.equal(notices.length, 2);
     } finally {
         (globalThis as any).indexedDB = previous;
+    }
+});
+
+// Interaction logic is deliberately independent of the physical rendering model.
+test('numeric drafts preserve editing intermediates and reject invalid commits', () => {
+    for (const text of ['', '-', '.', '-.', 'NaN', 'Infinity', '1e4', '12px']) assert.equal(parseNumberDraft(text, -10, 10), undefined);
+    assert.equal(parseNumberDraft('-2.75', -10, 10), -2.75);
+    assert.equal(parseNumberDraft('.5', -10, 10), 0.5);
+    assert.equal(parseNumberDraft('2.', -10, 10), 2);
+    assert.equal(parseNumberDraft('11', -10, 10), undefined);
+    assert.equal(parseNumberDraft('-11', -10, 10), undefined);
+    assert.equal(parseNumberDraft('', 0, 100, true), null);
+    assert.equal(parseNumberDraft('0', 0, 100, true), 0);
+});
+test('text history groups bursts, separates fields and preserves a slow IME composition', () => {
+    const group = new TextEditGroup();
+    assert.equal(group.remember('album', 0), true);
+    assert.equal(group.remember('album', 300), false);
+    assert.equal(group.remember('album', 1099), false);
+    assert.equal(group.remember('album', 1899), true);
+    assert.equal(group.remember('artist', 1900), true);
+    group.end(); // Blur or another operation.
+    assert.equal(group.remember('artist', 1901), true);
+    group.compositionStart(3000);
+    assert.equal(group.remember('artist', 3100), true);
+    assert.equal(group.remember('artist', 5100), false);
+    group.compositionEnd(6000);
+    assert.equal(group.remember('artist', 6001), false);
+    assert.equal(group.remember('artist', 6801), true);
+});
+test('grouped history restores complete edits through undo, redo and branching', () => {
+    const group = new TextEditGroup();
+    const past: string[] = [],
+        future: string[] = [];
+    let value = '';
+    const edit = (next: string, time: number) => {
+        if (group.remember('title', time)) {
+            past.push(value);
+            future.length = 0;
+        }
+        value = next;
+    };
+    edit('城', 0);
+    edit('城市', 10);
+    edit('城市漫游', 20);
+    assert.deepEqual(past, ['']);
+    group.end();
+    future.push(value);
+    value = past.pop()!;
+    assert.equal(value, '');
+    group.end();
+    past.push(value);
+    value = future.pop()!;
+    assert.equal(value, '城市漫游');
+    group.end();
+    future.push(value);
+    value = past.pop()!;
+    edit('夜行', 30);
+    assert.deepEqual(future, []);
+});
+test('track movement uses stable identity and does not mutate prior undo snapshots', () => {
+    const tracks = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+    assert.deepEqual(
+        moveTrack(tracks, 'a', 2).map((t) => t.id),
+        ['b', 'c', 'a']
+    );
+    assert.deepEqual(
+        moveTrack(tracks, 'c', 0).map((t) => t.id),
+        ['c', 'a', 'b']
+    );
+    assert.deepEqual(
+        tracks.map((t) => t.id),
+        ['a', 'b', 'c']
+    );
+    assert.equal(moveTrack(tracks, 'a', -1), tracks);
+    assert.equal(moveTrack(tracks, 'c', 3), tracks);
+    assert.equal(moveTrack(tracks, 'unknown', 1), tracks);
+});
+test('font windows stay bounded for 1327 items at start, middle, end and empty results', () => {
+    for (const top of [0, 48, 500, 20000, 1327 * 48 - 240]) {
+        const { start, end } = virtualRange(1327, top, 240);
+        assert.ok(end - start <= 16);
+        assert.ok(start >= 0 && end <= 1327);
+        assert.ok(start <= Math.floor(top / 48));
+        assert.ok(end >= Math.min(1327, Math.ceil((top + 240) / 48)));
+    }
+    assert.deepEqual(virtualRange(0, 0, 240), { start: 0, end: 0 });
+    assert.deepEqual(virtualRange(3, 0, 240), { start: 0, end: 3 });
+});
+
+test('explicit color themes override the device; system follows both device modes', () => {
+    for (const systemIsDark of [false, true]) {
+        assert.equal(resolveColorTheme('light', systemIsDark), 'light');
+        assert.equal(resolveColorTheme('dark', systemIsDark), 'dark');
+        assert.equal(resolveColorTheme('system', systemIsDark), systemIsDark ? 'dark' : 'light');
     }
 });

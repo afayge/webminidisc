@@ -89,3 +89,88 @@ PDF 已渲染为图片检查：全面标签实际填充、中文/日文字形、
 - 桌面、手机与内容工具截图保留在主项目 `build/md-studio-icons/qa/`，分别为 `desktop.png`、`mobile.png`、`tools.png`。原生约 200% 缩放证据为同目录 `zoom-200.png`。
 - 低高度修复后，1280×600 的工作区纵向滚动生效，Tab 可聚焦并完整显示“导出 SVG”；1280×601 保持原布局。两张截图确认标尺可读，生产构建再次通过。
 - 原生约 200%（约 207% 原生档位）下，Tab 从“适合窗口”可继续到“设计预览”和“导出 SVG”；工作区自动滚动使完整输出栏可见，顶栏保存／PDF 入口持续可见。标尺不再重叠，验证后恢复 100% 并退出，进程退出码为 0，日志包含 `shutdown-complete`。补充审查查看了修复前截图、600／601px 边界图与最终放大截图；最终图确认导出按钮焦点和完整输出栏。
+
+## 2026-09-27：编辑交互与实际纸张预览
+
+本轮修改数字草稿、文字撤销分组、曲目排序、打印界面与素材／字体列表；工程格式、渲染几何、出血／分页核心及 Electron PDF IPC 未改动。验证使用临时浏览器上下文和隔离 Electron 用户目录，未连接实体 MD，未替换已安装应用或发布安装包。
+
+- 标签核心测试 48 项通过，包括新增加的数字提交边界、800 ms 撤销分组／组合输入、撤销重做分支、稳定 ID 曲目移动和虚拟列表范围测试。渲染器 TypeScript 与生产构建通过；构建仍有既有 eval、包体积、混合动态导入和 Browserslist 警告。
+- 使用本机 Playwright 与 Google Chrome，在 `http://localhost:5174/` 实测：打开编辑器、连续文字编辑一次撤销／重做、曲目键盘移动／焦点跟随／状态播报、时长清空、负数小数、越界恢复、Escape 取消、撤销后数值同步。页面身份正确，无空白页、框架错误覆盖层及浏览器错误日志。Browser 插件未提供，采用本机 Playwright；本项目只允许 localhost 使用 HTTP，127.0.0.1 会被既有入口重定向到 HTTPS。
+- 1,327 项测试字体样式中，初始／末项导航只挂载最多 16 行；End 定位并选择第 1,327 项，搜索单项及无结果状态通过。该大列表数据由测试注入，选择后使用真实思源字体字节验证解析链路，不代表本机每种字体均已实测。内置 327 项素材每页 24 项，翻页、搜索归第一页、来源语义状态及改名保留焦点通过。
+- 五模板示例工程的纸张预览使用真实排版 SVG，每次仅挂载当前页；提交份数后立即禁用导出，更新后恢复。浏览器从预览图片取得 SVG，与下载 ZIP 中对应首页逐字节一致。A4／Letter／自定义纸张、取消全部模板后的错误与恢复通过；缺失字体、超纸张和两种双面翻转的输出边界由既有核心测试覆盖。
+- 1440×900 桌面显示设置与预览两列，1024×768、390×844 及 720×450 使用上下布局；未出现打印弹窗横向溢出，关闭后焦点返回原入口。截图检查桌面与手机布局。Electron 43.3.0 另以真实 `setZoomFactor(2)` 验证 200% 缩放，Tab 目标“导出整页 SVG”完整进入可视区域。
+- 修改前后使用同一“整套包装”工程比较 10 个模板正反面 SVG、4 页排版 SVG 和排版 JSON，15 个文件全部逐字节一致。隔离 Electron 界面实际点击 PDF 导出，通过生产 `labels:renderPdf` IPC 生成 4 页 PDF，成功提示在弹窗内可见；重复触发未产生第二次 IPC 调用。另以生产 IPC 对回归排版生成 199,895 字节 PDF。
+- 临时证据目录：`/tmp/md-interactions/`，包含 `ui-results.json`、桌面／手机／平板截图、`electron-zoom-200-export.png`、`ui-export.pdf`、`regression.pdf` 与前后 SVG 对比。这些临时文件未作为工程素材提交。
+- 未实测实体打印机、实体 MD、Windows／Linux、完整屏幕阅读器朗读及操作系统级中文输入法。组合输入分组有逻辑测试，状态播报与焦点有 DOM／键盘验证；不将其等同完整辅助技术实测。
+
+### 同日独立 App 构建
+
+执行 `npm run pack:labels -- --config.directories.output=build/md-studio-interactions`，完整重建 renderer、main 和 preload，生成 `build/md-studio-interactions/mac-arm64/ElectronWMD.app`（Apple Silicon，应用 0.5.2-1.5.5，Electron 43.3.0）。Ad-hoc 签名经 `codesign --verify --deep --strict` 验证通过，未进行 Apple 公证。初次主进程 inspector 检查未就绪，随后通过浏览器调试接口验证实际打包 App：`sandbox://app/index.html` 正常加载，标签编辑器与纸张预览可用，PDF 按钮启用；关闭后退出码 0，日志含 `shutdown-complete`。使用隔离用户目录，保留原 App 和用户草稿；启动截图位于 `/tmp/md-app-smoke/packaged-preview.png`。
+
+
+## 2026-09-30：附件风格的双主题柔光工作台
+
+本节仅记录本轮界面变化。保留已有未提交工作，使用独立浏览器上下文和 Electron userData，未访问用户草稿、连接设备或进行实体打印。
+
+### 修改范围
+
+- 保留三栏与 1120／760px 抽屉断点，新增 12／8／6px 自适应间隙、20px 主面板圆角、乳白／石墨灰材质、外围轻光晕及蓝色胶囊主操作。画布保持中性底色。
+- 编辑器入口、顶栏、内容工具、图层属性、模板菜单、字体与素材控件、设计预览、打印窗口、抽屉和状态反馈统一使用编辑器专用双主题 token。MUI 模板菜单移除覆盖样式表的固定圆角与阴影。
+- 更新 DESIGN.md 与 .impeccable/design.json，补充 PRODUCT.md。未新增依赖，未修改模型、渲染、存储、交互几何、字体解析、打印排版或 Electron IPC。
+
+### 环境与检查
+
+Browser plugin not available：使用已安装的 Playwright 与 Chrome 154，地址 http://localhost:5173/。最初 127.0.0.1 被测试浏览器升级至 HTTPS，改用 localhost 后正常；未修改应用网络配置。原生 PDF 使用已有 Electron 43.3.0 ARM64 测试运行时和当前源代码，未打包应用。
+
+| 检查 | 本轮结果 |
+| --- | --- |
+| 标签核心测试 | `npm run test:labels`：49 项通过 |
+| 类型与构建 | `npx tsc --noEmit`、`npx vite build --outDir /tmp/md-soft-studio/production` 通过 |
+| 页面与控制台 | 标题正确、编辑器非空、无 Vite 错误遮罩、验证流程无浏览器运行时错误 |
+| 响应式 | 深浅主题分别检查 1440×900、1280×720、1024×768、390×844、1280×560；编辑器无横向溢出，低高度画布至少 240px |
+| 交互 | 五模板切换、J-Card 正反面、专辑／曲目输入、字号有效／无效输入、撤销重做、图层拖动显隐锁定、属性区键盘调高、内置字体切换通过 |
+| 工程与输出 | 实际下载并重开工程、刷新恢复草稿、SVG 下载、整页 SVG ZIP 下载、设计及真实纸张预览通过 |
+| 可访问性 | 菜单／设计预览／抽屉 Escape 与焦点返回、减少动画偏好通过；主按钮白字浅色 5.37:1、深色 5.69:1，输入边界至少 3.21:1，辅助文字在测试中性背景上至少 4.81:1 |
+| 原生 PDF | 当前 `labels:renderPdf` IPC 实际调用成功；前后均 4 页 A4、199,895 字节，594.96×841.92 pt；4 页在 72dpi 栅格化后逐字节一致 |
+| 源与导出隔离 | 8 个核心源文件 SHA-256 不变；10 份模板正反面 SVG、4 页 SVG 与排版 JSON 前后逐字节一致 |
+| 静态设计检查 | 运行一次，8 项 advisory 均为字号／圆角文档覆盖不足；已补充 10／11／16px 字号及 14／16px 圆角记录，未报告其他类别问题 |
+
+截图分集中检查与确认两轮。首轮抽屉截图捕捉到进场动画中间态，确认轮等待动画完成后重新截图，抽屉完整位于视口。参考图的柔和材质、大圆角、蓝色强调已经落实；桌面三栏、紧凑操作密度和中性画布是按已确认方案保留的差异。
+
+### 证据与边界
+
+- 截图、日志与 PDF 样张：`/Users/elliotge/.codex/visualizations/2026/09/30/01a0f007-43b3-78e1-a783-9b74a87cdcfe/md-studio`。主界面为 `final-light.png`、`final-dark.png`；响应式测量为 `qa.json`。
+- 构建仍有既有 vm-browserify eval、分块体积和 Browserslist 数据过期提示；临时输出目录在项目外，因此 Vite 提示不会自动清空。没有借此升级依赖。
+- 浏览器中的“导出 PDF”明确报告需要桌面应用，错误样式已验证；实际原生生成另经上述 Electron IPC 验证。未验证完整打包应用的文件保存对话框、Windows／Linux、本机字体授权流程或实体打印。未打包、签名或发布。
+
+
+## 2026-09-30：圆润线稿与实心选中图标
+
+本轮仅更新 MD 编辑器及关联界面的图标；保留此前布局、材质、业务与未提交工作。模板缩略图、素材、原生表单控件及实际作品未改动。
+
+- `icons.tsx` 统一 24×24 网格、1.6 描边与圆润端点。28 个线稿图标、7 个独立实心工具图标及 MiniDisc 卡匣标志；默认 20px、内容工具 18px、密集操作 16px。MiniDisc 显示尺寸仍为 30／22／24px。
+- 普通图标采用中性灰，选中工具图标为深灰／浅白实心，主按钮图标保持白色；`variant` 默认 outline，没有实心版本的图标请求 filled 时保持线稿。曲目上下排序改用 SVG 箭头，旋转光标采用相同描边并保留白色衬线。
+- `npm run test:labels`：49 项通过；`npx tsc --noEmit`、`npx vite build --outDir /tmp/md-icon-refresh/production` 和 `git diff --check` 通过。构建仍有既有 eval、分块体积和 Browserslist 提示，没有升级依赖。Impeccable 静态检查一次，返回空报告。
+- Browser plugin not available：使用已有 Playwright 与 Chrome 154，在 http://localhost:5173/ 的独立上下文验证。页面身份、工程加载、无框架遮罩、无运行时错误检查通过；1440×900 桌面与 390×844 窄屏分别验证深浅主题，无编辑器横向溢出。
+- 七类内容工具逐一切换，验证仅当前图标为实心，其余六个为线稿。实际回归显隐图形切换、首曲目上移禁用、曲目下移排序、撤销重做、设计预览放大与关闭／焦点返回、模板菜单、两侧抽屉、打印入口及键盘焦点。检查主按钮图标仍为白色、装饰 SVG 不进入焦点顺序，原按钮名称保留。
+- 从实际 React 组件生成 16／18／20px 线稿和常态／实心对照总览，集中检查双主题图标、工具栏、抽屉、设计预览及打印弹窗截图。形状清晰、选中留白正确，无需追加视觉修正。
+- 8 个数据与渲染核心文件 SHA-256 未变化；10 份模板正反面 SVG、4 页排版 SVG 与排版 JSON 前后逐字节一致。实际浏览器导出 SVG 不包含界面图标。PDF 引擎未改动，本轮未重复原生 PDF 栅格化；上一节的 PDF 验证属于上一轮。
+- 图标总览、双主题截图和日志位于 `/Users/elliotge/.codex/visualizations/2026/09/30/01a0f007-43b3-78e1-a783-9b74a87cdcfe/md-icons`。`gallery.html` 为可离线打开的静态总览，`icons-light.png`／`icons-dark.png` 为小尺寸与选中状态证据，`light-desktop.png`／`dark-desktop.png` 为实际界面。
+
+未打包、签名或发布；未扩展至主应用其他图标，也未重新验证实体设备、打印机或其他操作系统。
+
+## 2026-09-30：模板图标单色重设计
+
+仅更新模板入口与菜单的五种界面缩略图，以及对应样式和设计规范；保留现有未提交改动。`TemplateThumbnail` 新增默认 false 的 `selected`，入口恒为实心，菜单仅当前项实心。颜色使用 muted／ink 与 currentColor；轮廓为固定屏幕 1.4px 圆润描边。五种图标保留默认模板的长宽比例与主要结构，全面标签的分片间隙及折页间隔仅在显示层作光学校正。入口 44×48px、菜单 56×48px 未变。
+
+- `npm run test:labels`：49 项通过；`npx tsc --noEmit`、`npx vite build --outDir /tmp/md-template-icons/production`、`git diff --check` 通过。构建仅有既有 eval、分块体积与 Browserslist 提示。单次 Impeccable 静态检测返回空报告。
+- Chromium 实际界面：浅／深主题 × 1440×900 桌面／390×844 抽屉全部通过。检查当前项唯一实心、其他四项线稿、选中勾选、Home／End／ArrowUp／Enter 选择、Escape 关闭菜单与抽屉、焦点返回触发按钮，无页面横向溢出。初次自动化在 MUI 关闭动画结束前检查菜单导致时序失败；调整等待后通过，未修改菜单交互逻辑。
+- 从实际 React 组件生成 5 种模板 × 2 种状态 × 2 种尺寸 × 2 个主题，共 40 个样本。集中检查总览、桌面菜单及窄屏菜单截图：全面标签三片留白可辨，J-Card 与托盘卡书脊清晰，轮廓粗细一致；无需追加视觉修正。SVG 保持 aria-hidden 与 focusable=false，颜色随主题切换。浏览器未报告运行时错误。
+- 使用同一整套包装示例工程，对比改动前后 10 份正反面 SVG、4 页排版 SVG 和排版 JSON，逐字节一致。实际浏览器导出 SVG 不包含 md-template-thumbnail。模型、存储、渲染和 PDF 输出路径未修改；本轮未重新运行原生 PDF 栅格化、实体打印或跨平台测试。
+- 交付目录：`/Users/elliotge/.codex/visualizations/2026/09/30/01a0f007-43b3-78e1-a783-9b74a87cdcfe/md-template-icons`。`gallery.html` 可离线查看，`template-icons.png` 为双主题总览；`light-desktop-menu.png`／`dark-desktop-menu.png` 和 `light-mobile-menu.png`／`dark-mobile-menu.png` 为实际界面截图，附测试与构建日志。
+
+本轮未重新打包 App；此前编译的 App 不包含本次模板图标修改。
+
+### 单色模板图标版 App 重新打包
+
+按用户后续要求运行 `npm run pack:labels`，重新构建 renderer、main、preload，更新 `build/md-labels/mac-arm64/ElectronWMD.app`（macOS Apple Silicon，0.5.2-1.5.5，Electron 43.3.0）。Ad-hoc 签名通过 `codesign --verify --deep --strict`；未进行 Apple 公证。以独立用户目录启动实际打包 App，编辑器正常渲染，模板图标确认 selected=true、stroke-width=1.4、fill=currentColor、viewBox=0 0 56 48；关闭退出码为 0，日志包含 shutdown-complete。构建与启动证据位于主项目 `build/md-labels/verification/`。

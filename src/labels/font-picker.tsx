@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { virtualRange } from './edit-state';
 import { Layer, LocalFontRef } from './model';
 import { Fonts, GlyphFont } from './render';
 import { listLocalFonts, loadLocalFont, loadLocalFontPreview, LocalFontData } from './local-fonts';
@@ -17,23 +18,53 @@ function LocalFontList({
     const root = useRef<HTMLDivElement>(null);
     const [previews, setPreviews] = useState<Record<string, string>>({});
     const [focused, setFocused] = useState('');
-    const tabStop = [focused, selected, items[0]?.postscriptName].find((name) => items.some((f) => f.postscriptName === name));
-
+    const [scrollTop, setScrollTop] = useState(0);
+    const [height, setHeight] = useState(240);
+    const id = useId();
+    const focusName = [focused, selected, items[0]?.postscriptName].find((name) => items.some((f) => f.postscriptName === name));
+    const focusIndex = items.findIndex((f) => f.postscriptName === focusName);
+    const { start, end } = virtualRange(items.length, scrollTop, height);
+    const visible = useMemo(() => items.slice(start, end), [items, start, end]);
+    const reveal = (index: number) => {
+        const list = root.current;
+        if (!list) return;
+        const top = index * 48;
+        if (top < list.scrollTop) list.scrollTop = top;
+        else if (top + 48 > list.scrollTop + list.clientHeight) list.scrollTop = top + 48 - list.clientHeight;
+        setScrollTop(list.scrollTop);
+    };
+    useEffect(() => {
+        const list = root.current;
+        if (!list) return;
+        const observer = new ResizeObserver(() => setHeight(list.clientHeight));
+        observer.observe(list);
+        return () => observer.disconnect();
+    }, []);
+    useEffect(() => {
+        // Search and reopening retain the selected option when it is still present.
+        const index = Math.max(
+            0,
+            items.findIndex((f) => f.postscriptName === selected)
+        );
+        setFocused(items[index]?.postscriptName || '');
+        if (root.current) root.current.scrollTop = index * 48;
+        setScrollTop(root.current?.scrollTop || 0);
+    }, [items]);
     useEffect(() => {
         const list = root.current;
         if (!list) return;
         let active = true;
-        const byName = new Map(items.map((f) => [f.postscriptName, f]));
+        const byName = new Map(visible.map((f) => [f.postscriptName, f]));
         const observer = new IntersectionObserver(
             (entries) => {
                 for (const entry of entries) {
                     if (!entry.isIntersecting) continue;
                     observer.unobserve(entry.target);
                     const data = byName.get((entry.target as HTMLElement).dataset.fontName!);
-                    if (!data) continue;
-                    void loadLocalFontPreview(data).then((family) => {
-                        if (active && family) setPreviews((current) => ({ ...current, [data.postscriptName]: family }));
-                    });
+                    if (data)
+                        void loadLocalFontPreview(data).then((family) => {
+                            if (active && family) setPreviews((current) => ({ ...current, [data.postscriptName]: family }));
+                        });
                 }
             },
             { root: list }
@@ -43,47 +74,65 @@ function LocalFontList({
             active = false;
             observer.disconnect();
         };
-    }, [items]);
+    }, [visible]);
 
     return (
         <div
             ref={root}
             className="md-local-font-list"
             role="listbox"
+            tabIndex={0}
             aria-label="本机字体与样式"
             aria-busy={busy}
             aria-disabled={busy}
+            aria-activedescendant={focusIndex >= start && focusIndex < end ? `${id}-${focusIndex}` : undefined}
+            onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
             onKeyDown={(e) => {
-                if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+                if (['Enter', ' '].includes(e.key)) {
+                    e.preventDefault();
+                    if (!busy && focusName) onChoose(focusName);
+                }
+                if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key) || !items.length) return;
                 e.preventDefault();
-                const rows = Array.from(e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="option"]'));
-                const current = rows.indexOf(document.activeElement as HTMLButtonElement);
-                const next = e.key === 'Home' ? 0 : e.key === 'End' ? rows.length - 1 : current + (e.key === 'ArrowDown' ? 1 : -1);
-                const row = rows[Math.max(0, Math.min(rows.length - 1, next))];
-                row?.focus({ preventScroll: true });
-                row?.scrollIntoView({ block: 'nearest' });
+                const next = Math.max(
+                    0,
+                    Math.min(
+                        items.length - 1,
+                        e.key === 'Home' ? 0 : e.key === 'End' ? items.length - 1 : focusIndex + (e.key === 'ArrowDown' ? 1 : -1)
+                    )
+                );
+                setFocused(items[next].postscriptName);
+                reveal(next);
             }}
         >
-            {items.map((f) => (
-                <button
-                    key={f.postscriptName}
-                    type="button"
-                    role="option"
-                    className="md-local-font-option"
-                    data-font-name={f.postscriptName}
-                    aria-selected={selected === f.postscriptName}
-                    aria-disabled={busy}
-                    tabIndex={tabStop === f.postscriptName ? 0 : -1}
-                    title={`${f.family} · ${f.style}`}
-                    style={{ fontFamily: previews[f.postscriptName] }}
-                    onFocus={() => setFocused(f.postscriptName)}
-                    onClick={() => {
-                        if (!busy) onChoose(f.postscriptName);
-                    }}
-                >
-                    {f.family} · {f.style}
-                </button>
-            ))}
+            <div role="presentation" style={{ height: items.length * 48, position: 'relative' }}>
+                {visible.map((f, offset) => (
+                    <button
+                        key={f.postscriptName}
+                        id={`${id}-${start + offset}`}
+                        type="button"
+                        role="option"
+                        className={`md-local-font-option${focusName === f.postscriptName ? ' is-focused' : ''}`}
+                        data-font-name={f.postscriptName}
+                        aria-selected={selected === f.postscriptName}
+                        aria-disabled={busy}
+                        aria-posinset={start + offset + 1}
+                        aria-setsize={items.length}
+                        tabIndex={-1}
+                        title={`${f.family} · ${f.style}`}
+                        aria-label={`${f.family} · ${f.style}`}
+                        style={{ fontFamily: previews[f.postscriptName], position: 'absolute', top: (start + offset) * 48 }}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => {
+                            root.current?.focus({ preventScroll: true });
+                            setFocused(f.postscriptName);
+                            if (!busy) onChoose(f.postscriptName);
+                        }}
+                    >
+                        {f.family} · {f.style}
+                    </button>
+                ))}
+            </div>
             {!items.length && <div className="md-local-font-empty">没有匹配的字体</div>}
         </div>
     );

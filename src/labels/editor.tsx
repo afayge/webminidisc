@@ -1,3 +1,4 @@
+import { useLabelSurface } from './theme';
 import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { Dialog, Drawer, useMediaQuery } from '@mui/material';
@@ -29,7 +30,7 @@ import {
     textEffects,
     uid,
 } from './model';
-import { Fonts, loadFonts, printPages, renderDesign, renderExport, svgDocument } from './render';
+import { Fonts, loadFonts, renderDesign, renderExport, svgDocument } from './render';
 import { exampleProject, importAsset, openProject, persistDraft, restoreDraft, saveProject } from './storage';
 import {
     canvasPoint,
@@ -53,6 +54,9 @@ import { FontPicker } from './font-picker';
 import { loadLocalFont } from './local-fonts';
 import { ChineseConversion } from '../title-conversion';
 import './labels.css';
+import { NumberField, DurationField, NumberReset } from './number-field';
+import { TextEditGroup, moveTrack } from './edit-state';
+import { PaperPreview, usePrintLayout } from './paper-preview';
 
 type Tab = 'text' | 'art' | 'logo' | 'decal' | 'background' | 'code' | 'layout';
 function pointerOnCanvas(svg: SVGSVGElement, x: number, y: number) {
@@ -69,38 +73,6 @@ const tabs: [Tab, string, IconName][] = [
     ['code', '二维码与条码', 'code'],
     ['layout', '尺寸与折页', 'ruler'],
 ];
-function NumberField({
-    label,
-    value,
-    onChange,
-    min = -1000,
-    max = 1000,
-    step = 0.1,
-}: {
-    label: string;
-    value: number;
-    onChange: (n: number) => void;
-    min?: number;
-    max?: number;
-    step?: number;
-}) {
-    return (
-        <label className="md-field">
-            <span>{label}</span>
-            <input
-                type="number"
-                value={Number(value.toFixed(3))}
-                min={min}
-                max={max}
-                step={step}
-                onChange={(e) => {
-                    if (e.target.value !== '' && Number.isFinite(e.target.valueAsNumber))
-                        onChange(Math.max(min, Math.min(max, e.target.valueAsNumber)));
-                }}
-            />
-        </label>
-    );
-}
 function Check({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
     return (
         <label className="md-check">
@@ -135,6 +107,7 @@ function Select({
 }
 
 export default function LabelEditor({ open, onClose, selectedTracks }: { open: boolean; onClose: () => void; selectedTracks?: number[] }) {
+    const surface = useLabelSurface();
     const disc = useShallowEqualSelector((s) => s.main.disc);
     const [project, setProject] = useState<LabelProject>(newProject);
     const projectRef = useRef(project);
@@ -182,7 +155,6 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
     });
     const [playlist, setPlaylist] = useState(''),
         [mode, setMode] = useState<'replace' | 'append'>('replace');
-    const [exportWarnings, setExportWarnings] = useState<string[]>([]);
     const [printPreview, setPrintPreview] = useState(false);
     const [printOpen, setPrintOpen] = useState(false),
         [svgTarget, setSvgTarget] = useState('all');
@@ -241,7 +213,19 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
             active = false;
         };
     }, [fontRefs, fonts?.sans]);
-    const [dragTrack, setDragTrack] = useState<number | null>(null);
+    const [dragTrack, setDragTrack] = useState<string | null>(null);
+    const [trackStatus, setTrackStatus] = useState('');
+    const trackList = useRef<HTMLDivElement>(null);
+    const textGroup = useRef(new TextEditGroup());
+    const [numberReset, setNumberReset] = useState(0);
+    const running = useRef(false);
+    const layout = usePrintLayout(printOpen, project, fonts);
+    useEffect(() => {
+        if (printOpen) {
+            setError('');
+            setNotice('');
+        }
+    }, [project, fonts, printOpen]);
     const fileProject = useRef<HTMLInputElement>(null),
         fileMusic = useRef<HTMLInputElement>(null),
         fileImage = useRef<HTMLInputElement>(null);
@@ -273,6 +257,9 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
         [deferred, fonts, actualFace, guides, separated]
     );
     const run = async (fn: () => Promise<void>) => {
+        if (running.current) return;
+        running.current = true;
+        textGroup.current.end();
         setError('');
         setBusy(true);
         try {
@@ -280,48 +267,63 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
         } catch (e) {
             setError(e instanceof Error ? e.message : String(e));
         } finally {
+            running.current = false;
             setBusy(false);
         }
     };
-    const commit = (fn: (p: LabelProject) => void, remember = true) =>
-        setProject((current) => {
-            if (remember) {
-                past.current.push(current);
-                if (past.current.length > 40) past.current.shift();
-                future.current = [];
-            }
-            // Assets are immutable: retain their large data URLs across undo snapshots.
-            const next: LabelProject = {
-                ...current,
-                data: { ...current.data, tracks: current.data.tracks.map((t) => ({ ...t })) },
-                assets: { ...current.assets },
-                designs: Object.fromEntries(
-                    Object.entries(current.designs).map(([id, d]) => [id, { ...d, layers: d!.layers.map((l) => ({ ...l })) }])
-                ),
-                print: { ...current.print, templates: [...current.print.templates] },
-            };
-            fn(next);
-            dirty.current = true;
-            return next;
-        });
+    const commit = (fn: (p: LabelProject) => void, remember = true, textField?: string) => {
+        if (textField) remember = textGroup.current.remember(textField, Date.now());
+        else textGroup.current.end();
+        const current = projectRef.current;
+        if (remember) {
+            past.current.push(current);
+            if (past.current.length > 40) past.current.shift();
+            future.current = [];
+        }
+        // Assets are immutable: retain their large data URLs across undo snapshots.
+        const next: LabelProject = {
+            ...current,
+            data: { ...current.data, tracks: current.data.tracks.map((t) => ({ ...t })) },
+            assets: { ...current.assets },
+            designs: Object.fromEntries(
+                Object.entries(current.designs).map(([id, d]) => [id, { ...d, layers: d!.layers.map((l) => ({ ...l })) }])
+            ),
+            print: { ...current.print, templates: [...current.print.templates] },
+        };
+        fn(next);
+        dirty.current = true;
+        projectRef.current = next;
+        setProject(next);
+    };
+    const textCommit = (field: string, fn: (p: LabelProject) => void) => commit(fn, true, field);
     const editDesign = (patch: Partial<Design>) => commit((p) => Object.assign(p.designs[p.active]!, patch));
-    const editLayer = (patch: Partial<Layer>) =>
-        commit((p) => {
-            const l = p.designs[p.active]!.layers.find((l) => l.id === selected);
-            if (l) Object.assign(l, patch);
-        });
+    const editLayer = (patch: Partial<Layer>, field?: string) =>
+        commit(
+            (p) => {
+                const l = p.designs[p.active]!.layers.find((l) => l.id === selected);
+                if (l) Object.assign(l, patch);
+            },
+            true,
+            field ? `layer:${selected}:${field}` : undefined
+        );
     const undo = () => {
+        textGroup.current.end();
+        setNumberReset((v) => v + 1);
         const prev = past.current.pop();
         if (prev) {
             future.current.push(projectRef.current);
+            projectRef.current = prev;
             setProject(prev);
             dirty.current = true;
         }
     };
     const redo = () => {
+        textGroup.current.end();
+        setNumberReset((v) => v + 1);
         const next = future.current.pop();
         if (next) {
             past.current.push(projectRef.current);
+            projectRef.current = next;
             setProject(next);
             dirty.current = true;
         }
@@ -454,6 +456,22 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
         const target = ordered[ordered.findIndex((l) => l.id === selected) - delta];
         if (target) moveLayer(selected, target.id, delta < 0);
     };
+    const reorderTrack = (id: string, target: number, control = 'grip') => {
+        const tracks = projectRef.current.data.tracks;
+        const next = moveTrack(tracks, id, target);
+        if (next === tracks) return;
+        commit((p) => {
+            p.data.tracks = next;
+        });
+        setTrackStatus(`曲目 ${next[target].title || '未命名'} 已移动到第 ${target + 1} 首`);
+        requestAnimationFrame(() => {
+            const row = Array.from(trackList.current?.querySelectorAll<HTMLElement>('[data-track-id]') || []).find(
+                (r) => r.dataset.trackId === id
+            );
+            const button = row?.querySelector<HTMLButtonElement>(`[data-track-control="${control}"]`);
+            (button && !button.disabled ? button : row?.querySelector<HTMLButtonElement>('[data-track-control="grip"]'))?.focus();
+        });
+    };
     const mergeData = (data: AlbumData) => {
         commit((p) => {
             if (mode === 'replace') p.data = { ...data, credits: p.data.credits, lyrics: p.data.lyrics };
@@ -474,7 +492,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                   ? {}
                   : { panel: svgTarget };
             const r = renderExport(project, design, actualFace, fonts, opts);
-            setExportWarnings(r.warnings);
+
             downloadBlob(
                 new Blob([svgDocument(r)], { type: 'image/svg+xml' }),
                 `${project.name}-${templateNames[project.active]}-${actualFace}.svg`
@@ -486,8 +504,9 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
         run(async () => {
             if (!fonts) return;
             if (!window.native?.labels) throw new Error('PDF 导出需要在 ElectronWMD 桌面应用中运行');
-            const output = printPages(project, fonts);
-            setExportWarnings(output.warnings);
+            const output = layout.output;
+            if (!output) return;
+
             const bytes = await window.native.labels.renderPdf({ pages: output.pages, paperSize: output.paperSize });
             downloadBlob(new Blob([new Uint8Array(bytes)], { type: 'application/pdf' }), `${project.name}.pdf`);
             setNotice(`已生成 ${output.pages.length} 页 PDF，请按 100% 实际尺寸打印${output.warnings.length ? '；请检查排版提示' : ''}`);
@@ -522,12 +541,12 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
             <nav className="md-tabs" aria-label="内容工具">
                 {tabs.map(([id, name, icon]) => (
                     <button key={id} aria-pressed={tab === id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}>
-                        <StudioIcon name={icon} size={16} />
+                        <StudioIcon name={icon} size={18} variant={tab === id ? 'filled' : 'outline'} />
                         <span>{name}</span>
                     </button>
                 ))}
             </nav>
-            <div className="md-tab-content">
+            <div className="md-tab-content" key={project.active}>
                 {tab === 'text' && (
                     <>
                         <h3>专辑与歌曲</h3>
@@ -537,7 +556,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <input
                                     value={project.data.album}
                                     onChange={(e) =>
-                                        commit((p) => {
+                                        textCommit('data:album', (p) => {
                                             p.data.album = e.target.value;
                                         })
                                     }
@@ -548,7 +567,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <input
                                     value={project.data.artist}
                                     onChange={(e) =>
-                                        commit((p) => {
+                                        textCommit('data:artist', (p) => {
                                             p.data.artist = e.target.value;
                                         })
                                     }
@@ -559,7 +578,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <input
                                     value={project.data.direction}
                                     onChange={(e) =>
-                                        commit((p) => {
+                                        textCommit('data:direction', (p) => {
                                             p.data.direction = e.target.value;
                                         })
                                     }
@@ -624,30 +643,43 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 曲目列表 · {project.data.tracks.length} 首 ·{' '}
                                 {formatDuration(project.data.tracks.reduce((s, t) => s + (t.duration || 0), 0))}
                             </summary>
-                            <div className="md-tracks">
+                            <div role="status" className="md-sr-only">
+                                {trackStatus}
+                            </div>
+                            <div className="md-tracks" ref={trackList}>
                                 {project.data.tracks.map((t, i) => (
                                     <div
                                         className="md-track"
                                         key={t.id}
-                                        draggable
-                                        onDragStart={() => setDragTrack(i)}
+                                        data-track-id={t.id}
                                         onDragOver={(e) => e.preventDefault()}
                                         onDrop={(e) => {
                                             e.preventDefault();
                                             if (dragTrack === null) return;
-                                            commit((p) => {
-                                                const [track] = p.data.tracks.splice(dragTrack, 1);
-                                                p.data.tracks.splice(i, 0, track);
-                                            });
+                                            reorderTrack(dragTrack, i);
                                             setDragTrack(null);
                                         }}
                                     >
-                                        <span>⠿ {i + 1}</span>
+                                        <button
+                                            className="md-track-grip"
+                                            data-track-control="grip"
+                                            draggable
+                                            aria-label={`拖动曲目 ${i + 1}；也可使用上移下移按钮`}
+                                            onDragStart={(e) => {
+                                                setDragTrack(t.id);
+                                                e.dataTransfer.setData('text/plain', t.id);
+                                                e.dataTransfer.effectAllowed = 'move';
+                                            }}
+                                            onDragEnd={() => setDragTrack(null)}
+                                        >
+                                            <StudioIcon name="grip" size={16} />
+                                            {i + 1}
+                                        </button>
                                         <input
                                             aria-label={`曲目 ${i + 1} 标题`}
                                             value={t.title}
                                             onChange={(e) =>
-                                                commit((p) => {
+                                                textCommit(`track:${t.id}:title`, (p) => {
                                                     p.data.tracks[i].title = e.target.value;
                                                 })
                                             }
@@ -657,24 +689,38 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                             placeholder="艺术家"
                                             value={t.artist}
                                             onChange={(e) =>
-                                                commit((p) => {
+                                                textCommit(`track:${t.id}:artist`, (p) => {
                                                     p.data.tracks[i].artist = e.target.value;
                                                 })
                                             }
                                         />
-                                        <input
-                                            aria-label={`曲目 ${i + 1} 时长（秒）`}
-                                            type="number"
-                                            min="0"
-                                            placeholder="秒"
-                                            value={t.duration ?? ''}
-                                            onChange={(e) =>
+                                        <DurationField
+                                            label={`曲目 ${i + 1} 时长（秒）`}
+                                            value={t.duration ?? null}
+                                            onChange={(v) =>
                                                 commit((p) => {
-                                                    p.data.tracks[i].duration =
-                                                        e.target.value === '' ? null : Math.max(0, Number(e.target.value));
+                                                    p.data.tracks[i].duration = v;
                                                 })
                                             }
                                         />
+                                        <div className="md-track-order">
+                                            <button
+                                                data-track-control="up"
+                                                aria-label={`上移曲目 ${i + 1}`}
+                                                disabled={i === 0}
+                                                onClick={() => reorderTrack(t.id, i - 1, 'up')}
+                                            >
+                                                <StudioIcon name="arrowUp" size={16} />
+                                            </button>
+                                            <button
+                                                data-track-control="down"
+                                                aria-label={`下移曲目 ${i + 1}`}
+                                                disabled={i === project.data.tracks.length - 1}
+                                                onClick={() => reorderTrack(t.id, i + 1, 'down')}
+                                            >
+                                                <StudioIcon name="arrowDown" size={16} />
+                                            </button>
+                                        </div>
                                         <button
                                             aria-label={`删除曲目 ${i + 1}`}
                                             title={`删除曲目 ${i + 1}`}
@@ -714,7 +760,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <textarea
                                     value={project.data.lyrics}
                                     onChange={(e) =>
-                                        commit((p) => {
+                                        textCommit('data:lyrics', (p) => {
                                             p.data.lyrics = e.target.value;
                                         })
                                     }
@@ -725,7 +771,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <textarea
                                     value={project.data.credits}
                                     onChange={(e) =>
-                                        commit((p) => {
+                                        textCommit('data:credits', (p) => {
                                             p.data.credits = e.target.value;
                                         })
                                     }
@@ -879,6 +925,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 <>
                                     <NumberField
                                         label="面板数量"
+                                        integer
                                         value={design.panels}
                                         min={project.active === 'jcard' ? 3 : 1}
                                         max={project.active === 'jcard' ? 5 : 6}
@@ -1159,7 +1206,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                         <textarea
                                             aria-label="图层文字"
                                             value={activeLayer.text}
-                                            onChange={(e) => editLayer({ text: e.target.value })}
+                                            onChange={(e) => editLayer({ text: e.target.value }, 'text')}
                                         />
                                     )}
                                     <div className="md-field-row">
@@ -1329,7 +1376,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                             {activeLayer.kind === 'code' && (
                                 <label className="md-field">
                                     <span>代码内容</span>
-                                    <input value={activeLayer.text} onChange={(e) => editLayer({ text: e.target.value })} />
+                                    <input value={activeLayer.text} onChange={(e) => editLayer({ text: e.target.value }, 'text')} />
                                 </label>
                             )}
                             <div className="md-field-row">
@@ -1353,7 +1400,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                             <div className="md-field-row">
                                 <label className="md-field md-wide">
                                     <span>图层名称</span>
-                                    <input value={activeLayer.name} onChange={(e) => editLayer({ name: e.target.value })} />
+                                    <input value={activeLayer.name} onChange={(e) => editLayer({ name: e.target.value }, 'name')} />
                                 </label>
                                 <NumberField label="X（mm）" value={activeLayer.x} onChange={(v) => editLayer({ x: v })} />
                                 <NumberField label="Y（mm）" value={activeLayer.y} onChange={(v) => editLayer({ y: v })} />
@@ -1388,477 +1435,462 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
 
     if (!open) return null;
     return (
-        <Dialog fullScreen open={open} aria-label="MD 标签与包装编辑器" sx={{ zIndex: 1500 }}>
-            <div className="md-editor">
-                <header className="md-top">
-                    <div className="md-brand">
-                        <span className="md-brand-icon">
-                            <DiscIcon size={30} />
-                        </span>
-                        <div>
-                            <strong>MD Studio</strong>
-                            <small>MiniDisc 标签工作台</small>
+        <Dialog
+            fullScreen
+            PaperProps={{ ...surface, className: 'md-studio-surface' }}
+            open={open}
+            aria-label="MD 标签与包装编辑器"
+            sx={{ zIndex: 1500 }}
+        >
+            <NumberReset.Provider value={numberReset}>
+                <div
+                    className="md-editor"
+                    {...surface}
+                    onBlurCapture={(e) => {
+                        if ((e.target as HTMLElement).matches('input,textarea')) textGroup.current.end();
+                    }}
+                    onCompositionStartCapture={() => textGroup.current.compositionStart(Date.now())}
+                    onCompositionEndCapture={() => textGroup.current.compositionEnd(Date.now())}
+                >
+                    <header className="md-top">
+                        <div className="md-brand">
+                            <span className="md-brand-icon">
+                                <DiscIcon size={30} />
+                            </span>
+                            <div>
+                                <strong>MD Studio</strong>
+                                <small>MiniDisc 标签工作台</small>
+                            </div>
                         </div>
-                    </div>
-                    <input
-                        className="md-project-name"
-                        aria-label="工程名称"
-                        value={project.name}
-                        onChange={(e) =>
-                            commit((p) => {
-                                p.name = e.target.value;
-                            })
-                        }
-                    />
-                    <span className="md-save-state" role="status">
-                        {saveState === '已保存到本机' ? '草稿已保存到本机' : saveState}
-                    </span>
-                    <button disabled={!ready || busy} onClick={() => fileProject.current?.click()}>
-                        <StudioIcon name="open" /> 打开
-                    </button>
-                    <button
-                        className="md-save-action"
-                        title="保存包含全部模板与素材的 .mdlabel 工程文件"
-                        disabled={!ready || busy}
-                        onClick={() =>
-                            run(async () => {
-                                downloadBlob(await saveProject(project), `${project.name}.mdlabel`);
-                                await saveDraftNow();
-                                setNotice('工程已导出，包含全部模板与素材');
-                            })
-                        }
-                    >
-                        <StudioIcon name="save" /> 保存工程
-                    </button>
-                    <button className="md-primary md-output-action" onClick={() => setPrintOpen(true)} disabled={!ready || busy}>
-                        <StudioIcon name="print" /> 排版 / 导出 PDF
-                    </button>
-                    <button
-                        className="md-close"
-                        aria-label="关闭编辑器"
-                        title="关闭编辑器"
-                        onClick={() =>
-                            run(async () => {
-                                await saveDraftNow();
-                                onClose();
-                            })
-                        }
-                    >
-                        <StudioIcon name="close" />
-                    </button>
-                </header>
-                {error && (
-                    <div className="md-message md-error" role="alert">
-                        {error}
-                        <button onClick={() => setError('')}>关闭提示</button>
-                    </div>
-                )}
-                {notice && (
-                    <div className="md-message" role="status">
-                        {notice}
-                        <button aria-label="关闭提示" title="关闭提示" onClick={() => setNotice('')}>
+                        <input
+                            className="md-project-name"
+                            aria-label="工程名称"
+                            value={project.name}
+                            onChange={(e) =>
+                                textCommit('project:name', (p) => {
+                                    p.name = e.target.value;
+                                })
+                            }
+                        />
+                        <span className="md-save-state" role="status">
+                            {saveState === '已保存到本机' ? '草稿已保存到本机' : saveState}
+                        </span>
+                        <button disabled={!ready || busy} onClick={() => fileProject.current?.click()}>
+                            <StudioIcon name="open" /> 打开
+                        </button>
+                        <button
+                            className="md-save-action"
+                            title="保存包含全部模板与素材的 .mdlabel 工程文件"
+                            disabled={!ready || busy}
+                            onClick={() =>
+                                run(async () => {
+                                    downloadBlob(await saveProject(project), `${project.name}.mdlabel`);
+                                    await saveDraftNow();
+                                    setNotice('工程已导出，包含全部模板与素材');
+                                })
+                            }
+                        >
+                            <StudioIcon name="save" /> 保存工程
+                        </button>
+                        <button
+                            className="md-primary md-output-action"
+                            onClick={() => {
+                                setError('');
+                                setNotice('');
+                                setPrintOpen(true);
+                            }}
+                            disabled={!ready || busy}
+                        >
+                            <StudioIcon name="print" /> 排版 / 导出 PDF
+                        </button>
+                        <button
+                            className="md-close"
+                            aria-label="关闭编辑器"
+                            title="关闭编辑器"
+                            onClick={() =>
+                                run(async () => {
+                                    await saveDraftNow();
+                                    onClose();
+                                })
+                            }
+                        >
                             <StudioIcon name="close" />
                         </button>
-                    </div>
-                )}
-                {!ready || !fonts ? (
-                    <div className="md-loading">正在加载离线字体和工程…</div>
-                ) : (
-                    <>
-                        <div className="md-studio-grid">
-                            {narrow ? (
-                                <Drawer
-                                    anchor="left"
-                                    open={drawer === 'tools'}
-                                    onClose={() => setDrawer(null)}
-                                    sx={{ zIndex: 1550 }}
-                                    PaperProps={{
-                                        className: 'md-studio-surface md-drawer',
-                                        role: 'dialog',
-                                        'aria-label': '模板与内容',
-                                        'aria-modal': true,
-                                    }}
-                                >
-                                    {toolsPanel}
-                                </Drawer>
-                            ) : (
-                                <aside className="md-left" aria-label="模板与内容">
-                                    {toolsPanel}
-                                </aside>
-                            )}
-                            <section className="md-workspace" aria-label="标签预览工作区">
-                                <div className="md-canvas-toolbar">
-                                    {narrow && (
-                                        <button aria-expanded={drawer === 'tools'} onClick={() => setDrawer('tools')}>
-                                            <StudioIcon name="panel" /> 模板与工具
-                                        </button>
-                                    )}
-                                    {compact && (
-                                        <button aria-expanded={drawer === 'inspector'} onClick={() => setDrawer('inspector')}>
-                                            <StudioIcon name="layers" /> 图层与属性
-                                        </button>
-                                    )}
-                                    <span className="md-current-template">{templateNames[project.active]}</span>
-                                    <Select
-                                        label="编辑面板"
-                                        value={actualPanel}
-                                        onChange={(v) => {
-                                            setPanel(v);
-                                            setSelected('');
+                    </header>
+                    {error && (
+                        <div className="md-message md-error" role="alert">
+                            {error}
+                            <button onClick={() => setError('')}>关闭提示</button>
+                        </div>
+                    )}
+                    {notice && (
+                        <div className="md-message" role="status">
+                            {notice}
+                            <button aria-label="关闭提示" title="关闭提示" onClick={() => setNotice('')}>
+                                <StudioIcon name="close" />
+                            </button>
+                        </div>
+                    )}
+                    {!ready || !fonts ? (
+                        <div className="md-loading">正在加载离线字体和工程…</div>
+                    ) : (
+                        <>
+                            <div className="md-studio-grid">
+                                {narrow ? (
+                                    <Drawer
+                                        anchor="left"
+                                        open={drawer === 'tools'}
+                                        onClose={() => setDrawer(null)}
+                                        sx={{ zIndex: 1550 }}
+                                        PaperProps={{
+                                            ...surface,
+                                            className: 'md-studio-surface md-drawer',
+                                            role: 'dialog',
+                                            'aria-label': '模板与内容',
+                                            'aria-modal': true,
                                         }}
-                                        options={def.panels.map((p) => [p.id, p.name])}
-                                    />
-                                    {design.duplex && (
+                                    >
+                                        {toolsPanel}
+                                    </Drawer>
+                                ) : (
+                                    <aside className="md-left" aria-label="模板与内容">
+                                        {toolsPanel}
+                                    </aside>
+                                )}
+                                <section className="md-workspace" aria-label="标签预览工作区">
+                                    <div className="md-canvas-toolbar">
+                                        {narrow && (
+                                            <button aria-expanded={drawer === 'tools'} onClick={() => setDrawer('tools')}>
+                                                <StudioIcon name="panel" /> 模板与工具
+                                            </button>
+                                        )}
+                                        {compact && (
+                                            <button aria-expanded={drawer === 'inspector'} onClick={() => setDrawer('inspector')}>
+                                                <StudioIcon name="layers" /> 图层与属性
+                                            </button>
+                                        )}
+                                        <span className="md-current-template">{templateNames[project.active]}</span>
                                         <Select
-                                            label="正反面"
-                                            value={actualFace}
+                                            label="编辑面板"
+                                            value={actualPanel}
                                             onChange={(v) => {
-                                                setFace(v as Face);
+                                                setPanel(v);
                                                 setSelected('');
                                             }}
-                                            options={[
-                                                ['front', '外侧 / 正面'],
-                                                ['back', '内侧 / 背面'],
-                                            ]}
+                                            options={def.panels.map((p) => [p.id, p.name])}
                                         />
-                                    )}
-                                </div>
-                                <div className="md-view-toolbar" aria-label="画布工具">
-                                    <button aria-label="撤销" disabled={!past.current.length} onClick={undo} title="撤销（⌘/Ctrl Z）">
-                                        <StudioIcon name="undo" />
-                                    </button>
-                                    <button
-                                        aria-label="重做"
-                                        title="重做（⌘/Ctrl Shift Z）"
-                                        disabled={!future.current.length}
-                                        onClick={redo}
-                                    >
-                                        <StudioIcon name="redo" />
-                                    </button>
-                                    <Check label="网格" value={grid} onChange={setGrid} />
-                                    <Check label="安全线" value={guides} onChange={setGuides} />
-                                    <Check label="吸附" value={snap} onChange={setSnap} />
-                                    <label className="md-check" title={def.folds.length ? '仅显示或隐藏设计画布折线' : '此模板无折线'}>
-                                        <input
-                                            type="checkbox"
-                                            checked={showFolds && def.folds.length > 0}
-                                            disabled={!def.folds.length}
-                                            onChange={(e) => {
-                                                setShowFolds(e.target.checked);
-                                                try {
-                                                    localStorage.setItem('md-show-folds', String(e.target.checked));
-                                                } catch {
-                                                    /* Optional UI preference. */
-                                                }
-                                            }}
-                                        />
-                                        折线
-                                    </label>
-                                    <label className="md-zoom">
-                                        <span title="相对于适合窗口；不改变打印尺寸">{zoom.toFixed(1)}×</span>{' '}
-                                        <input
-                                            aria-label="预览缩放"
-                                            type="range"
-                                            min=".5"
-                                            max="3"
-                                            step=".1"
-                                            value={zoom}
-                                            onChange={(e) => setZoom(Number(e.target.value))}
-                                        />
-                                    </label>
-                                    <button onClick={() => setZoom(1)} title="按窗口宽高适配，不改变打印尺寸">
-                                        适合窗口
-                                    </button>
-                                </div>
-                                <div
-                                    className="md-canvas-scroll"
-                                    ref={setCanvasViewport}
-                                    onPointerDown={(e) => {
-                                        // Layer hit areas and resize handles stop propagation before this point.
-                                        if (e.isPrimary && e.button === 0 && !drag.current && project === deferred) setSelected('');
-                                    }}
-                                >
-                                    <div className="md-artboard-wrap" style={{ width: viewW * displayScale + 28 }}>
-                                        <div className="md-ruler" style={{ width: viewW * displayScale }}>
-                                            {Array.from({ length: Math.floor(viewW / 10) + 1 }, (_, i) => (
-                                                <span key={i} style={{ left: i * 10 * displayScale }}>
-                                                    {i * 10}
-                                                </span>
-                                            ))}
-                                            <i>mm</i>
-                                        </div>
-                                        <div className="md-artboard" style={{ width: viewW * displayScale, height: viewH * displayScale }}>
-                                            {rendered && (
-                                                <div className="md-artwork" dangerouslySetInnerHTML={{ __html: svgDocument(rendered) }} />
-                                            )}
-                                            <svg
-                                                className="md-handles"
-                                                style={{ pointerEvents: project !== deferred && !drag.current ? 'none' : 'auto' }}
-                                                viewBox={`0 0 ${viewW} ${viewH}`}
-                                                onPointerMove={(e) => {
-                                                    const q = drag.current;
-                                                    if (!q || q.pointerId !== e.pointerId) return;
-                                                    // A pending capture can be released before got/lostpointercapture fires.
-                                                    if (!e.currentTarget.hasPointerCapture(e.pointerId) || !(e.buttons & 1)) {
-                                                        drag.current = null;
-                                                        return;
+                                        {design.duplex && (
+                                            <Select
+                                                label="正反面"
+                                                value={actualFace}
+                                                onChange={(v) => {
+                                                    setFace(v as Face);
+                                                    setSelected('');
+                                                }}
+                                                options={[
+                                                    ['front', '外侧 / 正面'],
+                                                    ['back', '内侧 / 背面'],
+                                                ]}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="md-view-toolbar" aria-label="画布工具">
+                                        <button aria-label="撤销" disabled={!past.current.length} onClick={undo} title="撤销（⌘/Ctrl Z）">
+                                            <StudioIcon name="undo" />
+                                        </button>
+                                        <button
+                                            aria-label="重做"
+                                            title="重做（⌘/Ctrl Shift Z）"
+                                            disabled={!future.current.length}
+                                            onClick={redo}
+                                        >
+                                            <StudioIcon name="redo" />
+                                        </button>
+                                        <Check label="网格" value={grid} onChange={setGrid} />
+                                        <Check label="安全线" value={guides} onChange={setGuides} />
+                                        <Check label="吸附" value={snap} onChange={setSnap} />
+                                        <label className="md-check" title={def.folds.length ? '仅显示或隐藏设计画布折线' : '此模板无折线'}>
+                                            <input
+                                                type="checkbox"
+                                                checked={showFolds && def.folds.length > 0}
+                                                disabled={!def.folds.length}
+                                                onChange={(e) => {
+                                                    setShowFolds(e.target.checked);
+                                                    try {
+                                                        localStorage.setItem('md-show-folds', String(e.target.checked));
+                                                    } catch {
+                                                        /* Optional UI preference. */
                                                     }
-                                                    if (q.rotation && q.original) {
-                                                        const point = pointerOnCanvas(e.currentTarget, e.clientX, e.clientY);
-                                                        if (
-                                                            !point ||
-                                                            Math.hypot(point.x - q.rotation.center.x, point.y - q.rotation.center.y) *
-                                                                q.scale <
-                                                                2
-                                                        )
+                                                }}
+                                            />
+                                            折线
+                                        </label>
+                                        <label className="md-zoom">
+                                            <span title="相对于适合窗口；不改变打印尺寸">{zoom.toFixed(1)}×</span>{' '}
+                                            <input
+                                                aria-label="预览缩放"
+                                                type="range"
+                                                min=".5"
+                                                max="3"
+                                                step=".1"
+                                                value={zoom}
+                                                onChange={(e) => setZoom(Number(e.target.value))}
+                                            />
+                                        </label>
+                                        <button onClick={() => setZoom(1)} title="按窗口宽高适配，不改变打印尺寸">
+                                            适合窗口
+                                        </button>
+                                    </div>
+                                    <div
+                                        className="md-canvas-scroll"
+                                        ref={setCanvasViewport}
+                                        onPointerDown={(e) => {
+                                            // Layer hit areas and resize handles stop propagation before this point.
+                                            if (e.isPrimary && e.button === 0 && !drag.current && project === deferred) setSelected('');
+                                        }}
+                                    >
+                                        <div className="md-artboard-wrap" style={{ width: viewW * displayScale + 28 }}>
+                                            <div className="md-ruler" style={{ width: viewW * displayScale }}>
+                                                {Array.from({ length: Math.floor(viewW / 10) + 1 }, (_, i) => (
+                                                    <span key={i} style={{ left: i * 10 * displayScale }}>
+                                                        {i * 10}
+                                                    </span>
+                                                ))}
+                                                <i>mm</i>
+                                            </div>
+                                            <div
+                                                className="md-artboard"
+                                                style={{ width: viewW * displayScale, height: viewH * displayScale }}
+                                            >
+                                                {rendered && (
+                                                    <div
+                                                        className="md-artwork"
+                                                        dangerouslySetInnerHTML={{ __html: svgDocument(rendered) }}
+                                                    />
+                                                )}
+                                                <svg
+                                                    className="md-handles"
+                                                    style={{ pointerEvents: project !== deferred && !drag.current ? 'none' : 'auto' }}
+                                                    viewBox={`0 0 ${viewW} ${viewH}`}
+                                                    onPointerMove={(e) => {
+                                                        const q = drag.current;
+                                                        if (!q || q.pointerId !== e.pointerId) return;
+                                                        // A pending capture can be released before got/lostpointercapture fires.
+                                                        if (!e.currentTarget.hasPointerCapture(e.pointerId) || !(e.buttons & 1)) {
+                                                            drag.current = null;
                                                             return;
-                                                        if (!q.started && Math.hypot(e.clientX - q.startX, e.clientY - q.startY) < 2)
+                                                        }
+                                                        if (q.rotation && q.original) {
+                                                            const point = pointerOnCanvas(e.currentTarget, e.clientX, e.clientY);
+                                                            if (
+                                                                !point ||
+                                                                Math.hypot(point.x - q.rotation.center.x, point.y - q.rotation.center.y) *
+                                                                    q.scale <
+                                                                    2
+                                                            )
+                                                                return;
+                                                            if (!q.started && Math.hypot(e.clientX - q.startX, e.clientY - q.startY) < 2)
+                                                                return;
+                                                            const angle =
+                                                                (Math.atan2(point.y - q.rotation.center.y, point.x - q.rotation.center.x) *
+                                                                    180) /
+                                                                Math.PI;
+                                                            q.rotation.delta += rotationDelta(q.rotation.previous, angle);
+                                                            q.rotation.previous = angle;
+                                                            const next = rotateLayer(
+                                                                q.original,
+                                                                q.original.rotation + q.rotation.delta,
+                                                                e.shiftKey
+                                                            );
+                                                            if (next.rotation === q.rotation.applied) return;
+                                                            q.rotation.applied = next.rotation;
+                                                            const remember = !q.started;
+                                                            q.started = true;
+                                                            commit((p) => {
+                                                                const l = p.designs[p.active]!.layers.find((l) => l.id === q.id);
+                                                                if (l && !l.locked) Object.assign(l, next);
+                                                            }, remember);
                                                             return;
-                                                        const angle =
-                                                            (Math.atan2(point.y - q.rotation.center.y, point.x - q.rotation.center.x) *
-                                                                180) /
-                                                            Math.PI;
-                                                        q.rotation.delta += rotationDelta(q.rotation.previous, angle);
-                                                        q.rotation.previous = angle;
-                                                        const next = rotateLayer(
-                                                            q.original,
-                                                            q.original.rotation + q.rotation.delta,
-                                                            e.shiftKey
+                                                        }
+                                                        const { x: dx, y: dy } = panelDelta(
+                                                            (e.clientX - q.startX) / q.scale,
+                                                            (e.clientY - q.startY) / q.scale,
+                                                            q.orientation === 'bottom'
                                                         );
-                                                        if (next.rotation === q.rotation.applied) return;
-                                                        q.rotation.applied = next.rotation;
+                                                        if (!q.started && Math.abs(dx) + Math.abs(dy) < 0.05) return;
                                                         const remember = !q.started;
                                                         q.started = true;
+                                                        const round = (v: number) => (snap ? Math.round(v * 2) / 2 : v);
                                                         commit((p) => {
                                                             const l = p.designs[p.active]!.layers.find((l) => l.id === q.id);
-                                                            if (l && !l.locked) Object.assign(l, next);
-                                                        }, remember);
-                                                        return;
-                                                    }
-                                                    const { x: dx, y: dy } = panelDelta(
-                                                        (e.clientX - q.startX) / q.scale,
-                                                        (e.clientY - q.startY) / q.scale,
-                                                        q.orientation === 'bottom'
-                                                    );
-                                                    if (!q.started && Math.abs(dx) + Math.abs(dy) < 0.05) return;
-                                                    const remember = !q.started;
-                                                    q.started = true;
-                                                    const round = (v: number) => (snap ? Math.round(v * 2) / 2 : v);
-                                                    commit((p) => {
-                                                        const l = p.designs[p.active]!.layers.find((l) => l.id === q.id);
-                                                        if (l) {
-                                                            if (q.handle && q.original)
-                                                                Object.assign(
-                                                                    l,
-                                                                    resizeLayer(q.original, q.handle, dx, dy, snap, e.shiftKey)
-                                                                );
-                                                            else {
-                                                                l.x = round(q.x + dx);
-                                                                l.y = round(q.y + dy);
+                                                            if (l) {
+                                                                if (q.handle && q.original)
+                                                                    Object.assign(
+                                                                        l,
+                                                                        resizeLayer(q.original, q.handle, dx, dy, snap, e.shiftKey)
+                                                                    );
+                                                                else {
+                                                                    l.x = round(q.x + dx);
+                                                                    l.y = round(q.y + dy);
+                                                                }
                                                             }
-                                                        }
-                                                    }, remember);
-                                                }}
-                                                onPointerUp={(e) => {
-                                                    if (drag.current?.pointerId === e.pointerId) drag.current = null;
-                                                    if (e.currentTarget.hasPointerCapture(e.pointerId))
-                                                        e.currentTarget.releasePointerCapture(e.pointerId);
-                                                }}
-                                                onPointerCancel={(e) => {
-                                                    if (drag.current?.pointerId === e.pointerId) drag.current = null;
-                                                }}
-                                                onLostPointerCapture={(e) => {
-                                                    if (drag.current?.pointerId === e.pointerId) drag.current = null;
-                                                }}
-                                            >
-                                                {/* Panel backgrounds sit behind layer hit areas so empty artwork selects its panel. */}
-                                                {def.panels
-                                                    .filter((p) => !(separated && design.template === 'full') || p.id === 'main')
-                                                    .map((p) => (
-                                                        <g
-                                                            key={p.id}
-                                                            data-panel-id={p.id}
-                                                            fill="transparent"
-                                                            onPointerDown={(e) => {
-                                                                e.stopPropagation();
-                                                                if (!e.isPrimary || e.button !== 0 || drag.current || project !== deferred)
-                                                                    return;
-                                                                setPanel(p.id);
-                                                                setSelected('');
-                                                            }}
-                                                        >
-                                                            {p.clipPaths && p.clipViewBox ? (
-                                                                p.clipPaths.map((path, i) => (
-                                                                    <path
-                                                                        key={i}
-                                                                        d={path}
-                                                                        transform={`translate(${separated ? i * (p.width + 4) : p.x} ${p.y}) scale(${p.width / p.clipViewBox![0]} ${p.height / p.clipViewBox![1]})`}
-                                                                    />
-                                                                ))
-                                                            ) : (
-                                                                <rect x={p.x} y={p.y} width={p.width} height={p.height} />
-                                                            )}
-                                                        </g>
-                                                    ))}
-                                                {grid && (
-                                                    <g pointerEvents="none">
-                                                        <defs>
-                                                            <pattern
-                                                                id="md-preview-grid"
-                                                                width="5"
-                                                                height="5"
-                                                                patternUnits="userSpaceOnUse"
+                                                        }, remember);
+                                                    }}
+                                                    onPointerUp={(e) => {
+                                                        if (drag.current?.pointerId === e.pointerId) drag.current = null;
+                                                        if (e.currentTarget.hasPointerCapture(e.pointerId))
+                                                            e.currentTarget.releasePointerCapture(e.pointerId);
+                                                    }}
+                                                    onPointerCancel={(e) => {
+                                                        if (drag.current?.pointerId === e.pointerId) drag.current = null;
+                                                    }}
+                                                    onLostPointerCapture={(e) => {
+                                                        if (drag.current?.pointerId === e.pointerId) drag.current = null;
+                                                    }}
+                                                >
+                                                    {/* Panel backgrounds sit behind layer hit areas so empty artwork selects its panel. */}
+                                                    {def.panels
+                                                        .filter((p) => !(separated && design.template === 'full') || p.id === 'main')
+                                                        .map((p) => (
+                                                            <g
+                                                                key={p.id}
+                                                                data-panel-id={p.id}
+                                                                fill="transparent"
+                                                                onPointerDown={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (
+                                                                        !e.isPrimary ||
+                                                                        e.button !== 0 ||
+                                                                        drag.current ||
+                                                                        project !== deferred
+                                                                    )
+                                                                        return;
+                                                                    setPanel(p.id);
+                                                                    setSelected('');
+                                                                }}
                                                             >
-                                                                <path
-                                                                    d="M5 0H0V5"
-                                                                    fill="none"
-                                                                    stroke="#527975"
-                                                                    strokeWidth=".1"
-                                                                    opacity=".45"
-                                                                />
-                                                            </pattern>
-                                                        </defs>
-                                                        <rect width={viewW} height={viewH} fill="url(#md-preview-grid)" />
-                                                    </g>
-                                                )}
-                                                {showFolds && <FoldGuides definition={def} />}
-                                                {rendered?.hits.map((hit) => {
-                                                    const l = design.layers.find((l) => l.id === hit.id);
-                                                    if (!l) return null;
-                                                    return (
-                                                        <rect
-                                                            key={hit.id}
-                                                            data-layer-id={hit.id}
-                                                            x={hit.x}
-                                                            y={hit.y}
-                                                            width={hit.width}
-                                                            height={hit.height}
-                                                            fill="transparent"
-                                                            stroke={hit.id === selected ? 'var(--md-accent)' : 'none'}
-                                                            strokeWidth=".3"
-                                                            strokeDasharray="1 .6"
-                                                            style={{ cursor: l.locked ? 'not-allowed' : 'move' }}
-                                                            onPointerDown={(e) => {
-                                                                e.stopPropagation();
-                                                                if (!e.isPrimary || e.button !== 0) return;
-                                                                setPanel(l.panel);
-                                                                setSelected(l.id);
-                                                                if (l.locked) return;
-                                                                const svg = e.currentTarget.ownerSVGElement!;
-                                                                svg.setPointerCapture(e.pointerId);
-                                                                drag.current = {
-                                                                    pointerId: e.pointerId,
-                                                                    id: l.id,
-                                                                    x: l.x,
-                                                                    y: l.y,
-                                                                    startX: e.clientX,
-                                                                    startY: e.clientY,
-                                                                    scale: svg.getBoundingClientRect().width / viewW,
-                                                                    started: false,
-                                                                    orientation: design.template === 'jcard' ? design.orientation : 'left',
-                                                                    panel: l.panel,
-                                                                };
-                                                            }}
-                                                        />
-                                                    );
-                                                })}
-                                                {activeLayer?.visible &&
-                                                    !activeLayer.locked &&
-                                                    !(separated && design.template === 'full') &&
-                                                    (() => {
-                                                        const p = def.panels.find((p) => p.id === activeLayer.panel)!;
-                                                        const points = ['nw', 'ne', 'se', 'sw'].map((h) => {
-                                                            const pt = handlePoint(
-                                                                h as ResizeHandle,
-                                                                activeLayer.width,
-                                                                activeLayer.height
-                                                            );
-                                                            return canvasPoint(activeLayer, p, pt.x, pt.y);
-                                                        });
-                                                        const size = 9 / displayScale;
+                                                                {p.clipPaths && p.clipViewBox ? (
+                                                                    p.clipPaths.map((path, i) => (
+                                                                        <path
+                                                                            key={i}
+                                                                            d={path}
+                                                                            transform={`translate(${separated ? i * (p.width + 4) : p.x} ${p.y}) scale(${p.width / p.clipViewBox![0]} ${p.height / p.clipViewBox![1]})`}
+                                                                        />
+                                                                    ))
+                                                                ) : (
+                                                                    <rect x={p.x} y={p.y} width={p.width} height={p.height} />
+                                                                )}
+                                                            </g>
+                                                        ))}
+                                                    {grid && (
+                                                        <g pointerEvents="none">
+                                                            <defs>
+                                                                <pattern
+                                                                    id="md-preview-grid"
+                                                                    width="5"
+                                                                    height="5"
+                                                                    patternUnits="userSpaceOnUse"
+                                                                >
+                                                                    <path
+                                                                        d="M5 0H0V5"
+                                                                        fill="none"
+                                                                        stroke="#527975"
+                                                                        strokeWidth=".1"
+                                                                        opacity=".45"
+                                                                    />
+                                                                </pattern>
+                                                            </defs>
+                                                            <rect width={viewW} height={viewH} fill="url(#md-preview-grid)" />
+                                                        </g>
+                                                    )}
+                                                    {showFolds && <FoldGuides definition={def} />}
+                                                    {rendered?.hits.map((hit) => {
+                                                        const l = design.layers.find((l) => l.id === hit.id);
+                                                        if (!l) return null;
                                                         return (
-                                                            <g>
-                                                                <polygon
-                                                                    points={points.map((p) => `${p.x},${p.y}`).join(' ')}
-                                                                    fill="none"
-                                                                    stroke="var(--md-accent)"
-                                                                    strokeWidth={1 / displayScale}
-                                                                    pointerEvents="none"
-                                                                />
-                                                                {rotationCorners.map((corner) => (
+                                                            <rect
+                                                                key={hit.id}
+                                                                data-layer-id={hit.id}
+                                                                x={hit.x}
+                                                                y={hit.y}
+                                                                width={hit.width}
+                                                                height={hit.height}
+                                                                fill="transparent"
+                                                                stroke={hit.id === selected ? 'var(--md-accent)' : 'none'}
+                                                                strokeWidth=".3"
+                                                                strokeDasharray="1 .6"
+                                                                style={{ cursor: l.locked ? 'not-allowed' : 'move' }}
+                                                                onPointerDown={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (!e.isPrimary || e.button !== 0) return;
+                                                                    setPanel(l.panel);
+                                                                    setSelected(l.id);
+                                                                    if (l.locked) return;
+                                                                    const svg = e.currentTarget.ownerSVGElement!;
+                                                                    svg.setPointerCapture(e.pointerId);
+                                                                    drag.current = {
+                                                                        pointerId: e.pointerId,
+                                                                        id: l.id,
+                                                                        x: l.x,
+                                                                        y: l.y,
+                                                                        startX: e.clientX,
+                                                                        startY: e.clientY,
+                                                                        scale: svg.getBoundingClientRect().width / viewW,
+                                                                        started: false,
+                                                                        orientation:
+                                                                            design.template === 'jcard' ? design.orientation : 'left',
+                                                                        panel: l.panel,
+                                                                    };
+                                                                }}
+                                                            />
+                                                        );
+                                                    })}
+                                                    {activeLayer?.visible &&
+                                                        !activeLayer.locked &&
+                                                        !(separated && design.template === 'full') &&
+                                                        (() => {
+                                                            const p = def.panels.find((p) => p.id === activeLayer.panel)!;
+                                                            const points = ['nw', 'ne', 'se', 'sw'].map((h) => {
+                                                                const pt = handlePoint(
+                                                                    h as ResizeHandle,
+                                                                    activeLayer.width,
+                                                                    activeLayer.height
+                                                                );
+                                                                return canvasPoint(activeLayer, p, pt.x, pt.y);
+                                                            });
+                                                            const size = 9 / displayScale;
+                                                            return (
+                                                                <g>
                                                                     <polygon
-                                                                        key={corner}
-                                                                        data-rotate-corner={corner}
-                                                                        aria-label={`旋转图层 ${corner}`}
-                                                                        className="md-rotation-zone"
-                                                                        points={rotationZone(activeLayer, p, corner, displayScale)
-                                                                            .map((pt) => `${pt.x},${pt.y}`)
-                                                                            .join(' ')}
-                                                                        fill="transparent"
-                                                                        onPointerDown={(e) => {
-                                                                            e.stopPropagation();
-                                                                            if (!e.isPrimary || e.button !== 0) return;
-                                                                            e.preventDefault();
-                                                                            const svg = e.currentTarget.ownerSVGElement!;
-                                                                            const point = pointerOnCanvas(svg, e.clientX, e.clientY);
-                                                                            if (!point) return;
-                                                                            const center = canvasPoint(
-                                                                                activeLayer,
-                                                                                p,
-                                                                                activeLayer.width / 2,
-                                                                                activeLayer.height / 2
-                                                                            );
-                                                                            svg.setPointerCapture(e.pointerId);
-                                                                            drag.current = {
-                                                                                pointerId: e.pointerId,
-                                                                                id: activeLayer.id,
-                                                                                x: activeLayer.x,
-                                                                                y: activeLayer.y,
-                                                                                startX: e.clientX,
-                                                                                startY: e.clientY,
-                                                                                scale: svg.getBoundingClientRect().width / viewW,
-                                                                                started: false,
-                                                                                orientation: p.rotation === -90 ? 'bottom' : 'left',
-                                                                                panel: p.id,
-                                                                                original: { ...activeLayer },
-                                                                                rotation: {
-                                                                                    center,
-                                                                                    previous:
-                                                                                        (Math.atan2(
-                                                                                            point.y - center.y,
-                                                                                            point.x - center.x
-                                                                                        ) *
-                                                                                            180) /
-                                                                                        Math.PI,
-                                                                                    delta: 0,
-                                                                                    applied: normalizeRotation(activeLayer.rotation),
-                                                                                },
-                                                                            };
-                                                                        }}
-                                                                    >
-                                                                        <title>拖动旋转；按住 Shift 每 15° 吸附</title>
-                                                                    </polygon>
-                                                                ))}
-                                                                {resizeHandles.map((h) => {
-                                                                    const local = handlePoint(h, activeLayer.width, activeLayer.height);
-                                                                    const pt = canvasPoint(activeLayer, p, local.x, local.y);
-                                                                    return (
-                                                                        <rect
-                                                                            key={h}
-                                                                            data-resize-handle={h}
-                                                                            aria-label={`调整大小 ${h}`}
-                                                                            x={pt.x - size / 2}
-                                                                            y={pt.y - size / 2}
-                                                                            width={size}
-                                                                            height={size}
-                                                                            fill="white"
-                                                                            stroke="var(--md-accent)"
-                                                                            strokeWidth={1.5 / displayScale}
-                                                                            style={{ cursor: 'crosshair' }}
+                                                                        points={points.map((p) => `${p.x},${p.y}`).join(' ')}
+                                                                        fill="none"
+                                                                        stroke="var(--md-accent)"
+                                                                        strokeWidth={1 / displayScale}
+                                                                        pointerEvents="none"
+                                                                    />
+                                                                    {rotationCorners.map((corner) => (
+                                                                        <polygon
+                                                                            key={corner}
+                                                                            data-rotate-corner={corner}
+                                                                            aria-label={`旋转图层 ${corner}`}
+                                                                            className="md-rotation-zone"
+                                                                            points={rotationZone(activeLayer, p, corner, displayScale)
+                                                                                .map((pt) => `${pt.x},${pt.y}`)
+                                                                                .join(' ')}
+                                                                            fill="transparent"
                                                                             onPointerDown={(e) => {
                                                                                 e.stopPropagation();
                                                                                 if (!e.isPrimary || e.button !== 0) return;
+                                                                                e.preventDefault();
                                                                                 const svg = e.currentTarget.ownerSVGElement!;
+                                                                                const point = pointerOnCanvas(svg, e.clientX, e.clientY);
+                                                                                if (!point) return;
+                                                                                const center = canvasPoint(
+                                                                                    activeLayer,
+                                                                                    p,
+                                                                                    activeLayer.width / 2,
+                                                                                    activeLayer.height / 2
+                                                                                );
                                                                                 svg.setPointerCapture(e.pointerId);
                                                                                 drag.current = {
                                                                                     pointerId: e.pointerId,
@@ -1872,333 +1904,402 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                                                                     orientation: p.rotation === -90 ? 'bottom' : 'left',
                                                                                     panel: p.id,
                                                                                     original: { ...activeLayer },
-                                                                                    handle: h,
+                                                                                    rotation: {
+                                                                                        center,
+                                                                                        previous:
+                                                                                            (Math.atan2(
+                                                                                                point.y - center.y,
+                                                                                                point.x - center.x
+                                                                                            ) *
+                                                                                                180) /
+                                                                                            Math.PI,
+                                                                                        delta: 0,
+                                                                                        applied: normalizeRotation(activeLayer.rotation),
+                                                                                    },
                                                                                 };
                                                                             }}
-                                                                        />
-                                                                    );
-                                                                })}
-                                                            </g>
-                                                        );
-                                                    })()}
-                                            </svg>
+                                                                        >
+                                                                            <title>拖动旋转；按住 Shift 每 15° 吸附</title>
+                                                                        </polygon>
+                                                                    ))}
+                                                                    {resizeHandles.map((h) => {
+                                                                        const local = handlePoint(h, activeLayer.width, activeLayer.height);
+                                                                        const pt = canvasPoint(activeLayer, p, local.x, local.y);
+                                                                        return (
+                                                                            <rect
+                                                                                key={h}
+                                                                                data-resize-handle={h}
+                                                                                aria-label={`调整大小 ${h}`}
+                                                                                x={pt.x - size / 2}
+                                                                                y={pt.y - size / 2}
+                                                                                width={size}
+                                                                                height={size}
+                                                                                fill="white"
+                                                                                stroke="var(--md-accent)"
+                                                                                strokeWidth={1.5 / displayScale}
+                                                                                style={{ cursor: 'crosshair' }}
+                                                                                onPointerDown={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    if (!e.isPrimary || e.button !== 0) return;
+                                                                                    const svg = e.currentTarget.ownerSVGElement!;
+                                                                                    svg.setPointerCapture(e.pointerId);
+                                                                                    drag.current = {
+                                                                                        pointerId: e.pointerId,
+                                                                                        id: activeLayer.id,
+                                                                                        x: activeLayer.x,
+                                                                                        y: activeLayer.y,
+                                                                                        startX: e.clientX,
+                                                                                        startY: e.clientY,
+                                                                                        scale: svg.getBoundingClientRect().width / viewW,
+                                                                                        started: false,
+                                                                                        orientation: p.rotation === -90 ? 'bottom' : 'left',
+                                                                                        panel: p.id,
+                                                                                        original: { ...activeLayer },
+                                                                                        handle: h,
+                                                                                    };
+                                                                                }}
+                                                                            />
+                                                                        );
+                                                                    })}
+                                                                </g>
+                                                            );
+                                                        })()}
+                                                </svg>
+                                            </div>
+                                            <p className="md-dimensions">
+                                                {templateNames[project.active]} · {def.width.toFixed(1)} × {def.height.toFixed(1)} mm{' '}
+                                                {design.duplex ? '· 双面' : ''}
+                                            </p>
                                         </div>
-                                        <p className="md-dimensions">
-                                            {templateNames[project.active]} · {def.width.toFixed(1)} × {def.height.toFixed(1)} mm{' '}
-                                            {design.duplex ? '· 双面' : ''}
-                                        </p>
                                     </div>
-                                </div>
-                                <div className="md-export-bar">
-                                    {project.active === 'full' && <Check label="分片预览" value={separated} onChange={setSeparated} />}
-                                    <span>
-                                        实际尺寸 · 出血 {project.print.bleed} mm · {project.print.crop ? '含裁切标记' : '无裁切标记'}
-                                        {['label', 'full'].includes(project.active) ? ' · 分片排列' : ''}
-                                    </span>
-                                    <Select
-                                        label="SVG 范围"
-                                        value={svgTarget}
-                                        onChange={setSvgTarget}
-                                        options={[
-                                            ['all', '完整模板'],
-                                            ...def.panels.map((p) => [p.id, p.name] as [string, string]),
-                                            ...(project.active === 'full'
-                                                ? ([
-                                                      ['piece0', '全面标签：主体'],
-                                                      ['piece1', '全面标签：滑盖'],
-                                                      ['piece2', '全面标签：下片'],
-                                                  ] as [string, string][])
-                                                : []),
-                                        ]}
-                                    />
-                                    <button onClick={showPrintPreview} disabled={busy}>
-                                        <StudioIcon name="preview" /> 设计预览
-                                    </button>
-                                    <button onClick={exportSVG} disabled={busy}>
-                                        <StudioIcon name="download" /> 导出 SVG
-                                    </button>
-                                </div>
-                                {rendered && rendered.warnings.length > 0 && (
-                                    <details className="md-warnings">
-                                        <summary>排版提示 · {rendered.warnings.length}</summary>
-                                        {rendered.warnings.map((w) => (
-                                            <p key={w}>{w}</p>
-                                        ))}
-                                    </details>
+                                    <div className="md-export-bar">
+                                        {project.active === 'full' && <Check label="分片预览" value={separated} onChange={setSeparated} />}
+                                        <span>
+                                            实际尺寸 · 出血 {project.print.bleed} mm · {project.print.crop ? '含裁切标记' : '无裁切标记'}
+                                            {['label', 'full'].includes(project.active) ? ' · 分片排列' : ''}
+                                        </span>
+                                        <Select
+                                            label="SVG 范围"
+                                            value={svgTarget}
+                                            onChange={setSvgTarget}
+                                            options={[
+                                                ['all', '完整模板'],
+                                                ...def.panels.map((p) => [p.id, p.name] as [string, string]),
+                                                ...(project.active === 'full'
+                                                    ? ([
+                                                          ['piece0', '全面标签：主体'],
+                                                          ['piece1', '全面标签：滑盖'],
+                                                          ['piece2', '全面标签：下片'],
+                                                      ] as [string, string][])
+                                                    : []),
+                                            ]}
+                                        />
+                                        <button onClick={showPrintPreview} disabled={busy}>
+                                            <StudioIcon name="preview" /> 设计预览
+                                        </button>
+                                        <button onClick={exportSVG} disabled={busy}>
+                                            <StudioIcon name="download" /> 导出 SVG
+                                        </button>
+                                    </div>
+                                    {rendered && rendered.warnings.length > 0 && (
+                                        <details className="md-warnings">
+                                            <summary>排版提示 · {rendered.warnings.length}</summary>
+                                            {rendered.warnings.map((w) => (
+                                                <p key={w}>{w}</p>
+                                            ))}
+                                        </details>
+                                    )}
+                                </section>
+                                {compact ? (
+                                    <Drawer
+                                        anchor="right"
+                                        open={drawer === 'inspector'}
+                                        onClose={() => setDrawer(null)}
+                                        sx={{ zIndex: 1550 }}
+                                        PaperProps={{
+                                            ...surface,
+                                            className: 'md-studio-surface md-drawer md-inspector-drawer',
+                                            role: 'dialog',
+                                            'aria-label': '图层与属性',
+                                            'aria-modal': true,
+                                        }}
+                                    >
+                                        {inspectorPanel}
+                                    </Drawer>
+                                ) : (
+                                    <aside className="md-right" aria-label="图层与属性">
+                                        {inspectorPanel}
+                                    </aside>
                                 )}
-                            </section>
-                            {compact ? (
-                                <Drawer
-                                    anchor="right"
-                                    open={drawer === 'inspector'}
-                                    onClose={() => setDrawer(null)}
-                                    sx={{ zIndex: 1550 }}
-                                    PaperProps={{
-                                        className: 'md-studio-surface md-drawer md-inspector-drawer',
-                                        role: 'dialog',
-                                        'aria-label': '图层与属性',
-                                        'aria-modal': true,
-                                    }}
-                                >
-                                    {inspectorPanel}
-                                </Drawer>
-                            ) : (
-                                <aside className="md-right" aria-label="图层与属性">
-                                    {inspectorPanel}
-                                </aside>
-                            )}
-                        </div>
-                    </>
-                )}
-                {printOpen && (
-                    <Dialog
-                        open
-                        onClose={() => {
-                            if (!busy) setPrintOpen(false);
-                        }}
-                        maxWidth={false}
-                        aria-labelledby="md-print-title"
-                        sx={{ zIndex: 1650 }}
-                        PaperProps={{ className: 'md-studio-surface md-print-dialog' }}
-                    >
-                        <section>
-                            <div className="md-data-import">
-                                <h2 id="md-print-title">打印排版</h2>
-                                <button aria-label="关闭打印排版" title="关闭打印排版" onClick={() => setPrintOpen(false)}>
-                                    <StudioIcon name="close" />
-                                </button>
                             </div>
-                            <p>100% 实际尺寸。实线裁切、虚线折叠；双面打印请先使用普通纸校准。</p>
-                            <div className="md-preset-row">
-                                {templateIds.map((id) => (
-                                    <Check
-                                        key={id}
-                                        label={templateNames[id]}
-                                        value={project.print.templates.includes(id)}
-                                        onChange={(v) =>
-                                            commit((p) => {
-                                                p.designs[id] ||= newDesign(id);
-                                                p.print.templates = v
-                                                    ? [...p.print.templates.filter((t) => t !== id), id]
-                                                    : p.print.templates.filter((t) => t !== id);
+                        </>
+                    )}
+                    {printOpen && (
+                        <Dialog
+                            open
+                            onClose={() => {
+                                if (!busy) setPrintOpen(false);
+                            }}
+                            maxWidth={false}
+                            aria-labelledby="md-print-title"
+                            sx={{ zIndex: 1650 }}
+                            PaperProps={{ ...surface, className: 'md-studio-surface md-print-dialog' }}
+                        >
+                            <div className="md-print-layout">
+                                <section className="md-print-settings">
+                                    <div className="md-data-import">
+                                        <h2 id="md-print-title">打印排版</h2>
+                                        <button
+                                            aria-label="关闭打印排版"
+                                            title="关闭打印排版"
+                                            disabled={busy}
+                                            onClick={() => setPrintOpen(false)}
+                                        >
+                                            <StudioIcon name="close" />
+                                        </button>
+                                    </div>
+                                    <p>100% 实际尺寸。实线裁切、虚线折叠；双面打印请先使用普通纸校准。</p>
+                                    <fieldset disabled={busy} className="md-print-fields">
+                                        <legend className="md-sr-only">打印设置</legend>
+                                        <div className="md-preset-row">
+                                            {templateIds.map((id) => (
+                                                <Check
+                                                    key={id}
+                                                    label={templateNames[id]}
+                                                    value={project.print.templates.includes(id)}
+                                                    onChange={(v) =>
+                                                        commit((p) => {
+                                                            p.designs[id] ||= newDesign(id);
+                                                            p.print.templates = v
+                                                                ? [...p.print.templates.filter((t) => t !== id), id]
+                                                                : p.print.templates.filter((t) => t !== id);
+                                                        })
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
+                                        <div className="md-field-row">
+                                            <Select
+                                                label="纸张"
+                                                value={project.print.paper}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.paper = v as LabelProject['print']['paper'];
+                                                    })
+                                                }
+                                                options={[
+                                                    ['A4', 'A4'],
+                                                    ['Letter', 'Letter'],
+                                                    ['Custom', '自定义尺寸（容纳展开稿）'],
+                                                ]}
+                                            />
+                                            <NumberField
+                                                label="份数"
+                                                integer
+                                                value={project.print.copies}
+                                                min={1}
+                                                max={100}
+                                                step={1}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.copies = Math.round(v);
+                                                    })
+                                                }
+                                            />
+                                            <NumberField
+                                                label="页边距（mm）"
+                                                value={project.print.margin}
+                                                min={0}
+                                                max={50}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.margin = v;
+                                                    })
+                                                }
+                                            />
+                                            <NumberField
+                                                label="间距（mm）"
+                                                value={project.print.gap}
+                                                min={0}
+                                                max={50}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.gap = v;
+                                                    })
+                                                }
+                                            />
+                                            <NumberField
+                                                label="出血（mm）"
+                                                value={project.print.bleed}
+                                                min={0}
+                                                max={5}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.bleed = v;
+                                                        p.print.bleedSettingsVersion = 1;
+                                                    })
+                                                }
+                                            />
+                                            <Select
+                                                label="双面翻转"
+                                                value={project.print.flip}
+                                                onChange={(v) =>
+                                                    commit((p) => {
+                                                        p.print.flip = v as 'long' | 'short';
+                                                    })
+                                                }
+                                                options={[
+                                                    ['long', '长边翻转'],
+                                                    ['short', '短边翻转'],
+                                                ]}
+                                            />
+                                        </div>
+                                        <div className="md-preset-row">
+                                            {(
+                                                [
+                                                    ['crop', '裁切线'],
+                                                    ['folds', '折线'],
+                                                    ['calibration', '校准标记'],
+                                                ] as const
+                                            ).map(([key, label]) => (
+                                                <Check
+                                                    key={key}
+                                                    label={label}
+                                                    value={project.print[key]}
+                                                    onChange={(v) =>
+                                                        commit((p) => {
+                                                            p.print[key] = v;
+                                                        })
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
+                                        <p className="md-muted">
+                                            标准／全面标签会分片排列，每片独立出血，出血区之间至少间隔 8
+                                            mm；包装仅在展开稿外缘出血。成品尺寸不变，超过纸张时不会自动缩小。
+                                        </p>
+                                    </fieldset>
+                                    {!!layout.output?.warnings.length && (
+                                        <details open>
+                                            <summary>本次排版提示 · {layout.output.warnings.length}</summary>
+                                            <ul>
+                                                {layout.output.warnings.map((w) => (
+                                                    <li key={w}>{w}</li>
+                                                ))}
+                                            </ul>
+                                        </details>
+                                    )}
+                                    <button className="md-primary" disabled={busy || !layout.output} onClick={exportPDF}>
+                                        {busy ? '正在生成…' : '导出 PDF'}
+                                    </button>
+                                    <button
+                                        disabled={busy || !layout.output}
+                                        onClick={() =>
+                                            run(async () => {
+                                                const output = layout.output;
+                                                if (!output) return;
+
+                                                const zip = new JSZip();
+                                                output.pages.forEach((p, i) => zip.file(`page-${i + 1}.svg`, p));
+                                                downloadBlob(await zip.generateAsync({ type: 'blob' }), `${project.name}-打印页.zip`);
+                                                setNotice(`已导出 ${output.pages.length} 页 SVG`);
                                             })
                                         }
-                                    />
-                                ))}
-                            </div>
-                            <div className="md-field-row">
-                                <Select
-                                    label="纸张"
-                                    value={project.print.paper}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.paper = v as LabelProject['print']['paper'];
-                                        })
-                                    }
-                                    options={[
-                                        ['A4', 'A4'],
-                                        ['Letter', 'Letter'],
-                                        ['Custom', '自定义尺寸（容纳展开稿）'],
-                                    ]}
-                                />
-                                <NumberField
-                                    label="份数"
-                                    value={project.print.copies}
-                                    min={1}
-                                    max={100}
-                                    step={1}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.copies = Math.round(v);
-                                        })
-                                    }
-                                />
-                                <NumberField
-                                    label="页边距（mm）"
-                                    value={project.print.margin}
-                                    min={0}
-                                    max={50}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.margin = v;
-                                        })
-                                    }
-                                />
-                                <NumberField
-                                    label="间距（mm）"
-                                    value={project.print.gap}
-                                    min={0}
-                                    max={50}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.gap = v;
-                                        })
-                                    }
-                                />
-                                <NumberField
-                                    label="出血（mm）"
-                                    value={project.print.bleed}
-                                    min={0}
-                                    max={5}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.bleed = v;
-                                            p.print.bleedSettingsVersion = 1;
-                                        })
-                                    }
-                                />
-                                <Select
-                                    label="双面翻转"
-                                    value={project.print.flip}
-                                    onChange={(v) =>
-                                        commit((p) => {
-                                            p.print.flip = v as 'long' | 'short';
-                                        })
-                                    }
-                                    options={[
-                                        ['long', '长边翻转'],
-                                        ['short', '短边翻转'],
-                                    ]}
+                                    >
+                                        导出整页 SVG
+                                    </button>
+                                    {notice && <p role="status">{notice}</p>}
+                                    {error && (
+                                        <p role="alert" className="md-error">
+                                            {error}
+                                        </p>
+                                    )}
+                                </section>
+                                <PaperPreview
+                                    layout={layout}
+                                    duplex={project.print.templates.some(
+                                        (id) => ['jcard', 'cover', 'tray'].includes(id) && project.designs[id]?.duplex
+                                    )}
                                 />
                             </div>
-                            <div className="md-preset-row">
-                                {(
-                                    [
-                                        ['crop', '裁切线'],
-                                        ['folds', '折线'],
-                                        ['calibration', '校准标记'],
-                                    ] as const
-                                ).map(([key, label]) => (
-                                    <Check
-                                        key={key}
-                                        label={label}
-                                        value={project.print[key]}
-                                        onChange={(v) =>
-                                            commit((p) => {
-                                                p.print[key] = v;
-                                            })
-                                        }
-                                    />
-                                ))}
-                            </div>
-                            <p className="md-muted">
-                                标准／全面标签会分片排列，每片独立出血，出血区之间至少间隔 8
-                                mm；包装仅在展开稿外缘出血。成品尺寸不变，超过纸张时不会自动缩小。
-                            </p>
-                            {!!exportWarnings.length && (
-                                <details open>
-                                    <summary>本次导出排版提示 · {exportWarnings.length}</summary>
-                                    <ul>
-                                        {exportWarnings.map((w) => (
-                                            <li key={w}>{w}</li>
-                                        ))}
-                                    </ul>
-                                </details>
-                            )}
-                            <button disabled={busy || !project.print.templates.length} onClick={showPrintPreview}>
-                                <StudioIcon name="preview" /> 设计预览
-                            </button>
-                            <button className="md-primary" disabled={busy || !project.print.templates.length} onClick={exportPDF}>
-                                {busy ? '正在生成…' : '导出 PDF'}
-                            </button>
-                            <button
-                                onClick={() =>
-                                    run(async () => {
-                                        if (!fonts) return;
-                                        const output = printPages(project, fonts);
-                                        setExportWarnings(output.warnings);
-                                        const zip = new JSZip();
-                                        output.pages.forEach((p, i) => zip.file(`page-${i + 1}.svg`, p));
-                                        downloadBlob(await zip.generateAsync({ type: 'blob' }), `${project.name}-打印页.zip`);
-                                        setNotice(`已导出 ${output.pages.length} 页 SVG`);
-                                    })
-                                }
-                            >
-                                导出整页 SVG
-                            </button>
-                            {error && (
-                                <p role="alert" className="md-error">
-                                    {error}
-                                </p>
-                            )}
-                        </section>
-                    </Dialog>
-                )}
-                {printPreview && fonts && (
-                    <DesignPreview project={project} fonts={fonts} initialFace={actualFace} onClose={() => setPrintPreview(false)} />
-                )}
-                <input
-                    ref={fileProject}
-                    hidden
-                    type="file"
-                    accept=".mdlabel"
-                    onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        e.target.value = '';
-                        if (f)
-                            run(async () => {
-                                let upgrade = '';
-                                const p = await openProject(f, (message) => {
-                                    upgrade = message;
-                                });
-                                commit((current) => {
-                                    Object.assign(current, p);
-                                });
-                                setSelected('');
-                                setPanel('main');
-                                setNotice(upgrade ? `工程已打开。${upgrade}` : '工程已打开');
-                            });
-                    }}
-                />
-                <input
-                    ref={fileMusic}
-                    hidden
-                    type="file"
-                    accept=".csv,.m3u,.m3u8,.txt"
-                    onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        e.target.value = '';
-                        if (f)
-                            run(async () => {
-                                const text = await f.text();
-                                mergeData(
-                                    f.name.toLowerCase().endsWith('.csv')
-                                        ? dataFromCSV(text)
-                                        : { ...project.data, tracks: parsePlaylist(text, /\.m3u8?$/i.test(f.name)) }
-                                );
-                            });
-                    }}
-                />
-                <input
-                    ref={fileImage}
-                    hidden
-                    type="file"
-                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
-                    onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        e.target.value = '';
-                        if (f)
-                            run(async () => {
-                                const a = await importAsset(f);
-                                commit((p) => {
-                                    p.assets[a.id] = a;
-                                    const panelDef = definition(p.designs[p.active]!).panels.find((p) => p.id === actualPanel)!;
-                                    const l = layer('image', actualPanel, actualFace, {
-                                        name: a.name,
-                                        assetId: a.id,
-                                        x: 0,
-                                        y: 0,
-                                        width: panelDef.artworkWidth ?? panelDef.width,
-                                        height: panelDef.artworkHeight ?? panelDef.height,
+                        </Dialog>
+                    )}
+                    {printPreview && fonts && (
+                        <DesignPreview project={project} fonts={fonts} initialFace={actualFace} onClose={() => setPrintPreview(false)} />
+                    )}
+                    <input
+                        ref={fileProject}
+                        hidden
+                        type="file"
+                        accept=".mdlabel"
+                        onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            e.target.value = '';
+                            if (f)
+                                run(async () => {
+                                    let upgrade = '';
+                                    const p = await openProject(f, (message) => {
+                                        upgrade = message;
                                     });
-                                    p.designs[p.active]!.layers.unshift(l);
-                                    setSelected(l.id);
+                                    commit((current) => {
+                                        Object.assign(current, p);
+                                    });
+                                    setSelected('');
+                                    setPanel('main');
+                                    setNotice(upgrade ? `工程已打开。${upgrade}` : '工程已打开');
                                 });
-                                setNotice('图片已添加，可在图层中调整裁切和位置');
-                            });
-                    }}
-                />
-            </div>
+                        }}
+                    />
+                    <input
+                        ref={fileMusic}
+                        hidden
+                        type="file"
+                        accept=".csv,.m3u,.m3u8,.txt"
+                        onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            e.target.value = '';
+                            if (f)
+                                run(async () => {
+                                    const text = await f.text();
+                                    mergeData(
+                                        f.name.toLowerCase().endsWith('.csv')
+                                            ? dataFromCSV(text)
+                                            : { ...project.data, tracks: parsePlaylist(text, /\.m3u8?$/i.test(f.name)) }
+                                    );
+                                });
+                        }}
+                    />
+                    <input
+                        ref={fileImage}
+                        hidden
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                        onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            e.target.value = '';
+                            if (f)
+                                run(async () => {
+                                    const a = await importAsset(f);
+                                    commit((p) => {
+                                        p.assets[a.id] = a;
+                                        const panelDef = definition(p.designs[p.active]!).panels.find((p) => p.id === actualPanel)!;
+                                        const l = layer('image', actualPanel, actualFace, {
+                                            name: a.name,
+                                            assetId: a.id,
+                                            x: 0,
+                                            y: 0,
+                                            width: panelDef.artworkWidth ?? panelDef.width,
+                                            height: panelDef.artworkHeight ?? panelDef.height,
+                                        });
+                                        p.designs[p.active]!.layers.unshift(l);
+                                        setSelected(l.id);
+                                    });
+                                    setNotice('图片已添加，可在图层中调整裁切和位置');
+                                });
+                        }}
+                    />
+                </div>
+            </NumberReset.Provider>
         </Dialog>
     );
 }

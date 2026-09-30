@@ -24,6 +24,8 @@ export function AssetLibrary({
         [category, setCategory] = useState('all');
     const [source, setSource] = useState<'bundled' | 'project'>(tab === 'art' ? 'project' : 'bundled');
     const [loading, setLoading] = useState('');
+    const [page, setPage] = useState(0);
+    const grid = useRef<HTMLDivElement>(null);
     const generation = useRef(0);
     useEffect(() => {
         generation.current++;
@@ -50,6 +52,22 @@ export function AssetLibrary({
         (a) => (category === 'all' || a.category === category) && normalize(`${a.name} ${a.category}`).includes(normalize(query))
     );
     const assets = Object.values(project.assets).filter((a) => normalize(a.name).includes(normalize(query)));
+    const total = source === 'bundled' ? filtered.length : assets.length;
+    const pages = Math.max(1, Math.ceil(total / 24));
+    const currentPage = Math.min(page, pages - 1);
+    useEffect(() => {
+        setPage(0);
+    }, [query, category, source, tab]);
+    useEffect(() => {
+        setPage((p) => Math.min(p, pages - 1));
+    }, [pages]);
+    const changePage = (next: number) => {
+        setPage(next);
+        requestAnimationFrame(() => {
+            grid.current?.focus();
+            grid.current?.scrollIntoView({ block: 'nearest' });
+        });
+    };
     const insert = async (item: (typeof catalog)[number]) => {
         if (loading || busy) return;
         const request = generation.current;
@@ -78,10 +96,18 @@ export function AssetLibrary({
     return (
         <section className="md-asset-library" aria-label="离线素材库">
             <div className="md-library-toolbar">
-                <button className={source === 'bundled' ? 'is-selected' : ''} onClick={() => setSource('bundled')}>
+                <button
+                    aria-pressed={source === 'bundled'}
+                    className={source === 'bundled' ? 'is-selected' : ''}
+                    onClick={() => setSource('bundled')}
+                >
                     内置素材 · {available.length}
                 </button>
-                <button className={source === 'project' ? 'is-selected' : ''} onClick={() => setSource('project')}>
+                <button
+                    aria-pressed={source === 'project'}
+                    className={source === 'project' ? 'is-selected' : ''}
+                    onClick={() => setSource('project')}
+                >
                     工程素材 · {Object.keys(project.assets).length}
                 </button>
                 <input
@@ -104,9 +130,20 @@ export function AssetLibrary({
                     ? '图片已随应用离线安装；点击即可加入当前面板和工程。'
                     : '点击图片可重复使用。名称可修改；未使用的素材可移除，支持撤销。'}
             </p>
-            <div className="md-library-grid">
+            <div className="md-library-pagination">
+                <span role="status">
+                    {total} 项 · 第 {currentPage + 1} / {pages} 页
+                </span>
+                <button disabled={currentPage === 0} onClick={() => changePage(currentPage - 1)}>
+                    上一页素材
+                </button>
+                <button disabled={currentPage === pages - 1} onClick={() => changePage(currentPage + 1)}>
+                    下一页素材
+                </button>
+            </div>
+            <div className="md-library-grid" ref={grid} tabIndex={-1} aria-label="素材搜索结果">
                 {source === 'bundled'
-                    ? filtered.map((a) => (
+                    ? filtered.slice(currentPage * 24, (currentPage + 1) * 24).map((a) => (
                           <button
                               className="md-library-tile"
                               key={a.id}
@@ -120,7 +157,7 @@ export function AssetLibrary({
                               <small>{a.category}</small>
                           </button>
                       ))
-                    : assets.map((a) => {
+                    : assets.slice(currentPage * 24, (currentPage + 1) * 24).map((a) => {
                           const used = Object.values(project.designs).reduce(
                               (sum, d) => sum + (d?.layers.filter((l) => l.assetId === a.id).length || 0),
                               0
@@ -128,22 +165,9 @@ export function AssetLibrary({
                           return (
                               <div className="md-library-tile" key={a.id}>
                                   <button aria-label={`使用素材 ${a.name}`} disabled={busy} onClick={() => onAdd(a)}>
-                                      <img src={a.data} alt={a.name} />
+                                      <img loading="lazy" src={a.data} alt={a.name} />
                                   </button>
-                                  <input
-                                      aria-label={`素材名称 ${a.name}`}
-                                      defaultValue={a.name}
-                                      key={a.name}
-                                      maxLength={200}
-                                      onBlur={(e) => {
-                                          const name = e.target.value.trim();
-                                          if (name && name !== a.name) onRename(a.id, name);
-                                          else e.target.value = a.name;
-                                      }}
-                                      onKeyDown={(e) => {
-                                          if (e.key === 'Enter') e.currentTarget.blur();
-                                      }}
-                                  />
+                                  <AssetName name={a.name} onRename={(name) => onRename(a.id, name)} />
                                   <div className="md-library-meta">
                                       <small>{used ? `${used} 个图层使用` : '未使用'}</small>
                                       <button
@@ -166,5 +190,31 @@ export function AssetLibrary({
                 <small className="md-muted">图片来源：TaperCraft / vhs.texs.org；来源与文件校验记录随应用保存。</small>
             )}
         </section>
+    );
+}
+
+function AssetName({ name, onRename }: { name: string; onRename: (name: string) => void }) {
+    const [draft, setDraft] = useState(name);
+    useEffect(() => setDraft(name), [name]);
+    const commit = () => {
+        const next = draft.trim();
+        if (next && next !== name) onRename(next);
+        setDraft(next || name);
+    };
+    return (
+        <input
+            aria-label={`素材名称 ${name}`}
+            value={draft}
+            maxLength={200}
+            autoComplete="off"
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commit}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                    e.preventDefault();
+                    commit();
+                }
+            }}
+        />
     );
 }

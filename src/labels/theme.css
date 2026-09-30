@@ -1,0 +1,256 @@
+/* MD Studio chrome only. Artwork SVGs own their colours, typography and geometry. */
+.md-editor,
+.md-studio-surface {
+    --md-ground: #e9eaec;
+    --md-shell: #eeeef1;
+    --md-surface: #fafafb;
+    --md-subtle: #f0f1f4;
+    --md-ink: #20242b;
+    --md-muted: #5e6673;
+    --md-border: #858d9a;
+    --md-soft-border: #dfe2e8;
+    --md-accent: #0866d9;
+    --md-accent-hover: #0054bd;
+    --md-primary: #0866d9;
+    --md-primary-hover: #0054bd;
+    --md-primary-pressed: #0047a3;
+    --md-selected: #e5efff;
+    --md-danger: #a32e29;
+    --md-warning: #79521b;
+    --md-control: #ffffff;
+    --md-on-accent: #ffffff;
+    --md-info-ink: #1557a7;
+    --md-danger-bg: #fff0ee;
+    --md-warning-bg: #fff4df;
+    --md-warning-border: #d7bc87;
+    --md-art-shadow: #20242b20;
+    --md-shadow: #252f431c;
+    --md-highlight: #ffffff;
+    --md-panel-edge: #ffffff;
+    --md-glow-blue: #bddcfa44;
+    --md-glow-lilac: #e9d5ef44;
+    --md-panel-fill: linear-gradient(155deg, #ffffff 0%, #fafafb 45%, #f5f5f7 100%);
+    --md-panel-shadow: 0 8px 24px #252f430b, inset 0 1px 0 var(--md-highlight);
+    --md-overlay-shadow: 0 20px 64px var(--md-shadow), inset 0 1px 0 var(--md-highlight);
+    --md-button-shadow: 0 4px 10px #0866d926, inset 0 1px 0 #ffffff30;
+    --md-radius: 12px;
+    --md-field-radius: 10px;
+    --md-panel-radius: 20px;
+    --md-row-radius: 8px;
+    --md-brand-radius: 14px;
+    --md-template-radius: 16px;
+    --md-pill-radius: 999px;
+    --md-shell-gap: 12px;
+    --md-font: 'Avenir Next', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color: var(--md-ink);
+    background: var(--md-surface);
+    font: 13px/1.5 var(--md-font);
+    color-scheme: light;
+    accent-color: var(--md-accent);
+    caret-color: var(--md-accent);
+    font-variant-numeric: tabular-nums;
+}
+.md-editor[data-md-theme='dark'],
+.md-studio-surface[data-md-theme='dark'] {
+    --md-ground: #1b1e23;
+    --md-shell: #191c22;
+    --md-surface: #272b33;
+    --md-subtle: #2e333d;
+    --md-control: #22262e;
+    --md-ink: #f0f2f6;
+    --md-muted: #afb8c7;
+    --md-border: #778395;
+    --md-soft-border: #3b414c;
+    --md-accent: #8dbbff;
+    --md-accent-hover: #b1d1ff;
+    --md-primary: #1264c9;
+    --md-primary-hover: #2373d7;
+    --md-primary-pressed: #0d53ac;
+    --md-on-accent: #ffffff;
+    --md-selected: #293f5f;
+    --md-info-ink: #a9ceff;
+    --md-danger: #ffb3aa;
+    --md-danger-bg: #452b2c;
+    --md-warning: #edc98d;
+    --md-warning-bg: #3c3325;
+    --md-warning-border: #836d49;
+    --md-art-shadow: #00000066;
+    --md-shadow: #00000066;
+    --md-highlight: #ffffff0c;
+    --md-panel-edge: #404651;
+    --md-glow-blue: #2c599126;
+    --md-glow-lilac: #6752801c;
+    --md-panel-fill: linear-gradient(155deg, #2c3039 0%, #272b33 50%, #242830 100%);
+    --md-panel-shadow: 0 8px 24px #00000020, inset 0 1px 0 var(--md-highlight);
+    --md-button-shadow: 0 4px 12px #00000026, inset 0 1px 0 #ffffff24;
+    color-scheme: dark;
+}
+/* MUI's dark Paper elevation overlay must not tint the studio palette. */
+.md-studio-surface.MuiPaper-root {
+    background-image: var(--md-panel-fill);
+    color: var(--md-ink);
+    background-color: var(--md-surface);
+}
+:where(.md-editor, .md-studio-surface) * {
+    box-sizing: border-box;
+}
+:where(.md-editor, .md-studio-surface) ::selection {
+    background: var(--md-selected);
+    color: var(--md-ink);
+}
+:where(.md-editor, .md-studio-surface) :is(button, input, textarea, select) {
+    font: inherit;
+    color: inherit;
+    letter-spacing: normal;
+}
+:where(.md-editor, .md-studio-surface) button {
+    min-height: 36px;
+    padding: 7px 12px;
+    border: 1px solid var(--md-border);
+    border-radius: var(--md-radius);
+    background: var(--md-surface);
+    line-height: 20px;
+    cursor: pointer;
+    transition:
+        background-color 150ms ease-out,
+        border-color 150ms ease-out;
+}
+:where(.md-editor, .md-studio-surface) button:hover:not(:disabled) {
+    background: var(--md-subtle);
+    border-color: var(--md-accent);
+}
+:where(.md-editor, .md-studio-surface) button:active:not(:disabled) {
+    background: var(--md-selected);
+}
+:where(.md-editor, .md-studio-surface) :is(button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--md-accent);
+    outline-offset: 2px;
+}
+:where(.md-editor, .md-studio-surface) button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+:where(.md-editor, .md-studio-surface) :is(input, select, textarea) {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 36px;
+    padding: 7px 8px;
+    background: var(--md-control);
+    border: 1px solid var(--md-border);
+    border-radius: var(--md-field-radius);
+}
+:where(.md-editor, .md-studio-surface) input::placeholder,
+:where(.md-editor, .md-studio-surface) textarea::placeholder {
+    color: var(--md-muted);
+    opacity: 1;
+}
+:where(.md-editor, .md-studio-surface) textarea {
+    width: 100%;
+    display: block;
+    min-height: 88px;
+    resize: vertical;
+}
+:where(.md-editor, .md-studio-surface) input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    min-height: 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+:where(.md-editor, .md-studio-surface) input[type='color'] {
+    width: 100%;
+    height: 36px;
+    padding: 4px;
+}
+:where(.md-editor, .md-studio-surface) input[type='range'] {
+    min-height: 20px;
+    padding: 0;
+    border: 0;
+}
+:where(.md-editor, .md-studio-surface) :is(h2, h3, p) {
+    overflow-wrap: anywhere;
+}
+:where(.md-editor, .md-studio-surface) h2 {
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 600;
+}
+:where(.md-editor, .md-studio-surface) h3 {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    font-weight: 600;
+}
+:where(.md-editor, .md-studio-surface) details {
+    border-top: 1px solid var(--md-soft-border);
+    margin: 16px 0;
+    padding-top: 12px;
+}
+:where(.md-editor, .md-studio-surface) summary {
+    cursor: pointer;
+    color: var(--md-ink);
+    font-size: 13px;
+    padding: 4px 0;
+}
+:where(.md-editor, .md-studio-surface) .md-primary {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    border-radius: var(--md-pill-radius);
+    box-shadow: var(--md-button-shadow);
+    color: var(--md-on-accent);
+    font-weight: 600;
+}
+:where(.md-editor, .md-studio-surface) .md-primary:hover:not(:disabled) {
+    background: var(--md-primary-hover);
+    border-color: var(--md-primary-hover);
+}
+
+.md-label-launch {
+    box-shadow: var(--md-panel-shadow);
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid var(--md-border);
+    border-radius: var(--md-pill-radius);
+    background: var(--md-panel-fill);
+    color: var(--md-accent);
+    cursor: pointer;
+}
+.md-label-launch:hover {
+    background: var(--md-selected);
+    border-color: var(--md-accent);
+}
+.md-label-launch:focus-visible {
+    outline: 2px solid var(--md-accent);
+    outline-offset: 2px;
+}
+.md-host-status {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    padding: 40px;
+}
+
+:where(.md-editor, .md-studio-surface) .md-primary:active:not(:disabled) {
+    background: var(--md-primary-pressed);
+    border-color: var(--md-primary-pressed);
+    color: var(--md-on-accent);
+    box-shadow: none;
+}
+:where(.md-editor, .md-studio-surface) button:disabled {
+    box-shadow: none;
+}
+:where(.md-editor, .md-studio-surface) :is(input, select, textarea)[aria-invalid='true'] {
+    border-color: var(--md-danger);
+}
+/* Keep interactive edges legible on both themes; panel seams are decorative. */
+:where(.md-editor, .md-studio-surface) :is(input, select, textarea):hover:not(:disabled) {
+    border-color: var(--md-accent);
+}

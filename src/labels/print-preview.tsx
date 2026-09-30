@@ -1,3 +1,4 @@
+import { useLabelSurface } from './theme';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Dialog } from '@mui/material';
 import { Fonts, renderDesign, svgDocument } from './render';
@@ -17,6 +18,7 @@ export function DesignPreview({
     initialFace: Face;
     onClose: () => void;
 }) {
+    const surface = useLabelSurface();
     const [face, setFace] = useState(initialFace);
     const [zoom, setZoom] = useState(100);
     const [fit, setFit] = useState(true);
@@ -57,7 +59,7 @@ export function DesignPreview({
             maxWidth={false}
             aria-labelledby="md-design-preview-title"
             sx={{ zIndex: 1700 }}
-            PaperProps={{ className: 'md-studio-surface md-print-preview-dialog' }}
+            PaperProps={{ ...surface, className: 'md-studio-surface md-print-preview-dialog' }}
         >
             <header className="md-print-preview-header">
                 <div>
