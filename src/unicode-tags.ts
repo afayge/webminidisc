@@ -1,4 +1,4 @@
-import { parseBlob } from 'music-metadata-browser';
+import { parseBlob } from 'music-metadata';
 import type { AdaptiveFile } from './utils';
 import type { TitleFormatType } from './redux/convert-dialog-feature';
 
@@ -18,13 +18,22 @@ export function formatUnicodeTag(tag: Pick<UnicodeTag, 'title' | 'artist' | 'alb
     }
 }
 
-export async function readUnicodeTag(file: File | AdaptiveFile): Promise<UnicodeTag> {
+export async function readUnicodeTag(file: File | AdaptiveFile, timeoutMs = 10_000): Promise<UnicodeTag> {
     if ('getForEncoding' in file) {
         return { title: file.title, artist: file.artist, album: file.album, source: `Library metadata: ${file.name}` };
     }
     // The parser decodes the encoding declared by the tag. Do not round-trip
     // decoded strings through SJIS, or guess at already corrupted text.
-    const metadata = await parseBlob(file, { duration: false, skipCovers: true });
+    // Use the same browser-native parser as upload metadata. The legacy browser
+    // wrapper depends on Node stream/process shims and can leave reads pending.
+    // Bound the wait so an unreadable file cannot permanently disable Rename.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const metadata = await Promise.race([
+        parseBlob(file, { duration: false, skipCovers: true }),
+        new Promise<never>((_, reject) => {
+            timer = setTimeout(() => reject(new Error('Reading the tag timed out. Retry or enter the title manually.')), timeoutMs);
+        }),
+    ]).finally(() => clearTimeout(timer));
     if (!metadata.format.codec && !metadata.format.tagTypes?.length) {
         throw new Error('No readable audio metadata found in this file.');
     }
