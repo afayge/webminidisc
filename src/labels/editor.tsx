@@ -1,5 +1,5 @@
 import { useLabelSurface } from './theme';
-import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { Dialog, Drawer, useMediaQuery } from '@mui/material';
 import { fitEditorScale } from './preview-scale';
@@ -215,6 +215,12 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
     }, [fontRefs, fonts?.sans]);
     const [dragTrack, setDragTrack] = useState<string | null>(null);
     const [trackStatus, setTrackStatus] = useState('');
+    const [expandedTrack, setExpandedTrack] = useState<string | null>(null);
+    const trackPanelPrefix = useId();
+    const trackHeading = useRef<HTMLElement>(null);
+    useEffect(() => {
+        if (expandedTrack && !project.data.tracks.some((t) => t.id === expandedTrack)) setExpandedTrack(null);
+    }, [expandedTrack, project.data.tracks]);
     const trackList = useRef<HTMLDivElement>(null);
     const textGroup = useRef(new TextEditGroup());
     const [numberReset, setNumberReset] = useState(0);
@@ -395,7 +401,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                 e.preventDefault();
                 e.shiftKey ? redo() : undo();
             }
-            if (e.key === 'Delete' || e.key === 'Backspace') {
+            if ((e.key === 'Delete' || e.key === 'Backspace') && !(e.target as HTMLElement).closest('.md-tracks')) {
                 e.preventDefault();
                 removeLayer();
             }
@@ -456,7 +462,34 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
         const target = ordered[ordered.findIndex((l) => l.id === selected) - delta];
         if (target) moveLayer(selected, target.id, delta < 0);
     };
+    const finishTrackInput = () => {
+        const active = document.activeElement;
+        if (active instanceof HTMLInputElement && trackList.current?.contains(active)) active.blur();
+        textGroup.current.end();
+    };
+    const toggleTrack = (id: string) => {
+        // Explicit blur also commits numeric drafts on browsers that do not focus clicked buttons.
+        finishTrackInput();
+        setExpandedTrack((current) => (current === id ? null : id));
+    };
+    const deleteTrack = (id: string) => {
+        finishTrackInput();
+        const tracks = projectRef.current.data.tracks;
+        const index = tracks.findIndex((t) => t.id === id);
+        if (index < 0) return;
+        const adjacent = tracks[index + 1] || tracks[index - 1];
+        commit((p) => p.data.tracks.splice(index, 1));
+        setExpandedTrack(null);
+        setTrackStatus(`已删除曲目 ${tracks[index].title || '未命名'}`);
+        requestAnimationFrame(() => {
+            const row = Array.from(trackList.current?.querySelectorAll<HTMLElement>('[data-track-id]') || []).find(
+                (r) => r.dataset.trackId === adjacent?.id
+            );
+            (row?.querySelector<HTMLButtonElement>('[data-track-control="toggle"]') || trackHeading.current)?.focus();
+        });
+    };
     const reorderTrack = (id: string, target: number, control = 'grip') => {
+        finishTrackInput();
         const tracks = projectRef.current.data.tracks;
         const next = moveTrack(tracks, id, target);
         if (next === tracks) return;
@@ -639,7 +672,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                             ))}
                         </div>
                         <details>
-                            <summary>
+                            <summary ref={trackHeading}>
                                 曲目列表 · {project.data.tracks.length} 首 ·{' '}
                                 {formatDuration(project.data.tracks.reduce((s, t) => s + (t.duration || 0), 0))}
                             </summary>
@@ -647,93 +680,126 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                 {trackStatus}
                             </div>
                             <div className="md-tracks" ref={trackList}>
-                                {project.data.tracks.map((t, i) => (
-                                    <div
-                                        className="md-track"
-                                        key={t.id}
-                                        data-track-id={t.id}
-                                        onDragOver={(e) => e.preventDefault()}
-                                        onDrop={(e) => {
-                                            e.preventDefault();
-                                            if (dragTrack === null) return;
-                                            reorderTrack(dragTrack, i);
-                                            setDragTrack(null);
-                                        }}
-                                    >
-                                        <button
-                                            className="md-track-grip"
-                                            data-track-control="grip"
-                                            draggable
-                                            aria-label={`拖动曲目 ${i + 1}；也可使用上移下移按钮`}
-                                            onDragStart={(e) => {
-                                                setDragTrack(t.id);
-                                                e.dataTransfer.setData('text/plain', t.id);
-                                                e.dataTransfer.effectAllowed = 'move';
+                                {project.data.tracks.map((t, i) => {
+                                    const expanded = expandedTrack === t.id;
+                                    const panelId = `${trackPanelPrefix}-${encodeURIComponent(t.id)}`;
+                                    return (
+                                        <div
+                                            className="md-track"
+                                            key={t.id}
+                                            data-track-id={t.id}
+                                            data-expanded={expanded}
+                                            onDragOver={(e) => e.preventDefault()}
+                                            onDrop={(e) => {
+                                                e.preventDefault();
+                                                if (dragTrack === null) return;
+                                                reorderTrack(dragTrack, i);
+                                                setDragTrack(null);
                                             }}
-                                            onDragEnd={() => setDragTrack(null)}
                                         >
-                                            <StudioIcon name="grip" size={16} />
-                                            {i + 1}
-                                        </button>
-                                        <input
-                                            aria-label={`曲目 ${i + 1} 标题`}
-                                            value={t.title}
-                                            onChange={(e) =>
-                                                textCommit(`track:${t.id}:title`, (p) => {
-                                                    p.data.tracks[i].title = e.target.value;
-                                                })
-                                            }
-                                        />
-                                        <input
-                                            aria-label={`曲目 ${i + 1} 艺术家`}
-                                            placeholder="艺术家"
-                                            value={t.artist}
-                                            onChange={(e) =>
-                                                textCommit(`track:${t.id}:artist`, (p) => {
-                                                    p.data.tracks[i].artist = e.target.value;
-                                                })
-                                            }
-                                        />
-                                        <DurationField
-                                            label={`曲目 ${i + 1} 时长（秒）`}
-                                            value={t.duration ?? null}
-                                            onChange={(v) =>
-                                                commit((p) => {
-                                                    p.data.tracks[i].duration = v;
-                                                })
-                                            }
-                                        />
-                                        <div className="md-track-order">
-                                            <button
-                                                data-track-control="up"
-                                                aria-label={`上移曲目 ${i + 1}`}
-                                                disabled={i === 0}
-                                                onClick={() => reorderTrack(t.id, i - 1, 'up')}
-                                            >
-                                                <StudioIcon name="arrowUp" size={16} />
-                                            </button>
-                                            <button
-                                                data-track-control="down"
-                                                aria-label={`下移曲目 ${i + 1}`}
-                                                disabled={i === project.data.tracks.length - 1}
-                                                onClick={() => reorderTrack(t.id, i + 1, 'down')}
-                                            >
-                                                <StudioIcon name="arrowDown" size={16} />
-                                            </button>
+                                            <div className="md-track-heading">
+                                                <button
+                                                    className="md-track-grip"
+                                                    data-track-control="grip"
+                                                    draggable
+                                                    aria-label={`拖动曲目 ${i + 1}；也可使用上移下移按钮`}
+                                                    onDragStart={(e) => {
+                                                        setDragTrack(t.id);
+                                                        e.dataTransfer.setData('text/plain', t.id);
+                                                        e.dataTransfer.effectAllowed = 'move';
+                                                    }}
+                                                    onDragEnd={() => setDragTrack(null)}
+                                                >
+                                                    <StudioIcon name="grip" size={16} />
+                                                    <span>{i + 1}</span>
+                                                </button>
+                                                <button
+                                                    className="md-track-summary"
+                                                    id={`${panelId}-summary`}
+                                                    data-track-control="toggle"
+                                                    aria-expanded={expanded}
+                                                    aria-controls={panelId}
+                                                    aria-label={`${expanded ? '收起' : '编辑'}曲目 ${i + 1}：${t.title || '未命名'}，${t.duration == null ? '时长未知' : formatDuration(t.duration)}`}
+                                                    title={t.title || '未命名'}
+                                                    onClick={() => toggleTrack(t.id)}
+                                                >
+                                                    <span className="md-track-title">{t.title || '未命名'}</span>
+                                                    <span className="md-track-duration">
+                                                        {t.duration == null ? '—' : formatDuration(t.duration)}
+                                                    </span>
+                                                    <StudioIcon name={expanded ? 'up' : 'down'} size={16} />
+                                                </button>
+                                            </div>
+                                            <div className="md-track-editor" id={panelId} hidden={!expanded}>
+                                                <label className="md-field md-track-title-field">
+                                                    <span>歌曲名</span>
+                                                    <input
+                                                        aria-label={`曲目 ${i + 1} 标题`}
+                                                        value={t.title}
+                                                        onChange={(e) =>
+                                                            textCommit(`track:${t.id}:title`, (p) => {
+                                                                p.data.tracks[i].title = e.target.value;
+                                                            })
+                                                        }
+                                                    />
+                                                </label>
+                                                <label className="md-field">
+                                                    <span>艺术家</span>
+                                                    <input
+                                                        aria-label={`曲目 ${i + 1} 艺术家`}
+                                                        placeholder="艺术家"
+                                                        value={t.artist}
+                                                        onChange={(e) =>
+                                                            textCommit(`track:${t.id}:artist`, (p) => {
+                                                                p.data.tracks[i].artist = e.target.value;
+                                                            })
+                                                        }
+                                                    />
+                                                </label>
+                                                <div className="md-track-duration-field">
+                                                    <span aria-hidden="true">时长（秒）</span>
+                                                    <DurationField
+                                                        label={`曲目 ${i + 1} 时长（秒）`}
+                                                        value={t.duration ?? null}
+                                                        onChange={(v) =>
+                                                            commit((p) => {
+                                                                p.data.tracks[i].duration = v;
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="md-track-order">
+                                                    <button
+                                                        data-track-control="up"
+                                                        aria-label={`上移曲目 ${i + 1}`}
+                                                        title="上移"
+                                                        disabled={i === 0}
+                                                        onClick={() => reorderTrack(t.id, i - 1, 'up')}
+                                                    >
+                                                        <StudioIcon name="arrowUp" size={16} />
+                                                    </button>
+                                                    <button
+                                                        data-track-control="down"
+                                                        aria-label={`下移曲目 ${i + 1}`}
+                                                        title="下移"
+                                                        disabled={i === project.data.tracks.length - 1}
+                                                        onClick={() => reorderTrack(t.id, i + 1, 'down')}
+                                                    >
+                                                        <StudioIcon name="arrowDown" size={16} />
+                                                    </button>
+                                                    <button
+                                                        className="md-track-delete"
+                                                        aria-label={`删除曲目 ${i + 1}`}
+                                                        title="删除曲目"
+                                                        onClick={() => deleteTrack(t.id)}
+                                                    >
+                                                        <StudioIcon name="close" size={16} />
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <button
-                                            aria-label={`删除曲目 ${i + 1}`}
-                                            title={`删除曲目 ${i + 1}`}
-                                            onClick={() =>
-                                                commit((p) => {
-                                                    p.data.tracks.splice(i, 1);
-                                                })
-                                            }
-                                        >
-                                            <StudioIcon name="close" size={16} />
-                                        </button>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                             <textarea
                                 aria-label="粘贴曲目列表"
@@ -1002,6 +1068,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                             Object.assign(current, p);
                                         });
                                         setSelected('');
+                                        setExpandedTrack(null);
                                         setNotice('已载入当前模板示例，可撤销');
                                     })
                                 }
@@ -2245,6 +2312,7 @@ export default function LabelEditor({ open, onClose, selectedTracks }: { open: b
                                         Object.assign(current, p);
                                     });
                                     setSelected('');
+                                    setExpandedTrack(null);
                                     setPanel('main');
                                     setNotice(upgrade ? `工程已打开。${upgrade}` : '工程已打开');
                                 });

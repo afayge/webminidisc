@@ -174,3 +174,20 @@ Browser plugin not available：使用已安装的 Playwright 与 Chrome 154，�
 ### 单色模板图标版 App 重新打包
 
 按用户后续要求运行 `npm run pack:labels`，重新构建 renderer、main、preload，更新 `build/md-labels/mac-arm64/ElectronWMD.app`（macOS Apple Silicon，0.5.2-1.5.5，Electron 43.3.0）。Ad-hoc 签名通过 `codesign --verify --deep --strict`；未进行 Apple 公证。以独立用户目录启动实际打包 App，编辑器正常渲染，模板图标确认 selected=true、stroke-width=1.4、fill=currentColor、viewBox=0 0 56 48；关闭退出码为 0，日志包含 shutdown-complete。构建与启动证据位于主项目 `build/md-labels/verification/`。
+
+## 2026-09-30：曲目列表单行浏览与展开编辑
+
+将每首曲目从三个常驻输入行改为单行摘要；默认全部折叠，同时最多展开一首。摘要显示拖动手柄、序号、完整标题提示、分秒时长／未知标记与展开图标。展开后编辑歌曲名、艺术家及秒数，操作按钮横排。展开状态按曲目 ID 跟随排序，不写入工程，打开工程或删除当前曲目时清除。保留数字草稿行为，并阻止曲目控件上的 Delete／Backspace 误触发画布图层删除。
+
+- 18 首测试工程，1440×900 下改版前每首行盒约 201.5px，改版后折叠行 36px、间距 4px；截图中的相同可视区域从约 2 首提升到约 11 首。真实 coarse pointer 环境验证 44px 行高。主应用的继承盒模型最初造成额外 2px 行高，已通过仅限定曲目列表的 border-box 规则修正。
+- 浏览器回归通过：默认折叠与 Tab 顺序、Enter 展开、单项展开、摘要与控制区域 ARIA 关联、切换时提交数字草稿（包括不自动转移焦点的程序化点击）、艺术家编辑、非法时长恢复、空值、零值、数字步进及 Escape 取消草稿；上下移动、首尾禁用、真实拖动排序、移动后展开跟随 ID、焦点回退、撤销重做、删除首／末／唯一一首的焦点返回；保存重开内容不丢失，同 ID 工程重开仍清除展开状态。
+- 浅／深主题的桌面、390×844 抽屉以及 150% 缩放等效 960×600 CSS 视口检查通过。集中截图检查与确认完成；长标题省略、分秒对齐、展开字段和滚动正常，曲目行／展开区及页面没有横向溢出。原有列表外 select／textarea 因继承 content-box 仍使工具滚动区多出 2px 滚动宽度，此问题来自既有表单，未扩大本轮样式范围。未重测 Electron 原生缩放。
+- 49 项现有标签测试、渲染器类型检查、最终生产构建、git diff --check 通过。布局静态检查一次，返回空报告。构建保留既有 eval、分块体积和 Browserslist 提示。浏览器没有运行时异常。
+- 同一示例工程的 10 份模板正反面 SVG、4 页排版 SVG 与排版 JSON 前后逐字节一致；模板、存储与导出核心未修改。保存文件确认包含修改后的标题和时长，不包含展开状态。本轮未重复原生 PDF 栅格化、实体打印和跨平台测试。
+- 证据与可重复执行的浏览器回归脚本位于 `/Users/elliotge/.codex/visualizations/2026/09/30/01a0f007-43b3-78e1-a783-9b74a87cdcfe/md-compact-tracks`；`comparison.html` 展示前后对比、双主题和窄屏截图，附测试／构建日志、QA JSON 及 18 首测试工程。
+
+未重新打包 App、提交或推送 GitHub。上一次打包的 App 尚不包含本轮曲目列表调整。
+
+### 紧凑曲目列表版 App 重新打包
+
+按用户后续要求运行 `npm run pack:labels`，完整重建 renderer、main、preload，更新 `build/md-labels/mac-arm64/ElectronWMD.app`（Apple Silicon，0.5.2-1.5.5，Electron 43.3.0）。Ad-hoc 签名通过 `codesign --verify --deep --strict`，未进行 Apple 公证。实际打包 App 使用独立用户目录启动并加载 18 首测试工程：全部默认折叠，行高 36px，点击后恰有一首展开；单色模板图标也保持有效。App 正常关闭，退出码 0，日志包含 shutdown-complete。证据保存在主项目 `build/md-labels/verification/compact-tracks/`。本轮未推送 GitHub。

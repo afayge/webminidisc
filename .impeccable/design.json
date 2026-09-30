@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-30T02:47:48.250485+00:00",
+  "generatedAt": "2026-09-30T03:15:12.646483+00:00",
   "title": "Design System: MiniDisc Label Studio",
   "extensions": {
     "colorMeta": {
@@ -355,6 +355,24 @@
         "brand-radius": "14px",
         "template-radius": "16px"
       }
+    },
+    "trackList": {
+      "source": "src/labels/editor.tsx; src/labels/labels.css",
+      "collapsedRowHeight": 36,
+      "coarsePointerRowHeight": 44,
+      "rowGap": 4,
+      "editorGap": 8,
+      "durationFieldWidth": 76,
+      "layout": "single-line summary, one expanded editor at a time",
+      "summary": [
+        "drag handle and index",
+        "ellipsized title",
+        "formatted duration or —",
+        "disclosure icon"
+      ],
+      "state": "transient expanded track ID, cleared when opening a project or removing that track",
+      "focus": "reorder retains control; delete focuses adjacent summary or empty-list heading",
+      "persistence": "unchanged project schema and export rendering"
     }
   },
   "components": [
